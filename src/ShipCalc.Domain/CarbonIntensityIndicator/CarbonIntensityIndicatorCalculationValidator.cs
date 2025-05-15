@@ -5,9 +5,15 @@
 
         private const int MIN_GROSS_TONNAGE = 5_000;
 
-        public bool ValidateGrossTonnage(double grossTonnage)
+        public virtual bool ValidateGrossTonnage(double grossTonnage)
         {
-            return grossTonnage <= MIN_GROSS_TONNAGE;
+            if (grossTonnage >= MIN_GROSS_TONNAGE)
+            {
+                return true;
+            }
+
+            return false;
+
         }
 
     }
