@@ -13,6 +13,8 @@
 
         public double SummerDeadweight { get; set; }
 
+        public double BlockCoefficient { get; set; }
+
         public ShipType ShipType { get; set; }
 
         public IceClass IceClass { get; set; }
