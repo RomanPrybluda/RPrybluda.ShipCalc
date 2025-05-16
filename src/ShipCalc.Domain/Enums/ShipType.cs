@@ -17,6 +17,8 @@
         RoRoPassenger,
         RoRoPassengerCargo,
         RoRoPassengerCargoHighSpeedCraft,
-        CruisePassengerShip
+        CruisePassengerShip,
+
+        NotApplicable,
     }
 }

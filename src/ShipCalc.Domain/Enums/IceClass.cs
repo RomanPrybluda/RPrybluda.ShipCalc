@@ -2,10 +2,11 @@
 {
     public enum IceClass
     {
-        NotApplicable,
         IC,
         IB,
         IA,
-        IASuper
+        IASuper,
+
+        NotApplicable,
     }
 }
