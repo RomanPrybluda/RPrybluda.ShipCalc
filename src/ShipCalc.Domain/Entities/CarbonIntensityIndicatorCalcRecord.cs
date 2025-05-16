@@ -4,35 +4,35 @@
     {
         public Guid Id { get; set; }
 
-        public ShipType ShipType { get; set; } // Type of the ship
+        public ShipType ShipType { get; set; }
 
-        public IceClass? IceClass { get; set; } // Optional ice class (null if not applicable)
+        public IceClass? IceClass { get; set; }
 
-        public double Deadweight { get; set; } // Deadweight tonnage (DWT)
+        public double Deadweight { get; set; }
 
-        public double GrossTonnage { get; set; } // Gross tonnage (GT)
+        public double GrossTonnage { get; set; }
 
-        public double CubicCapacity { get; set; } // Total cubic capacity of cargo tanks/holds (m³)
+        public double Capacity { get; set; }
 
-        public double BlockCoefficient { get; set; } // C_b, block coefficient of the ship
+        public double BlockCoefficient { get; set; }
 
-        public int Year { get; set; } // Year for RequiredCII calculation
+        public int Year { get; set; }
 
-        public double CiiRef { get; set; } // Calculated reference CII
+        public double CarbonIntensityIndicatorRef { get; set; }
 
-        public double RequiredCii { get; set; } // Calculated required CII
+        public double RequiredCarbonIntensityIndicator { get; set; }
 
-        public double Fi { get; set; } // Capacity correction factor for ice-classed ships
+        public double IceClasedShipCapacityCorrFactor { get; set; }
 
-        public double Fc { get; set; } // Cubic capacity correction factor
+        public double CubicCapacityCorrectionFactor { get; set; }
 
-        public double Fm { get; set; } // Factor for IA/IA Super ice-classed ships
+        public double IASuperAndIAIceClassedShipCorrFactor { get; set; }
 
-        public DateTime CalculationDate { get; set; } // Date and time of calculation
+        public DateTime CalculationDate { get; set; }
 
         public CarbonIntensityIndicatorCalcRecord()
         {
-            CalculationDate = DateTime.UtcNow; // Set to current UTC time by default
+            CalculationDate = DateTime.UtcNow;
         }
 
         public Guid ShipId { get; set; }

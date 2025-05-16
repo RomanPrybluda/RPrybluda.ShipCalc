@@ -2,14 +2,16 @@
 {
     public class CubicCapacityCorrFactorCalculator
     {
-        public double CalculateCubicCapacityCorrectionFactor(ShipType shipType, double deadweight, double cubicCapacity, double grossTonnage = 0)
+        public double CalculateCubicCapacityCorrectionFactor(ShipType shipType, double deadweight, double capacity, double grossTonnage)
         {
-            if (deadweight <= 0 || cubicCapacity <= 0)
+            if (deadweight <= 0 || capacity <= 0)
                 throw new ArgumentException("Deadweight and cubic capacity must be greater than zero.");
+
             if (shipType == ShipType.RoRoPassenger && grossTonnage <= 0)
                 throw new ArgumentException("Gross tonnage must be greater than zero for Ro-Ro passenger ships.");
 
-            double r = deadweight / cubicCapacity;
+            double r = deadweight / capacity;
+
             double f_c = 1.0; // Default value if no specific correction applies
 
             switch (shipType)
