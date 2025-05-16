@@ -10,6 +10,11 @@
             if (blockCoefficient <= 0 || blockCoefficient > 1)
                 throw new ArgumentException("Block coefficient (C_b) must be between 0 and 1.");
 
+            if (iceClass == IceClass.NotApplicable)
+            {
+                return 1.0;
+            }
+
             // Step 1: Calculate f_i(ice class) from Table 2
 
             double fIceClass = iceClass switch

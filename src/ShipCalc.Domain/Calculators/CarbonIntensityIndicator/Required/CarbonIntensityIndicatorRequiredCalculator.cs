@@ -4,6 +4,7 @@
     {
         public double CalculateRequiredCII(double carbonIntensityIndicatorRef, int? year = null)
         {
+
             if (carbonIntensityIndicatorRef <= 0)
                 throw new ArgumentException("CII_ref must be greater than zero.");
 

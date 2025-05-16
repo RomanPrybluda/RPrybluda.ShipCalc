@@ -2,56 +2,71 @@
 {
     public class CarbonIntensityIndicatorRatingCalculator
     {
-        public (double rating, CarbonIntensityIndicatorRating letterGrade) CalculateCarbonIntensityIndicatorRating(
-            Ship ship, double co2EmissionsInTon,
-            double distanceTravelledInNM,
-            int year)
+        private readonly CapacityCalculator _capacityCalculator;
+        private readonly CarbonIntensityIndicatorRefCalculator _refCalculator;
+        private readonly CarbonIntensityIndicatorRequiredCalculator _requiredCalculator;
+        private readonly CarbonIntensityIndicatorAttainedCalculator _attainedCalculator;
+
+        public CarbonIntensityIndicatorRatingCalculator(
+            CapacityCalculator capacityCalculator,
+            CarbonIntensityIndicatorRefCalculator refCalculator,
+            CarbonIntensityIndicatorRequiredCalculator requiredCalculator,
+            CarbonIntensityIndicatorAttainedCalculator attainedCalculator)
         {
-            var carbonIntensityIndicatorCalculationValidator = new CarbonIntensityIndicatorCalculationValidator();
-            var isValidGrossTonnage = carbonIntensityIndicatorCalculationValidator.ValidateGrossTonnage(ship.GrossTonnage);
+            _capacityCalculator = capacityCalculator ?? throw new ArgumentNullException(nameof(capacityCalculator));
+            _refCalculator = refCalculator ?? throw new ArgumentNullException(nameof(refCalculator));
+            _requiredCalculator = requiredCalculator ?? throw new ArgumentNullException(nameof(requiredCalculator));
+            _attainedCalculator = attainedCalculator ?? throw new ArgumentNullException(nameof(attainedCalculator));
+        }
 
-            if (!isValidGrossTonnage)
-            {
-                return (0.0, CarbonIntensityIndicatorRating.E); // Default to E for invalid cases
-            }
+        public double Capacity { get; private set; }
 
-            // Step 1: Calculate CII_ref
-            var carbonIntensityIndicatorRefCalculator = new CarbonIntensityIndicatorRefCalculator();
-            double carbonIntensityIndicatorRef = carbonIntensityIndicatorRefCalculator.CalculateCarbonIntensityIndicatorRef(ship);
+        public double CarbonIntensityIndicatorRef { get; private set; }
 
-            // Step 2: Calculate CII Required
-            var carbonIntensityIndicatorRequiredCalculator = new CarbonIntensityIndicatorRequiredCalculator();
-            double requiredCarbonIntensityIndicator = carbonIntensityIndicatorRequiredCalculator.CalculateRequiredCII(carbonIntensityIndicatorRef, year);
+        public double RequiredCarbonIntensityIndicator { get; private set; }
 
-            // Step 3: Calculate CII Attained
-            var carbonIntensityIndicatorAttainedCalculator = new CarbonIntensityIndicatorAttainedCalculator();
-            double attainedCarbonIntensityIndicator = carbonIntensityIndicatorAttainedCalculator.CalculateAttainedCII(ship, co2EmissionsInTon, distanceTravelledInNM);
+        public double AttainedCarbonIntensityIndicator { get; private set; }
 
-            // Step 4: Calculate CII Rating (numerical)
-            if (requiredCarbonIntensityIndicator == 0)
+        public double CarbonIntensityIndicatorNumericalRating { get; private set; }
+
+        public CarbonIntensityIndicatorRating CarbonIntensityIndicatorRating { get; private set; }
+
+        public void CalculateCarbonIntensityIndicatorRating(
+            Ship ship, double co2EmissionsInTon, double distanceTravelledInNM, int year)
+        {
+            Capacity = _capacityCalculator.CalculateCapacity(
+                ship.ShipType, ship.SummerDeadweight, ship.GrossTonnage);
+
+            CarbonIntensityIndicatorRef = _refCalculator.CalculateCarbonIntensityIndicatorRef(ship, Capacity);
+
+            RequiredCarbonIntensityIndicator = _requiredCalculator.CalculateRequiredCII(
+                CarbonIntensityIndicatorRef, year);
+
+            AttainedCarbonIntensityIndicator = _attainedCalculator.CalculateAttainedCarbonIntensityIndicator(
+                ship, Capacity, co2EmissionsInTon, distanceTravelledInNM);
+
+            if (RequiredCarbonIntensityIndicator == 0)
                 throw new ArgumentException("Required CII cannot be zero.");
-            double carbonIntensityIndicatorRating = attainedCarbonIntensityIndicator / requiredCarbonIntensityIndicator;
 
-            // Step 5: Map CII Rating to Letter Grade
-            CarbonIntensityIndicatorRating letterGrade = MapCiiRatingToLetterGrade(
-                ship.ShipType,
-                ship.SummerDeadweight,
-                carbonIntensityIndicatorRating);
+            var carbonIntensityIndicatorNumericaRating = AttainedCarbonIntensityIndicator / RequiredCarbonIntensityIndicator;
 
-            return (carbonIntensityIndicatorRating, letterGrade);
+            CarbonIntensityIndicatorNumericalRating = carbonIntensityIndicatorNumericaRating;
+
+            CarbonIntensityIndicatorRating = MapCiiRatingToLetterGrade(
+                ship.ShipType, ship.SummerDeadweight, carbonIntensityIndicatorNumericaRating);
         }
 
         private CarbonIntensityIndicatorRating MapCiiRatingToLetterGrade(
             ShipType shipType,
             double deadWeight,
-            double carbonIntensityIndicatorRating)
+            double carbonIntensityIndicatorNumericaRating)
         {
             (double d1, double d2, double d3, double d4) = GetRatingThresholds(shipType, deadWeight);
 
-            if (carbonIntensityIndicatorRating < d1) return CarbonIntensityIndicatorRating.A;
-            if (carbonIntensityIndicatorRating < d2) return CarbonIntensityIndicatorRating.B;
-            if (carbonIntensityIndicatorRating < d3) return CarbonIntensityIndicatorRating.C;
-            if (carbonIntensityIndicatorRating < d4) return CarbonIntensityIndicatorRating.D;
+            if (carbonIntensityIndicatorNumericaRating < d1) return CarbonIntensityIndicatorRating.A;
+            if (carbonIntensityIndicatorNumericaRating < d2) return CarbonIntensityIndicatorRating.B;
+            if (carbonIntensityIndicatorNumericaRating < d3) return CarbonIntensityIndicatorRating.C;
+            if (carbonIntensityIndicatorNumericaRating < d4) return CarbonIntensityIndicatorRating.D;
             return CarbonIntensityIndicatorRating.E;
         }
 

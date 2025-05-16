@@ -3,11 +3,8 @@
     public class CarbonIntensityIndicatorRefCalculator
     {
 
-        public double CalculateCarbonIntensityIndicatorRef(Ship ship)
+        public double CalculateCarbonIntensityIndicatorRef(Ship ship, double capacity)
         {
-            var capacityCalculator = new CapacityCalculator();
-            var capacity = capacityCalculator.CalculateCapacity(ship.ShipType, ship.SummerDeadweight, ship.GrossTonnage);
-
             var (a, c) = GetACParameters(ship.ShipType, ship.SummerDeadweight, ship.GrossTonnage);
             var carbonIntensityIndicatorReference = a * Math.Pow(capacity, -c);
 

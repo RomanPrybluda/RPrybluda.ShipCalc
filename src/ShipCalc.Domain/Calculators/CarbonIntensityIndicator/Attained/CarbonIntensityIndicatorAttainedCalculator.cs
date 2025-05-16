@@ -2,43 +2,52 @@
 {
     public class CarbonIntensityIndicatorAttainedCalculator
     {
-        public double CalculateAttainedCII(Ship ship, double co2EmissionsInTon, double distanceTravelledInNM)
+        private readonly CubicCapacityCorrFactorCalculator _cubicCapacityCorrFactorCalculator;
+        private readonly IceClasedShipCapacityCorrFactorCalculator _iceClasedShipCapacityCorrFactorCalculator;
+        private readonly IASuperAndIAIceClassedShipCorrFactorCalculator _iASuperAndIAIceClassedShipCorrFactorCalculator;
+
+        public CarbonIntensityIndicatorAttainedCalculator(
+            CubicCapacityCorrFactorCalculator cubicCapacityCorrFactorCalculator,
+            IceClasedShipCapacityCorrFactorCalculator iceClasedShipCapacityCorrFactorCalculator,
+            IASuperAndIAIceClassedShipCorrFactorCalculator iASuperAndIAIceClassedShipCorrFactorCalculator)
         {
+            _cubicCapacityCorrFactorCalculator = cubicCapacityCorrFactorCalculator;
+            _iceClasedShipCapacityCorrFactorCalculator = iceClasedShipCapacityCorrFactorCalculator;
+            _iASuperAndIAIceClassedShipCorrFactorCalculator = iASuperAndIAIceClassedShipCorrFactorCalculator;
+        }
 
-            var capacityCalculator = new CapacityCalculator();
-            var capacity = capacityCalculator
-                .CalculateCapacity(
-                ship.ShipType, ship.SummerDeadweight, ship.GrossTonnage);
-
-            var cubicCapacityCorrFactorCalculator = new CubicCapacityCorrFactorCalculator();
-            var cubicCapacityCorrectionFactor = cubicCapacityCorrFactorCalculator
+        public double CalculateAttainedCarbonIntensityIndicator(
+            Ship ship,
+            double capacity,
+            double co2EmissionsInTon,
+            double distanceTravelledInNM)
+        {
+            var cubicCapacityCorrectionFactor = _cubicCapacityCorrFactorCalculator
                 .CalculateCubicCapacityCorrectionFactor(
-                ship.ShipType,
-                ship.SummerDeadweight,
-                capacity,
-                ship.GrossTonnage);
+                    ship.ShipType,
+                    ship.SummerDeadweight,
+                    capacity,
+                    ship.GrossTonnage);
 
-            var iceClasedShipCapacityCorrFactorCalculator = new IceClasedShipCapacityCorrFactorCalculator();
-            var iceClasedShipCapacityCorrFactor = iceClasedShipCapacityCorrFactorCalculator
+            var iceClasedShipCapacityCorrFactor = _iceClasedShipCapacityCorrFactorCalculator
                 .CalculateIceClasedCapacityCorrectionFactor(
-                ship.ShipType,
-                ship.SummerDeadweight,
-                ship.IceClass,
-                ship.BlockCoefficient);
+                    ship.ShipType,
+                    ship.SummerDeadweight,
+                    ship.IceClass,
+                    ship.BlockCoefficient);
 
-            var iASuperAndIAIceClassedShipCorrFactorCalculator = new IASuperAndIAIceClassedShipCorrFactorCalculator();
-            var iASuperAndIAIceClassedShipCorrFactor = iASuperAndIAIceClassedShipCorrFactorCalculator
+            var iASuperAndIAIceClassedShipCorrFactor = _iASuperAndIAIceClassedShipCorrFactorCalculator
                 .CalculateIASuperAndIAIceClassedShipCorrFactor(
-                ship.IceClass);
+                    ship.IceClass);
 
+            double attainedCarbonIntensityIndicator = 1000000 * co2EmissionsInTon /
+                (capacity *
+                 distanceTravelledInNM *
+                 cubicCapacityCorrectionFactor *
+                 iceClasedShipCapacityCorrFactor *
+                 iASuperAndIAIceClassedShipCorrFactor);
 
-            double attainedCII = co2EmissionsInTon /
-                (capacity * distanceTravelledInNM *
-                cubicCapacityCorrectionFactor *
-                iceClasedShipCapacityCorrFactor *
-                iASuperAndIAIceClassedShipCorrFactor);
-
-            return attainedCII;
+            return attainedCarbonIntensityIndicator;
         }
     }
 }
