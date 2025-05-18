@@ -12,12 +12,11 @@
             var refCalculator = new CarbonIntensityIndicatorRefCalculator();
             var requiredCalculator = new CarbonIntensityIndicatorRequiredCalculator();
 
-            var cubicCapacityCorrFactorCalculator = new CubicCapacityCorrFactorCalculator();
+
             var iceClasedShipCapacityCorrFactorCalculator = new IceClasedShipCapacityCorrFactorCalculator();
             var iASuperAndIAIceClassedShipCorrFactorCalculator = new IASuperAndIAIceClassedShipCorrFactorCalculator();
 
             var attainedCalculator = new CarbonIntensityIndicatorAttainedCalculator(
-                cubicCapacityCorrFactorCalculator,
                 iceClasedShipCapacityCorrFactorCalculator,
                 iASuperAndIAIceClassedShipCorrFactorCalculator);
 
@@ -29,7 +28,7 @@
         }
 
         [Test]
-        public void CIIRating_BulkCarrier_NIRVANA_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_BulkCarrier_NIRVANA_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {
@@ -81,7 +80,7 @@
         }
 
         [Test]
-        public void CIIRating_GeneralCargo_CHELSEA3_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_GeneralCargo_CHELSEA3_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {
@@ -133,7 +132,7 @@
         }
 
         [Test]
-        public void CIIRating_BulkCarrier_IRONDESTINY_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_BulkCarrier_IRONDESTINY_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {
@@ -185,7 +184,7 @@
         }
 
         [Test]
-        public void CIIRating_Container_HAMBURGTRADER_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_Container_HAMBURGTRADER_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {
@@ -237,7 +236,7 @@
         }
 
         [Test]
-        public void CIIRating_GeneralCargo_SILVERLION_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_GeneralCargo_SILVERLION_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {
@@ -289,7 +288,7 @@
         }
 
         [Test]
-        public void CIIRating_GeneralCargo_KAREWOODPRIDE_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_GeneralCargo_KAREWOODPRIDE_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {
@@ -300,7 +299,7 @@
                 SummerDeadweight = 6315,
                 GrossTonnage = 5197,
                 BlockCoefficient = 0.7,
-                IceClass = IceClass.NotApplicable
+                IceClass = IceClass.NotApplicable,
             };
 
             double co2EmissionsInTon = 3408;
@@ -341,7 +340,7 @@
         }
 
         [Test]
-        public void CIIRating_Container_TITAN_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_Container_TITAN_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {
@@ -393,7 +392,7 @@
         }
 
         [Test]
-        public void CIIRating_Tanker_LEOPOLD_ReturnsCorrectRatingAndGrade()
+        public void GetCIIRating_Tanker_LEOPOLD_ReturnsCorrectRatingAndGrade()
         {
             var ship = new Ship
             {

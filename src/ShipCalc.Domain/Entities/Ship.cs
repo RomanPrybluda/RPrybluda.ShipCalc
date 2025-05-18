@@ -19,7 +19,7 @@
 
         public IceClass IceClass { get; set; }
 
-        public CarbonIntensityIndicatorCalcRecord? CarbonIntensityIndicatorCalcRecord { get; set; }
+        public double CargoCompartmentCubicCapacity { get; set; }
 
     }
 }
