@@ -1,11 +1,10 @@
-﻿namespace ShipCalc.Domain
+﻿namespace ShipCalc.Domain.Enums
 {
     public enum ShipType
     {
         BulkCarrier,
         GasCarrier,
         Tanker,
-        ChemicalTanker,
         ContainerShip,
         GeneralCargoShip,
         RefrigeratedCargoCarrier,

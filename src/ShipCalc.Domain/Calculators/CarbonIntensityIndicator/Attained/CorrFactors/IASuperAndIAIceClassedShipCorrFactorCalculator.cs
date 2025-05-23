@@ -1,4 +1,6 @@
-﻿namespace ShipCalc.Domain
+﻿using ShipCalc.Domain.Enums;
+
+namespace ShipCalc.Domain
 {
     public class IASuperAndIAIceClassedShipCorrFactorCalculator
     {
@@ -9,7 +11,7 @@
                 return 1.05;
             }
 
-            return 1.0;
+            return 1.0; // TODO create constants
         }
     }
 

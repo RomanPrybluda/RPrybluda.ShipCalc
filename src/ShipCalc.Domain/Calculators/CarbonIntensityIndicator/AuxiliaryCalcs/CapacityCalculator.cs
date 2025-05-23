@@ -1,4 +1,6 @@
-﻿namespace ShipCalc.Domain
+﻿using ShipCalc.Domain.Enums;
+
+namespace ShipCalc.Domain
 {
     public class CapacityCalculator
     {

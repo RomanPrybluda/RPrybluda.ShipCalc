@@ -1,8 +1,14 @@
-﻿namespace ShipCalc.Domain
+﻿using ShipCalc.Domain.Enums;
+
+namespace ShipCalc.Domain
 {
     public class IceClasedShipCapacityCorrFactorCalculator
     {
-        public double CalculateIceClasedCapacityCorrectionFactor(ShipType shipType, double deadweight, IceClass iceClass, double blockCoefficient)
+        public double CalculateIceClasedCapacityCorrectionFactor(
+            ShipType shipType,
+            double deadweight,
+            IceClass iceClass,
+            double blockCoefficient) // TODO create constants or db table for data
         {
             if (deadweight <= 0)
                 throw new ArgumentException("Deadweigth must be greater than zero.");
@@ -45,7 +51,9 @@
             return fIceClass * fIcb;
         }
 
-        private double GetBlockCoefficientRefDesign(ShipType shipType, double deadweight)
+        private double GetBlockCoefficientRefDesign(
+            ShipType shipType,
+            double deadweight) // TODO create constants or db table for data
         {
             double blockCoefficientRefDesign = shipType switch
             {

@@ -2,11 +2,11 @@
 {
     public class CarbonIntensityIndicatorRequiredCalculator
     {
-        public double CalculateRequiredCII(double carbonIntensityIndicatorRef, int? year = null)
+        public double CalculateRequiredCarbonIntensityIndicator(double carbonIntensityIndicatorRef, int? year = null)
         {
 
             if (carbonIntensityIndicatorRef <= 0)
-                throw new ArgumentException("CII_ref must be greater than zero.");
+                throw new ArgumentException("Carbon Intensity Indicator Ref must be greater than zero.");
 
             int currentYear = 2025;
             int targetYear = year ?? currentYear;
@@ -25,7 +25,7 @@
                 throw new ArgumentException($"Reduction factor Z for year {targetYear} is not yet determined.");
             }
 
-            return (100 - z) / 100.0 * carbonIntensityIndicatorRef;
+            return (100 - z) / 100.0 * carbonIntensityIndicatorRef; // TODO create constants or db table for data
         }
     }
 }

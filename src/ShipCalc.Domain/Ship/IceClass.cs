@@ -1,4 +1,4 @@
-﻿namespace ShipCalc.Domain
+﻿namespace ShipCalc.Domain.Enums
 {
     public enum IceClass
     {
