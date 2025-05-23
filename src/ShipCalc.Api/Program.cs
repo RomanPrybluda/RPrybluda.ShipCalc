@@ -1,18 +1,45 @@
+using Microsoft.EntityFrameworkCore;
+using ShipCalc.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+var connectionString = builder.Configuration.GetConnectionString("Default");
+
+var localConnectionString = builder.Configuration["ConnectionStrings:LocalConnectionString"];
+
+if (!string.IsNullOrWhiteSpace(localConnectionString))
+{
+    connectionString = localConnectionString;
+}
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("Connection string is not set. Check environment variables, appsettings.json, or secrets.");
+}
+
+builder.Services.AddDbContext<ShipCalcDbContext>(options =>
+{
+    options.UseSqlServer(connectionString,
+        b => b.MigrationsAssembly(typeof(ShipCalcDbContext).Assembly.GetName().Name));
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dataBaseInitializer = scope.ServiceProvider.GetRequiredService<SeedDataBaseInitializer>();
+//    dataBaseInitializer.InitializeSeedDataBase().Wait();
+//}
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 app.UseHttpsRedirection();
 
