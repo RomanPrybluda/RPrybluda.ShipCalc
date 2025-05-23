@@ -6,4 +6,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="CarbonIntensityIndicatorCalcRecord\Commands\CommandHandlers\" />
+    <Folder Include="CarbonIntensityIndicatorCalcRecord\DTOs\" />
+    <Folder Include="CarbonIntensityIndicatorCalcRecord\Queries\" />
+    <Folder Include="Ship\Commands\CommandHandlers\" />
+    <Folder Include="Ship\DTOs\" />
+    <Folder Include="Ship\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShipCalc.Domain\ShipCalc.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
