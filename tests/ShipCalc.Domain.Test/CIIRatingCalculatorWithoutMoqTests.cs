@@ -1,4 +1,6 @@
-﻿namespace ShipCalc.Domain.Tests
+﻿using ShipCalc.Domain.Enums;
+
+namespace ShipCalc.Domain.Tests
 {
     [TestFixture]
     public class CIIRatingCalculatorWithoutMoqTests
@@ -11,8 +13,6 @@
             var capacityCalculator = new CapacityCalculator();
             var refCalculator = new CarbonIntensityIndicatorRefCalculator();
             var requiredCalculator = new CarbonIntensityIndicatorRequiredCalculator();
-
-
             var iceClasedShipCapacityCorrFactorCalculator = new IceClasedShipCapacityCorrFactorCalculator();
             var iASuperAndIAIceClassedShipCorrFactorCalculator = new IASuperAndIAIceClassedShipCorrFactorCalculator();
 
@@ -32,7 +32,6 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 9519298,
                 ShipName = "NIRVANA",
                 ShipType = ShipType.BulkCarrier,
@@ -42,12 +41,30 @@
                 IceClass = IceClass.NotApplicable
             };
 
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.BulkCarrier,
+                A = 4740, // Example values; adjust based on actual requirements
+                C = 0.622
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.BulkCarrier,
+                D1 = 0.86,
+                D2 = 0.94,
+                D3 = 1.06,
+                D4 = 1.18
+            };
+
             double co2EmissionsInTon = 16508;
             double distanceTravelledInNM = 45369;
             int year = 2024;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -57,8 +74,6 @@
             double expectedCIIref = 5.224;
             double expectedCIINumericRating = 1.314;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.E;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {
@@ -84,7 +99,6 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 9361392,
                 ShipName = "CHELSEA-3",
                 ShipType = ShipType.GeneralCargoShip,
@@ -94,12 +108,30 @@
                 IceClass = IceClass.NotApplicable
             };
 
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.GeneralCargoShip,
+                A = 588,
+                C = 0.3885
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.GeneralCargoShip,
+                D1 = 0.83,
+                D2 = 0.94,
+                D3 = 1.06,
+                D4 = 1.19
+            };
+
             double co2EmissionsInTon = 1214;
             double distanceTravelledInNM = 13723;
             int year = 2023;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -109,8 +141,6 @@
             double expectedCIIref = 20.254;
             double expectedCIINumericRating = 0.789;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.A;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {
@@ -136,7 +166,6 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 8202018,
                 ShipName = "IRON DESTINY",
                 ShipType = ShipType.BulkCarrier,
@@ -146,12 +175,30 @@
                 IceClass = IceClass.NotApplicable
             };
 
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.BulkCarrier,
+                A = 4740, // Example values; adjust based on actual requirements
+                C = 0.622
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.BulkCarrier,
+                D1 = 0.86,
+                D2 = 0.94,
+                D3 = 1.06,
+                D4 = 1.18
+            };
+
             double co2EmissionsInTon = 3040;
             double distanceTravelledInNM = 643;
             int year = 2023;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -161,8 +208,6 @@
             double expectedCIIref = 3.937;
             double expectedCIINumericRating = 14.064;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.E;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {
@@ -188,7 +233,6 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 9316098,
                 ShipName = "HAMBURG TRADER",
                 ShipType = ShipType.ContainerShip,
@@ -198,12 +242,30 @@
                 IceClass = IceClass.NotApplicable
             };
 
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.ContainerShip,
+                A = 1984,
+                C = 0.489
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.ContainerShip,
+                D1 = 0.83,
+                D2 = 0.94,
+                D3 = 1.07,
+                D4 = 1.19
+            };
+
             double co2EmissionsInTon = 17928;
             double distanceTravelledInNM = 66674;
             int year = 2023;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -213,8 +275,6 @@
             double expectedCIIref = 18.816;
             double expectedCIINumericRating = 1.097;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.D;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {
@@ -240,7 +300,6 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 9281487,
                 ShipName = "SILVER LION",
                 ShipType = ShipType.GeneralCargoShip,
@@ -250,12 +309,30 @@
                 IceClass = IceClass.NotApplicable
             };
 
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.GeneralCargoShip,
+                A = 588,
+                C = 0.3885
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.GeneralCargoShip,
+                D1 = 0.83,
+                D2 = 0.94,
+                D3 = 1.06,
+                D4 = 1.19
+            };
+
             double co2EmissionsInTon = 1971;
             double distanceTravelledInNM = 18512;
             int year = 2023;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -265,8 +342,6 @@
             double expectedCIIref = 19.631;
             double expectedCIINumericRating = 0.904;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.B;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {
@@ -292,22 +367,39 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 9363986,
                 ShipName = "KAREWOOD PRIDE",
                 ShipType = ShipType.GeneralCargoShip,
                 SummerDeadweight = 6315,
                 GrossTonnage = 5197,
                 BlockCoefficient = 0.7,
-                IceClass = IceClass.NotApplicable,
+                IceClass = IceClass.NotApplicable
+            };
+
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.GeneralCargoShip,
+                A = 588,
+                C = 0.3885
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.GeneralCargoShip,
+                D1 = 0.83,
+                D2 = 0.94,
+                D3 = 1.06,
+                D4 = 1.19
             };
 
             double co2EmissionsInTon = 3408;
             double distanceTravelledInNM = 32974;
             int year = 2023;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -317,8 +409,6 @@
             double expectedCIIref = 19.631;
             double expectedCIINumericRating = 0.878;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.B;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {
@@ -344,7 +434,6 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 9126998,
                 ShipName = "TITAN",
                 ShipType = ShipType.ContainerShip,
@@ -354,12 +443,30 @@
                 IceClass = IceClass.NotApplicable
             };
 
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.ContainerShip,
+                A = 1984,
+                C = 0.489
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.ContainerShip,
+                D1 = 0.83,
+                D2 = 0.94,
+                D3 = 1.07,
+                D4 = 1.19
+            };
+
             double co2EmissionsInTon = 8275;
             double distanceTravelledInNM = 21956;
             int year = 2023;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -369,8 +476,6 @@
             double expectedCIIref = 18.254;
             double expectedCIINumericRating = 1.490;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.E;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {
@@ -396,7 +501,6 @@
         {
             var ship = new Ship
             {
-                Id = Guid.NewGuid(),
                 ImoNumber = 9173032,
                 ShipName = "LEOPOLD",
                 ShipType = ShipType.Tanker,
@@ -406,12 +510,30 @@
                 IceClass = IceClass.NotApplicable
             };
 
+            var refParameters = new CarbonIntensityIndicatorRefParameters
+            {
+                ShipType = ShipType.Tanker,
+                A = 5247,
+                C = 0.610
+            };
+
+            var thresholds = new CarbonIntensityIndicatorRatingThresholds
+            {
+                ShipType = ShipType.Tanker,
+                D1 = 0.82,
+                D2 = 0.93,
+                D3 = 1.08,
+                D4 = 1.28
+            };
+
             double co2EmissionsInTon = 2233;
             double distanceTravelledInNM = 19352;
             int year = 2024;
 
-            _calculator.CalculateCarbonIntensityIndicatorRating(
+            _calculator.CalculateCarbonIntensityIndicatorRatingAsync(
                 ship,
+                refParameters,
+                thresholds,
                 co2EmissionsInTon,
                 distanceTravelledInNM,
                 year);
@@ -421,8 +543,6 @@
             double expectedCIIref = 23.526;
             double expectedCIINumericRating = 0.745;
             CarbonIntensityIndicatorRating carbonIntensityIndicatorRating = CarbonIntensityIndicatorRating.A;
-
-            double actualAttainedCII = _calculator.AttainedCarbonIntensityIndicator;
 
             Assert.Multiple(() =>
             {

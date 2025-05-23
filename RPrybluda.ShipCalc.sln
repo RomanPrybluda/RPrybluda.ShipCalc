@@ -14,7 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipCalc.Infrastructure", "src\ShipCalc.Infrastructure\ShipCalc.Infrastructure.csproj", "{FB549FDC-7F48-E3B0-8673-8EE757E6257C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6EE2CD5A-FB03-473C-14BB-81319C05687C} = {6EE2CD5A-FB03-473C-14BB-81319C05687C}
-		{6F137FFB-E092-91AD-F890-6F8916757767} = {6F137FFB-E092-91AD-F890-6F8916757767}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DFF24A41-B3CE-47B5-9838-5D63C6EF82D6}"
