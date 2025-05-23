@@ -13,11 +13,11 @@
             _iASuperAndIAIceClassedShipCorrFactorCalculator = iASuperAndIAIceClassedShipCorrFactorCalculator;
         }
 
-        public double CalculateAttainedCarbonIntensityIndicator(
+        public decimal CalculateAttainedCarbonIntensityIndicator(
             Ship ship,
-            double capacity,
-            double co2EmissionsInTon,
-            double distanceTravelledInNM)
+            decimal capacity,
+            decimal co2EmissionsInTon,
+            decimal distanceTravelledInNM)
         {
             var iceClasedShipCapacityCorrFactor = _iceClasedShipCapacityCorrFactorCalculator
                 .CalculateIceClasedCapacityCorrectionFactor(
@@ -30,7 +30,7 @@
                 .CalculateIASuperAndIAIceClassedShipCorrFactor(
                     ship.IceClass);
 
-            double attainedCarbonIntensityIndicator = 1000000 * co2EmissionsInTon /
+            decimal attainedCarbonIntensityIndicator = 1000000m * co2EmissionsInTon /
                 (capacity *
                  distanceTravelledInNM *
                  iceClasedShipCapacityCorrFactor *

@@ -4,19 +4,19 @@ namespace ShipCalc.Domain
 {
     public class CarbonIntensityIndicatorRatingCalculator
     {
-        public double Capacity { get; private set; }
+        public decimal Capacity { get; private set; }
 
-        public double ParametrA { get; private set; }
+        public decimal ParametrA { get; private set; }
 
-        public double ParametrB { get; private set; }
+        public decimal ParametrB { get; private set; }
 
-        public double CarbonIntensityIndicatorRef { get; private set; }
+        public decimal CarbonIntensityIndicatorRef { get; private set; }
 
-        public double RequiredCarbonIntensityIndicator { get; private set; }
+        public decimal RequiredCarbonIntensityIndicator { get; private set; }
 
-        public double AttainedCarbonIntensityIndicator { get; private set; }
+        public decimal AttainedCarbonIntensityIndicator { get; private set; }
 
-        public double CarbonIntensityIndicatorNumericalRating { get; private set; }
+        public decimal CarbonIntensityIndicatorNumericalRating { get; private set; }
 
         public CarbonIntensityIndicatorRating CarbonIntensityIndicatorRating { get; private set; }
 
@@ -39,10 +39,10 @@ namespace ShipCalc.Domain
 
         public void CalculateCarbonIntensityIndicatorRatingAsync(
             Ship ship,
-            CarbonIntensityIndicatorRefParameters carbonIntensityIndicatorRefParameters,
+            CarbonIntensityIndicatorReferenceLineParameters carbonIntensityIndicatorRefParameters,
             CarbonIntensityIndicatorRatingThresholds carbonIntensityIndicatorRatingThresholds,
-            double co2EmissionsInTon,
-            double distanceTravelledInNM,
+            decimal co2EmissionsInTon,
+            decimal distanceTravelledInNM,
             int year)
         {
             Capacity = _capacityCalculator.CalculateCapacity(
@@ -71,7 +71,7 @@ namespace ShipCalc.Domain
 
         private CarbonIntensityIndicatorRating MapCiiRatingToLetterGrade(
             CarbonIntensityIndicatorRatingThresholds carbonIntensityIndicatorRatingThresholds,
-            double carbonIntensityIndicatorNumericalRating)
+            decimal carbonIntensityIndicatorNumericalRating)
         {
             return carbonIntensityIndicatorNumericalRating switch
             {

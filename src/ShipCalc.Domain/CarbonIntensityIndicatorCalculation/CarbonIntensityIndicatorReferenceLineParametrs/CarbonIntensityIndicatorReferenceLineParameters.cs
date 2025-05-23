@@ -2,21 +2,21 @@
 
 namespace ShipCalc.Domain
 {
-    public class CarbonIntensityIndicatorRefParameters
+    public class CarbonIntensityIndicatorReferenceLineParameters
     {
         public Guid Id { get; set; }
 
         public ShipType ShipType { get; set; }
 
-        public double? LowerBound { get; set; }
+        public decimal? LowerBound { get; set; }
 
-        public double? UpperBound { get; set; }
+        public decimal? UpperBound { get; set; }
 
-        public double A { get; set; }
+        public decimal A { get; set; }
 
-        public double C { get; set; }
+        public decimal C { get; set; }
 
-        public bool Matches(double capacity)
+        public bool Matches(decimal capacity)
         {
             return (!LowerBound.HasValue || capacity >= LowerBound) &&
                    (!UpperBound.HasValue || capacity < UpperBound);

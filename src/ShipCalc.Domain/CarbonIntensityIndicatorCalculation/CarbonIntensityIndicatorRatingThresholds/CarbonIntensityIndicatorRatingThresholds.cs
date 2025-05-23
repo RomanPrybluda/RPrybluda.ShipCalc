@@ -8,19 +8,19 @@ namespace ShipCalc.Domain
 
         public ShipType ShipType { get; set; }
 
-        public double? LowerDeadweight { get; set; }
+        public int? LowerDeadweight { get; set; }
 
-        public double? UpperDeadweight { get; set; }
+        public int? UpperDeadweight { get; set; }
 
-        public double D1 { get; set; }
+        public decimal D1 { get; set; }
 
-        public double D2 { get; set; }
+        public decimal D2 { get; set; }
 
-        public double D3 { get; set; }
+        public decimal D3 { get; set; }
 
-        public double D4 { get; set; }
+        public decimal D4 { get; set; }
 
-        public bool Matches(ShipType shipType, double deadWeight)
+        public bool Matches(ShipType shipType, int deadWeight)
         {
             return ShipType == shipType &&
                    (!LowerDeadweight.HasValue || deadWeight >= LowerDeadweight) &&

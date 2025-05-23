@@ -2,7 +2,7 @@
 {
     public class CarbonIntensityIndicatorRequiredCalculator
     {
-        public double CalculateRequiredCarbonIntensityIndicator(double carbonIntensityIndicatorRef, int? year = null)
+        public decimal CalculateRequiredCarbonIntensityIndicator(decimal carbonIntensityIndicatorRef, int? year = null)
         {
 
             if (carbonIntensityIndicatorRef <= 0)
@@ -14,7 +14,7 @@
             if (targetYear < 2023 || targetYear > 2030)
                 throw new ArgumentException($"Year must be between 2023 and 2030. Provided year: {targetYear}");
 
-            double z;
+            decimal z;
 
             if (targetYear <= 2026)
             {
@@ -25,7 +25,7 @@
                 throw new ArgumentException($"Reduction factor Z for year {targetYear} is not yet determined.");
             }
 
-            return (100 - z) / 100.0 * carbonIntensityIndicatorRef; // TODO create constants or db table for data
+            return (100m - z) / 100.0m * carbonIntensityIndicatorRef; // TODO create constants or db table for data
         }
     }
 }

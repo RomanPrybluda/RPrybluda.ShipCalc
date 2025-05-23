@@ -2,9 +2,9 @@
 {
     public class CarbonIntensityIndicatorRefCalculator
     {
-        public double CalculateCarbonIntensityIndicatorRef(double capacity, double parametrA, double parametrC)
+        public decimal CalculateCarbonIntensityIndicatorRef(decimal capacity, decimal parametrA, decimal parametrC)
         {
-            var carbonIntensityIndicatorReference = parametrA * Math.Pow(capacity, -parametrC);
+            var carbonIntensityIndicatorReference = parametrA * (decimal)Math.Pow((double)capacity, -(double)parametrC);
             return carbonIntensityIndicatorReference;
         }
     }

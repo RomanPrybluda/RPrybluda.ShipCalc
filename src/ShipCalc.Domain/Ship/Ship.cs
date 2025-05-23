@@ -10,13 +10,13 @@ namespace ShipCalc.Domain
 
         public string ShipName { get; set; } = string.Empty;
 
-        public double GrossTonnage { get; set; }
+        public decimal GrossTonnage { get; set; }
 
-        public double SummerDeadweight { get; set; }
+        public decimal SummerDeadweight { get; set; }
 
-        public double BlockCoefficient { get; set; }
+        public decimal BlockCoefficient { get; set; }
 
-        public double CargoCompartmentCubicCapacity { get; set; }
+        public decimal CargoCompartmentCubicCapacity { get; set; }
 
         public ShipType ShipType { get; set; }
 

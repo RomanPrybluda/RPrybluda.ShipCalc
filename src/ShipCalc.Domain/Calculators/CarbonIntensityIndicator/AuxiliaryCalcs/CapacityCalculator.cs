@@ -4,9 +4,9 @@ namespace ShipCalc.Domain
 {
     public class CapacityCalculator
     {
-        public double CalculateCapacity(ShipType shipType, double deadWeigth, double grossTonnage)
+        public decimal CalculateCapacity(ShipType shipType, decimal deadWeigth, decimal grossTonnage)
         {
-            double capacity;
+            decimal capacity;
 
             if (shipType == ShipType.Tanker ||
                 shipType == ShipType.BulkCarrier ||

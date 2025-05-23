@@ -4,14 +4,14 @@ namespace ShipCalc.Domain
 {
     public class IASuperAndIAIceClassedShipCorrFactorCalculator
     {
-        public double CalculateIASuperAndIAIceClassedShipCorrFactor(IceClass iceClass)
+        public decimal CalculateIASuperAndIAIceClassedShipCorrFactor(IceClass iceClass)
         {
             if (iceClass == IceClass.IA || iceClass == IceClass.IASuper)
             {
-                return 1.05;
+                return 1.05m;
             }
 
-            return 1.0; // TODO create constants
+            return 1.0m; // TODO create constants
         }
     }
 
