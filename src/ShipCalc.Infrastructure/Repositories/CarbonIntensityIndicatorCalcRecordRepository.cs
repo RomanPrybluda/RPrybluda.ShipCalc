@@ -1,4 +1,5 @@
-﻿using ShipCalc.Application.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using ShipCalc.Application.Abstractions;
 using ShipCalc.Domain;
 using ShipCalc.Infrastructure.Data;
 
@@ -10,37 +11,49 @@ namespace ShipCalc.Infrastructure.Repositories
 
         public CarbonIntensityIndicatorCalcRecordRepository(ShipCalcDbContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context;
         }
 
-        public Task AddAsync(CarbonIntensityIndicatorCalcRecord record)
+        public async Task<CarbonIntensityIndicatorCalcRecord> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.CarbonIntensityIndicatorCalcRecords
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetByShipIdAsync(Guid shipId)
         {
-            throw new NotImplementedException();
+            return await _context.CarbonIntensityIndicatorCalcRecords
+                .Where(r => r.ShipId == shipId)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetAllAsync()
+        public async Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.CarbonIntensityIndicatorCalcRecords
+                .ToListAsync();
         }
 
-        public Task<CarbonIntensityIndicatorCalcRecord> GetByIdAsync(Guid id)
+        public async Task AddAsync(CarbonIntensityIndicatorCalcRecord record)
         {
-            throw new NotImplementedException();
+            await _context.CarbonIntensityIndicatorCalcRecords.AddAsync(record);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetByShipIdAsync(Guid shipId)
+        public async Task UpdateAsync(CarbonIntensityIndicatorCalcRecord record)
         {
-            throw new NotImplementedException();
+            _context.CarbonIntensityIndicatorCalcRecords.Update(record);
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(CarbonIntensityIndicatorCalcRecord record)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var record = await _context.CarbonIntensityIndicatorCalcRecords
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (record != null)
+            {
+                _context.CarbonIntensityIndicatorCalcRecords.Remove(record);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
