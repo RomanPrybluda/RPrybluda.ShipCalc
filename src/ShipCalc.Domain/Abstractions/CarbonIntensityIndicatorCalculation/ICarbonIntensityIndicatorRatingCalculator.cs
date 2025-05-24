@@ -22,8 +22,8 @@ namespace ShipCalc.Domain.Abstractions
 
         void CalculateRatingAsync(
             Ship ship,
-            CarbonIntensityIndicatorReferenceLineParameters carbonIntensityIndicatorRefParameters,
-            CarbonIntensityIndicatorRatingThresholds carbonIntensityIndicatorRatingThresholds,
+            CarbonIntensityIndicatorReferenceLineParameter carbonIntensityIndicatorRefParameters,
+            CarbonIntensityIndicatorRatingThreshold carbonIntensityIndicatorRatingThresholds,
             decimal co2EmissionsInTons,
             decimal distanceTravelledInNMs,
             int year);

@@ -39,8 +39,8 @@ namespace ShipCalc.Domain
 
         public void CalculateCarbonIntensityIndicatorRatingAsync(
             Ship ship,
-            CarbonIntensityIndicatorReferenceLineParameters carbonIntensityIndicatorRefParameters,
-            CarbonIntensityIndicatorRatingThresholds carbonIntensityIndicatorRatingThresholds,
+            CarbonIntensityIndicatorReferenceLineParameter carbonIntensityIndicatorRefParameters,
+            CarbonIntensityIndicatorRatingThreshold carbonIntensityIndicatorRatingThresholds,
             decimal co2EmissionsInTon,
             decimal distanceTravelledInNM,
             int year)
@@ -70,7 +70,7 @@ namespace ShipCalc.Domain
         }
 
         private CarbonIntensityIndicatorRating MapCiiRatingToLetterGrade(
-            CarbonIntensityIndicatorRatingThresholds carbonIntensityIndicatorRatingThresholds,
+            CarbonIntensityIndicatorRatingThreshold carbonIntensityIndicatorRatingThresholds,
             decimal carbonIntensityIndicatorNumericalRating)
         {
             return carbonIntensityIndicatorNumericalRating switch

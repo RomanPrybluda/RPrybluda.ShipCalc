@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain
 {
-    public class CarbonIntensityIndicatorReferenceLineParameters
+    public class CarbonIntensityIndicatorReferenceLineParameter
     {
         public Guid Id { get; set; }
 

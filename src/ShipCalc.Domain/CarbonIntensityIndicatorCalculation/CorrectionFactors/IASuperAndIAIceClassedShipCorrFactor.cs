@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain
 {
-    public class IASuperAndIAIceClassedShipCorrFactorConstants
+    public class IASuperAndIAIceClassedShipCorrFactor
     {
         public Guid Id { get; set; }
 
