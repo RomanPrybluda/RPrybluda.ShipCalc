@@ -15,27 +15,31 @@ namespace ShipCalc.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByIdAsync(Guid id)
+        public async Task<RequiredCarbonIntensityIndicatorReductionFactor?> GetByIdAsync(Guid id)
         {
             return await _context.RequiredCarbonIntensityIndicatorReductionFactors
+                .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == id);
         }
 
         public async Task<IEnumerable<RequiredCarbonIntensityIndicatorReductionFactor>> GetAllAsync()
         {
             return await _context.RequiredCarbonIntensityIndicatorReductionFactors
+                .AsNoTracking()
                 .ToListAsync();
         }
 
-        public async Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByYearAsync(int year)
+        public async Task<RequiredCarbonIntensityIndicatorReductionFactor?> GetByYearAsync(int year)
         {
             return await _context.RequiredCarbonIntensityIndicatorReductionFactors
-                .FirstOrDefaultAsync(f => f.Year == year);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(rf => rf.Year == year);
         }
 
         public async Task<IEnumerable<RequiredCarbonIntensityIndicatorReductionFactor>> GetByYearRangeAsync(int minYear, int maxYear)
         {
             return await _context.RequiredCarbonIntensityIndicatorReductionFactors
+                .AsNoTracking()
                 .Where(f => f.Year >= minYear && f.Year <= maxYear)
                 .ToListAsync();
         }

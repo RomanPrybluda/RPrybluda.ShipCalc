@@ -9,7 +9,7 @@ namespace ShipCalc.Application.Abstractions
 
         Task<IEnumerable<CapacityIceStrengtheningCorrectionFactor>> GetAllAsync();
 
-        Task<IEnumerable<CapacityIceStrengtheningCorrectionFactor>> GetByIceClassAsync(IceClass iceClass);
+        Task<CapacityIceStrengtheningCorrectionFactor> GetByIceClassAsync(IceClass iceClass);
 
         Task AddAsync(CapacityIceStrengtheningCorrectionFactor factor);
 

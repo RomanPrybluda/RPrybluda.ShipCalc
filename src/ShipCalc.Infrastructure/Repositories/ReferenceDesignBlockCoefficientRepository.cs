@@ -6,7 +6,8 @@ using ShipCalc.Infrastructure.Data;
 
 namespace ShipCalc.Infrastructure.Repositories
 {
-    public class ReferenceDesignBlockCoefficientRepository : IReferenceDesignBlockCoefficientRepository
+    public class ReferenceDesignBlockCoefficientRepository :
+        IReferenceDesignBlockCoefficientRepository
     {
         private readonly ShipCalcDbContext _context;
 
@@ -27,19 +28,16 @@ namespace ShipCalc.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ReferenceDesignBlockCoefficient>> GetByShipTypeAsync(ShipType shipType)
+        public async Task<ReferenceDesignBlockCoefficient?> GetByShipTypeAndDeadweightAsync(ShipType shipType, decimal deadweight)
         {
-            return await _context.ReferenceDesignBlockCoefficients
-                .Where(c => c.ShipType == shipType)
-                .ToListAsync();
-        }
+            if (deadweight < 0)
+                throw new ArgumentException("Deadweight cannot be negative.", nameof(deadweight));
 
-        public async Task<IEnumerable<ReferenceDesignBlockCoefficient>> GetByDeadweightRangeAsync(int? minDeadweight, int? maxDeadweight)
-        {
             return await _context.ReferenceDesignBlockCoefficients
-                .Where(c => (!minDeadweight.HasValue || c.MinDeadweight >= minDeadweight) &&
-                            (!maxDeadweight.HasValue || c.MaxDeadweight <= maxDeadweight))
-                .ToListAsync();
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.ShipType == shipType
+                    && (!c.MinDeadweight.HasValue || deadweight >= c.MinDeadweight)
+                    && (!c.MaxDeadweight.HasValue || deadweight < c.MaxDeadweight));
         }
 
         public async Task AddAsync(ReferenceDesignBlockCoefficient coefficient)

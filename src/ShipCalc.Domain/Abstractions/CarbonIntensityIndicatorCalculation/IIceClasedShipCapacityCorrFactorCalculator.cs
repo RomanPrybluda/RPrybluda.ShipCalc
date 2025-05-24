@@ -4,7 +4,7 @@ namespace ShipCalc.Domain.Abstractions
 {
     public interface IIceClasedShipCapacityCorrFactorCalculator
     {
-        decimal CalculateIceClasedCapacityCorrectionFactor(
+        Task<decimal> CalculateIceClasedCapacityCorrectionFactor(
         ShipType shipType,
         decimal deadweight,
         IceClass iceClass,

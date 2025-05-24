@@ -20,7 +20,7 @@ namespace ShipCalc.Domain.Abstractions
 
         CarbonIntensityIndicatorRating CarbonIntensityIndicatorRating { get; }
 
-        void CalculateRatingAsync(
+        Task CalculateRatingAsync(
             Ship ship,
             CarbonIntensityIndicatorReferenceLineParameter carbonIntensityIndicatorRefParameters,
             CarbonIntensityIndicatorRatingThreshold carbonIntensityIndicatorRatingThresholds,

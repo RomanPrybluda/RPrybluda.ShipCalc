@@ -33,11 +33,15 @@ namespace ShipCalc.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<CapacityIceStrengtheningCorrectionFactor>> GetByIceClassAsync(IceClass iceClass)
+        public async Task<CapacityIceStrengtheningCorrectionFactor> GetByIceClassAsync(IceClass iceClass)
         {
-            return await _context.CapacityIceStrengtheningCorrectionFactors
-                .Where(f => f.IceClass == iceClass)
-                .ToListAsync();
+            var correctionFactor = await _context.CapacityIceStrengtheningCorrectionFactors
+                .FirstOrDefaultAsync(f => f.IceClass == iceClass);
+
+            if (correctionFactor == null)
+                throw new ArgumentNullException(nameof(correctionFactor));
+
+            return correctionFactor;
         }
 
         public async Task AddAsync(CapacityIceStrengtheningCorrectionFactor factor)

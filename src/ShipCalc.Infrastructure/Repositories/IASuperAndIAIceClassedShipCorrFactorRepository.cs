@@ -27,11 +27,11 @@ namespace ShipCalc.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<IASuperAndIAIceClassedShipCorrFactor>> GetByIceClassAsync(IceClass iceClass)
+        public async Task<IASuperAndIAIceClassedShipCorrFactor?> GetByIceClassAsync(IceClass iceClass)
         {
             return await _context.IASuperAndIAIceClassedShipCorrFactors
-                .Where(f => f.IceClass == iceClass)
-                .ToListAsync();
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.IceClass == iceClass);
         }
 
         public async Task AddAsync(IASuperAndIAIceClassedShipCorrFactor factor)

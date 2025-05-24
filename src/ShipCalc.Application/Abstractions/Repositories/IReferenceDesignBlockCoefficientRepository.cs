@@ -9,9 +9,7 @@ namespace ShipCalc.Application.Abstractions
 
         Task<IEnumerable<ReferenceDesignBlockCoefficient>> GetAllAsync();
 
-        Task<IEnumerable<ReferenceDesignBlockCoefficient>> GetByShipTypeAsync(ShipType shipType);
-
-        Task<IEnumerable<ReferenceDesignBlockCoefficient>> GetByDeadweightRangeAsync(int? minDeadweight, int? maxDeadweight);
+        Task<ReferenceDesignBlockCoefficient> GetByShipTypeAndDeadweightAsync(ShipType shipType, decimal deadWeight);
 
         Task AddAsync(ReferenceDesignBlockCoefficient coefficient);
 

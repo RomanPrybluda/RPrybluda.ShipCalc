@@ -2,7 +2,7 @@
 {
     public interface IRequiredCarbonIntensityIndicatorCalculator
     {
-        decimal CalculateRequiredCarbonIntensityIndicator(
+        Task<decimal> CalculateRequiredCarbonIntensityIndicator(
             decimal carbonIntensityIndicatorRef,
             int? year = null);
     }

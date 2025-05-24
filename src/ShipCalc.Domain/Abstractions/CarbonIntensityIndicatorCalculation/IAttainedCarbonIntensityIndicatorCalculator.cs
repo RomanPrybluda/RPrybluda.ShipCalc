@@ -2,7 +2,7 @@
 {
     public interface IAttainedCarbonIntensityIndicatorCalculator
     {
-        decimal CalculateAttainedCarbonIntensityIndicator(
+        Task<decimal> CalculateAttainedCarbonIntensityIndicator(
         Ship ship,
         decimal capacity,
         decimal co2EmissionsInTons,

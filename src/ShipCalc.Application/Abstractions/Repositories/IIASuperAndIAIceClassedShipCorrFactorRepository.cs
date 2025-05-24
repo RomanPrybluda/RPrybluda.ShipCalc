@@ -9,7 +9,7 @@ namespace ShipCalc.Application.Abstractions
 
         Task<IEnumerable<IASuperAndIAIceClassedShipCorrFactor>> GetAllAsync();
 
-        Task<IEnumerable<IASuperAndIAIceClassedShipCorrFactor>> GetByIceClassAsync(IceClass iceClass);
+        Task<IASuperAndIAIceClassedShipCorrFactor> GetByIceClassAsync(IceClass iceClass);
 
         Task AddAsync(IASuperAndIAIceClassedShipCorrFactor factor);
 
