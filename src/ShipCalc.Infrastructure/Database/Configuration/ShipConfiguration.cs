@@ -2,9 +2,10 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShipCalc.Domain;
 
-namespace ShipCalc.Infrastructure.Data
+namespace ShipCalc.Infrastructure.Database
 {
-    public class ShipConfiguration : IEntityTypeConfiguration<Ship>
+    public class ShipConfiguration :
+        IEntityTypeConfiguration<Ship>
     {
         public void Configure(EntityTypeBuilder<Ship> builder)
         {

@@ -2,33 +2,39 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShipCalc.Domain;
 
-namespace ShipCalc.Infrastructure.Data
+namespace ShipCalc.Infrastructure.Database
 {
-    public class CarbonIntensityIndicatorCalcRecordConfiguration : IEntityTypeConfiguration<CarbonIntensityIndicatorCalcRecord>
+    public class CarbonIntensityIndicatorCalcRecordConfiguration :
+        IEntityTypeConfiguration<CarbonIntensityIndicatorCalcRecord>
     {
         public void Configure(EntityTypeBuilder<CarbonIntensityIndicatorCalcRecord> builder)
         {
-            builder.HasKey(ci => ci.Id);
+            builder
+                .HasKey(ci => ci.Id);
+
+            builder
+                .Property(ci => ci.Id)
+                .HasDefaultValueSql("NEWID()");
 
             builder.Property(ci => ci.CarbonIntensityIndicatorRef)
                 .IsRequired()
-                .HasPrecision(18, 3);
+                .HasPrecision(6, 3);
 
             builder.Property(ci => ci.RequiredCarbonIntensityIndicator)
                 .IsRequired()
-                .HasPrecision(18, 3);
+                .HasPrecision(6, 3);
 
             builder.Property(ci => ci.IceClasedShipCapacityCorrFactor)
                 .IsRequired()
-                .HasPrecision(18, 3);
+                .HasPrecision(6, 3);
 
             builder.Property(ci => ci.CubicCapacityCorrectionFactor)
                 .IsRequired()
-                .HasPrecision(18, 3);
+                .HasPrecision(6, 3);
 
             builder.Property(ci => ci.IASuperAndIAIceClassedShipCorrFactor)
                 .IsRequired()
-                .HasPrecision(18, 3);
+                .HasPrecision(6, 3);
 
             builder.Property(ci => ci.CalculationDate)
                 .IsRequired()
