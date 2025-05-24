@@ -19,6 +19,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\ShipCalc.Application\ShipCalc.Application.csproj" />
 		<ProjectReference Include="..\..\src\ShipCalc.Domain\ShipCalc.Domain.csproj" />
 	</ItemGroup>
 
