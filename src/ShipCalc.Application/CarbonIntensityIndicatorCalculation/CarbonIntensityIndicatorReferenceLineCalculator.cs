@@ -8,10 +8,12 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
         {
             if (capacity <= 0)
                 throw new ArgumentException("Capacity must be greater than zero.", nameof(capacity));
+
             if (parametrA <= 0)
-                throw new ArgumentException("Parameter A must be greater than zero.", nameof(parametrA));
+                throw new ArgumentException("Parameter ReferenceLineParameterA must be greater than zero.", nameof(parametrA));
+
             if (parametrC < 0)
-                throw new ArgumentException("Parameter C cannot be negative.", nameof(parametrC));
+                throw new ArgumentException("Parameter ReferenceLineParameterC cannot be negative.", nameof(parametrC));
 
             var carbonIntensityIndicatorReference = parametrA * (decimal)Math.Pow((double)capacity, -(double)parametrC);
 

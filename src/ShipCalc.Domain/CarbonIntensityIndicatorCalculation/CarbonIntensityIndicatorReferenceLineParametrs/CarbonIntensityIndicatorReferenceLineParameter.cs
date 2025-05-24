@@ -12,14 +12,9 @@ namespace ShipCalc.Domain
 
         public decimal? UpperBound { get; set; }
 
-        public decimal A { get; set; }
+        public decimal ParameterA { get; set; }
 
-        public decimal C { get; set; }
+        public decimal ParameterC { get; set; }
 
-        public bool Matches(decimal capacity)
-        {
-            return (!LowerBound.HasValue || capacity >= LowerBound) &&
-                   (!UpperBound.HasValue || capacity < UpperBound);
-        }
     }
 }

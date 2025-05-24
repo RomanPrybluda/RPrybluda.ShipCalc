@@ -30,7 +30,6 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
             if (blockCoefficient <= 0 || blockCoefficient > 1)
                 throw new ArgumentException("Block coefficient (C_b) must be between 0 and 1.", nameof(blockCoefficient));
 
-            // Step 1: Calculate f_i(ice class)
             decimal fIceClass;
             if (iceClass == IceClass.NotApplicable)
             {
@@ -47,7 +46,6 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
                     throw new ArgumentException($"Calculated f_i(ice class) must be greater than zero for ice class: {iceClass}");
             }
 
-            // Step 2: Calculate f_icb
             decimal fIcb;
             if (shipType == ShipType.BulkCarrier || shipType == ShipType.Tanker || shipType == ShipType.GeneralCargoShip)
             {
@@ -63,7 +61,6 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
                 fIcb = 1.0m;
             }
 
-            // Step 3: Calculate final f_i
             return fIceClass * fIcb;
         }
     }

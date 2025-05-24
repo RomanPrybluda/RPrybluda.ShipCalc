@@ -6,7 +6,8 @@ using ShipCalc.Infrastructure.Data;
 
 namespace ShipCalc.Infrastructure.Repositories
 {
-    public class CarbonIntensityIndicatorReferenceLineParameterRepository : ICarbonIntensityIndicatorReferenceLineParameterRepository
+    public class CarbonIntensityIndicatorReferenceLineParameterRepository :
+        ICarbonIntensityIndicatorReferenceLineParameterRepository
     {
         private readonly ShipCalcDbContext _context;
 
@@ -29,20 +30,27 @@ namespace ShipCalc.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<CarbonIntensityIndicatorReferenceLineParameter>> GetByShipTypeAsync(ShipType shipType)
+        public async Task<CarbonIntensityIndicatorReferenceLineParameter> GetParametersByShipTypeAndCapacityAsync(
+            ShipType shipType,
+            decimal capacity)
         {
-            return await _context.CarbonIntensityIndicatorReferenceLineParameters
-                .AsNoTracking()
-                .Where(p => p.ShipType == shipType)
-                .ToListAsync();
-        }
+            if (shipType == null)
+                throw new ArgumentNullException(nameof(shipType));
 
-        public async Task<CarbonIntensityIndicatorReferenceLineParameter?> GetMatchingParametersAsync(ShipType shipType, decimal capacity)
-        {
-            return await _context.CarbonIntensityIndicatorReferenceLineParameters
+            if (capacity == null)
+                throw new ArgumentNullException(nameof(capacity));
+
+            var parameters = await _context.CarbonIntensityIndicatorReferenceLineParameters
                 .AsNoTracking()
-                .Where(p => p.ShipType == shipType)
-                .FirstOrDefaultAsync(p => p.Matches(capacity));
+                .Where(p => p.ShipType == shipType &&
+                            (!p.LowerBound.HasValue || capacity >= p.LowerBound.Value) &&
+                            (!p.UpperBound.HasValue || capacity < p.UpperBound.Value))
+                .FirstOrDefaultAsync();
+
+            if (parameters == null)
+                throw new ArgumentNullException("Parameters not found.");
+
+            return parameters;
         }
 
         public async Task AddAsync(CarbonIntensityIndicatorReferenceLineParameter parameter)

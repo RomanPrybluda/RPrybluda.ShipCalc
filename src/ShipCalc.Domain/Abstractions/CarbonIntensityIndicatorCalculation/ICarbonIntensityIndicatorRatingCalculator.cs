@@ -1,29 +1,11 @@
-﻿using ShipCalc.Domain.Enums;
+﻿using ShipCalc.Domain.Result;
 
 namespace ShipCalc.Domain.Abstractions
 {
     public interface ICarbonIntensityIndicatorRatingCalculator
     {
-        decimal Capacity { get; }
-
-        decimal ParametrA { get; }
-
-        decimal ParametrB { get; }
-
-        decimal CarbonIntensityIndicatorRef { get; }
-
-        decimal RequiredCarbonIntensityIndicator { get; }
-
-        decimal AttainedCarbonIntensityIndicator { get; }
-
-        decimal CarbonIntensityIndicatorNumericalRating { get; }
-
-        CarbonIntensityIndicatorRating CarbonIntensityIndicatorRating { get; }
-
-        Task CalculateRatingAsync(
+        Task<CarbonIntensityIndicatorCalcResult> CalculateRatingAsync(
             Ship ship,
-            CarbonIntensityIndicatorReferenceLineParameter carbonIntensityIndicatorRefParameters,
-            CarbonIntensityIndicatorRatingThreshold carbonIntensityIndicatorRatingThresholds,
             decimal co2EmissionsInTons,
             decimal distanceTravelledInNMs,
             int year);

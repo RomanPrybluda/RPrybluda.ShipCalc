@@ -4,6 +4,6 @@ namespace ShipCalc.Domain.Abstractions
 {
     public interface ICapacityCalculator
     {
-        Task<decimal> CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage);
+        decimal CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage);
     }
 }

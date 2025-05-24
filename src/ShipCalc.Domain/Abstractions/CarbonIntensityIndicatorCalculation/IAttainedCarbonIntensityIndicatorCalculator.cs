@@ -2,7 +2,13 @@
 {
     public interface IAttainedCarbonIntensityIndicatorCalculator
     {
-        Task<decimal> CalculateAttainedCarbonIntensityIndicator(
+        decimal IceClasedShipCapacityCorrFactor { get; }
+
+        decimal IASuperAndIAIceClassedShipCorrFactor { get; }
+
+        decimal AttainedCarbonIntensityIndicator { get; }
+
+        Task CalculateAttainedCarbonIntensityIndicator(
         Ship ship,
         decimal capacity,
         decimal co2EmissionsInTons,

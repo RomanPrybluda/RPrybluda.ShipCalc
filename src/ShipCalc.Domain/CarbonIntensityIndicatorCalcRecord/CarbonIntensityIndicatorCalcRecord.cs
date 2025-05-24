@@ -14,12 +14,7 @@
 
         public double IASuperAndIAIceClassedShipCorrFactor { get; set; }
 
-        public DateTime CalculationDate { get; set; }
-
-        public CarbonIntensityIndicatorCalcRecord()
-        {
-            CalculationDate = DateTime.UtcNow;
-        }
+        public DateTime CalculationDate { get; set; } = DateTime.Now;
 
         public Guid ShipId { get; set; }
 

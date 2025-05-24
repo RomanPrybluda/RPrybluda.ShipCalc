@@ -1,25 +1,34 @@
-﻿using ShipCalc.Domain;
+﻿using ShipCalc.Application.Abstractions;
+using ShipCalc.Domain;
 using ShipCalc.Domain.Abstractions;
-using ShipCalc.Domain.Abstractions.CarbonIntensityIndicatorCalculation;
 
 namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
 {
     public class AttainedCarbonIntensityIndicatorCalculator : IAttainedCarbonIntensityIndicatorCalculator
     {
-        private readonly IIceClasedShipCapacityCorrFactorCalculator _iceClasedShipCapacityCorrFactorCalculator;
-        private readonly IIASuperAndIAIceClassedShipCorrFactorCalculator _iASuperAndIAIceClassedShipCorrFactorCalculator;
+
+        public decimal IceClasedShipCapacityCorrFactor { get; private set; }
+
+        public decimal IASuperAndIAIceClassedShipCorrFactor { get; private set; }
+
+        public decimal AttainedCarbonIntensityIndicator { get; private set; }
+
+        private readonly IIceClasedShipCapacityCorrFactorCalculator _iceClasedShipCapacityCorrFactorCalc;
+        private readonly IIASuperAndIAIceClassedShipCorrFactorRepository _iASuperAndIAIceClassedShipCorrFactorRepo;
 
         public AttainedCarbonIntensityIndicatorCalculator(
-            IIceClasedShipCapacityCorrFactorCalculator iceClasedShipCapacityCorrFactorCalculator,
-            IIASuperAndIAIceClassedShipCorrFactorCalculator iASuperAndIAIceClassedShipCorrFactorCalculator)
+            IIceClasedShipCapacityCorrFactorCalculator iceClasedShipCapacityCorrFactorCalc,
+            ICapacityIceStrengtheningCorrectionFactorRepository capacityIceStrengtheningCorrectionFactorRepo,
+            IReferenceDesignBlockCoefficientRepository referenceDesignBlockCoefficientRepo,
+            IIASuperAndIAIceClassedShipCorrFactorRepository iASuperAndIAIceClassedShipCorrFactorRepo)
         {
-            _iceClasedShipCapacityCorrFactorCalculator = iceClasedShipCapacityCorrFactorCalculator
-                ?? throw new ArgumentNullException(nameof(iceClasedShipCapacityCorrFactorCalculator));
-            _iASuperAndIAIceClassedShipCorrFactorCalculator = iASuperAndIAIceClassedShipCorrFactorCalculator
-                ?? throw new ArgumentNullException(nameof(iASuperAndIAIceClassedShipCorrFactorCalculator));
+            _iceClasedShipCapacityCorrFactorCalc = iceClasedShipCapacityCorrFactorCalc
+                ?? throw new ArgumentNullException(nameof(iceClasedShipCapacityCorrFactorCalc));
+            _iASuperAndIAIceClassedShipCorrFactorRepo = iASuperAndIAIceClassedShipCorrFactorRepo
+                ?? throw new ArgumentNullException(nameof(iASuperAndIAIceClassedShipCorrFactorRepo));
         }
 
-        public async Task<decimal> CalculateAttainedCarbonIntensityIndicator(
+        public async Task CalculateAttainedCarbonIntensityIndicator(
             Ship ship,
             decimal capacity,
             decimal co2EmissionsInTons,
@@ -34,24 +43,28 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
             if (distanceTravelledInNMs <= 0)
                 throw new ArgumentException("Distance travelled must be greater than zero.", nameof(distanceTravelledInNMs));
 
-            var iceClasedShipCapacityCorrFactor = await _iceClasedShipCapacityCorrFactorCalculator.CalculateIceClasedCapacityCorrectionFactor(
+            var iceClasedShipCapacityCorrFactor = await _iceClasedShipCapacityCorrFactorCalc
+                .CalculateIceClasedCapacityCorrectionFactor(
                 ship.ShipType,
                 ship.SummerDeadweight,
                 ship.IceClass,
                 ship.BlockCoefficient);
-
-            var iASuperAndIAIceClassedShipCorrFactor = await _iASuperAndIAIceClassedShipCorrFactorCalculator.CalculateIASuperAndIAIceClassedShipCorrFactor(
-                ship.IceClass);
-
             if (iceClasedShipCapacityCorrFactor <= 0)
                 throw new ArgumentException("Ice-classed capacity correction factor must be greater than zero.");
-            if (iASuperAndIAIceClassedShipCorrFactor <= 0)
-                throw new ArgumentException("IA Super/IA ice-classed correction factor must be greater than zero.");
+
+            IceClasedShipCapacityCorrFactor = iceClasedShipCapacityCorrFactor;
+
+            var iASuperAndIAIceClassedShipCorrFactor = await _iASuperAndIAIceClassedShipCorrFactorRepo.GetByIceClassAsync(ship.IceClass);
+            if (iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor <= 0)
+                throw new ArgumentException("IA Super or IA ice-classed correction factor must be greater than zero.");
+
+            IASuperAndIAIceClassedShipCorrFactor = iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor;
 
             decimal attainedCarbonIntensityIndicator = 1000000m * co2EmissionsInTons /
-                (capacity * distanceTravelledInNMs * iceClasedShipCapacityCorrFactor * iASuperAndIAIceClassedShipCorrFactor);
+                (capacity * distanceTravelledInNMs * IceClasedShipCapacityCorrFactor * IASuperAndIAIceClassedShipCorrFactor);
 
-            return attainedCarbonIntensityIndicator;
+            AttainedCarbonIntensityIndicator = attainedCarbonIntensityIndicator;
         }
+
     }
 }

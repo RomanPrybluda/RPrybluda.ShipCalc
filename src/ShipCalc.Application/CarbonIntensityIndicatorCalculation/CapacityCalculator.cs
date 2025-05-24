@@ -5,7 +5,7 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
 {
     public class CapacityCalculator : ICapacityCalculator
     {
-        public Task<decimal> CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage)
+        public decimal CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage)
         {
             if (deadWeight < 0)
                 throw new ArgumentException("Deadweight cannot be negative.", nameof(deadWeight));
@@ -22,7 +22,7 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
                 shipType == ShipType.GasCarrier)
             {
                 capacity = deadWeight;
-                return Task.FromResult(capacity);
+                return capacity;
             }
 
             if (shipType == ShipType.RoRoCargoVehicle ||
@@ -32,7 +32,7 @@ namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
                 shipType == ShipType.CruisePassengerShip)
             {
                 capacity = grossTonnage;
-                return Task.FromResult(capacity);
+                return capacity;
             }
 
             throw new ArgumentException($"Unsupported ship type: {shipType}", nameof(shipType));

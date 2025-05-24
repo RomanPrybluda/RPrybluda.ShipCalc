@@ -25,12 +25,12 @@ namespace ShipCalc.Infrastructure.Database
                 .HasPrecision(18, 6);
 
             builder
-                .Property(ci => ci.A)
+                .Property(ci => ci.ParameterA)
                 .IsRequired()
                 .HasPrecision(18, 6);
 
             builder
-                .Property(ci => ci.C)
+                .Property(ci => ci.ParameterC)
                 .IsRequired()
                 .HasPrecision(18, 6);
         }

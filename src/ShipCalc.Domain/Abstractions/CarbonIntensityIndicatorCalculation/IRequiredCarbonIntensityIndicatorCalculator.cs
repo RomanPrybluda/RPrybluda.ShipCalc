@@ -1,9 +1,19 @@
-﻿namespace ShipCalc.Domain.Abstractions
+﻿using ShipCalc.Domain.Enums;
+
+namespace ShipCalc.Domain.Abstractions
 {
     public interface IRequiredCarbonIntensityIndicatorCalculator
     {
-        Task<decimal> CalculateRequiredCarbonIntensityIndicator(
-            decimal carbonIntensityIndicatorRef,
-            int? year = null);
+        decimal RefLineParameterA { get; }
+
+        decimal RefLineParameterC { get; }
+
+        public int RefLineReductionFactor { get; }
+
+        public decimal RefLine { get; }
+
+        public decimal RequiredCarbonIntensityIndicator { get; }
+
+        Task CalculateRequiredCarbonIntensityIndicator(ShipType shipType, decimal capacity, int year);
     }
 }

@@ -15,11 +15,16 @@ namespace ShipCalc.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<RequiredCarbonIntensityIndicatorReductionFactor?> GetByIdAsync(Guid id)
+        public async Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByIdAsync(Guid id)
         {
-            return await _context.RequiredCarbonIntensityIndicatorReductionFactors
+            var reductionFactor = await _context.RequiredCarbonIntensityIndicatorReductionFactors
                 .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == id);
+
+            if (reductionFactor == null)
+                throw new EntryPointNotFoundException(nameof(reductionFactor));
+
+            return reductionFactor;
         }
 
         public async Task<IEnumerable<RequiredCarbonIntensityIndicatorReductionFactor>> GetAllAsync()
@@ -29,7 +34,7 @@ namespace ShipCalc.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<RequiredCarbonIntensityIndicatorReductionFactor?> GetByYearAsync(int year)
+        public async Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByYearAsync(int year)
         {
             return await _context.RequiredCarbonIntensityIndicatorReductionFactors
                 .AsNoTracking()

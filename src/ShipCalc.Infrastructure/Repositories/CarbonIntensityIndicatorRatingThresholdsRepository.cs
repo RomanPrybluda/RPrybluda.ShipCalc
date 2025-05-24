@@ -18,10 +18,16 @@ namespace ShipCalc.Infrastructure.Repositories
         public async Task<CarbonIntensityIndicatorRatingThreshold> GetThresholdsAsync(ShipType shipType, decimal deadWeight)
         {
             int deadWeightInt = (int)Math.Round(deadWeight);
-            return await _context.CarbonIntensityIndicatorRatingThresholds
+
+            var threshold = await _context.CarbonIntensityIndicatorRatingThresholds
                 .FirstOrDefaultAsync(t => t.ShipType == shipType &&
-                                         (!t.LowerDeadweight.HasValue || deadWeight >= (decimal)t.LowerDeadweight) &&
-                                         (!t.UpperDeadweight.HasValue || deadWeight < (decimal)t.UpperDeadweight));
+                                         (!t.LowerDeadweight.HasValue || deadWeightInt >= (decimal)t.LowerDeadweight) &&
+                                         (!t.UpperDeadweight.HasValue || deadWeightInt < (decimal)t.UpperDeadweight));
+
+            if (threshold == null)
+                throw new InvalidOperationException($"Threshold not found.");
+
+            return threshold;
         }
 
         public async Task<IEnumerable<CarbonIntensityIndicatorRatingThreshold>> GetAllAsync()

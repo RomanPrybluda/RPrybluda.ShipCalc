@@ -9,9 +9,7 @@ namespace ShipCalc.Application.Abstractions.Repositories
 
         Task<IEnumerable<CarbonIntensityIndicatorReferenceLineParameter>> GetAllAsync();
 
-        Task<IEnumerable<CarbonIntensityIndicatorReferenceLineParameter>> GetByShipTypeAsync(ShipType shipType);
-
-        Task<CarbonIntensityIndicatorReferenceLineParameter?> GetMatchingParametersAsync(ShipType shipType, decimal capacity);
+        Task<CarbonIntensityIndicatorReferenceLineParameter> GetParametersByShipTypeAndCapacityAsync(ShipType shipType, decimal capacity);
 
         Task AddAsync(CarbonIntensityIndicatorReferenceLineParameter parameter);
 
