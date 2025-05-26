@@ -13,38 +13,38 @@ public interface IShipCalcDbContext
     DbSet<Ship> Ships { get; }
 
     /// <summary>
-    /// CII calculation Results
+    /// Carbon Intensity Indicator calculation Results
     /// </summary>
-    DbSet<CarbonIntensityIndicatorCalcRecord> CarbonIntensityIndicatorCalcRecords { get; }
+    DbSet<CarbonIntensityIndicatorCalcRecord> CIICalcRecords { get; }
 
     /// <summary>
-    /// Parameters for determining the Letter CII Rating
+    /// Parameters for determining the Letter Carbon Intensity Indicator Rating
     /// </summary>
-    DbSet<CarbonIntensityIndicatorRatingThreshold> CarbonIntensityIndicatorRatingThresholds { get; }
+    DbSet<RatingThreshold> CIIRatingThresholds { get; }
 
     /// <summary>
-    /// Parameters for determining the CII Reference Line depending on ship type and ship deadweight
+    /// Parameters for determining the Carbon Intensity Indicator Reference Line depending on ship type and ship deadweight
     /// </summary>
-    DbSet<CarbonIntensityIndicatorReferenceLineParameter> CarbonIntensityIndicatorReferenceLineParameters { get; }
+    DbSet<RefLineParams> CIIRefLineParams { get; }
 
     /// <summary>
-    /// CII Reference Line percentage Reduction Factor depending on year from 2023
+    /// Carbon Intensity Indicator Reference Line percentage Reduction Factor depending on year from 2023
     /// </summary>
-    DbSet<RequiredCarbonIntensityIndicatorReductionFactor> RequiredCarbonIntensityIndicatorReductionFactors { get; }
+    DbSet<ReductionFactor> ReqCIIReductionFactors { get; }
 
     /// <summary>
     /// Reference design block coefficients depending on ship type and ship deadweight
     /// </summary>
-    DbSet<ReferenceDesignBlockCoefficient> ReferenceDesignBlockCoefficients { get; }
+    DbSet<RefDesignBlockCoeff> RefDesignBlockCoeffs { get; }
 
     /// <summary>
     /// Constants for determining capacity correction factor for ice-strengthning of the hull
     /// </summary>
-    DbSet<CapacityIceStrengtheningCorrectionFactor> CapacityIceStrengtheningCorrectionFactors { get; }
+    DbSet<CapacityIceStrengthCorrFactor> CapacityIceStrengthCorrFactors { get; }
 
     /// <summary>
     /// Correction factors for ice-classed ship having IA Super and IA
     /// </summary>
-    DbSet<IASuperAndIAIceClassedShipCorrFactor> IASuperAndIAIceClassedShipCorrFactors { get; }
+    DbSet<IASuperAndIAIceCorrFactor> IASuperAndIAIceCorrFactors { get; }
 
 }
