@@ -4,9 +4,9 @@ namespace ShipCalc.Domain.Abstractions;
 
 public interface IRequiredCarbonIntensityIndicatorCalculator
 {
-    decimal RefLineParameterA { get; }
+    public decimal RefLineParameterA { get; }
 
-    decimal RefLineParameterC { get; }
+    public decimal RefLineParameterC { get; }
 
     public int RefLineReductionFactor { get; }
 
