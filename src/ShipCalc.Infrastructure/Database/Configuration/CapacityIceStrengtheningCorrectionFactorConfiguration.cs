@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShipCalc.Domain;
+using ShipCalc.Domain.Calculation.CorrectionFactors;
 
 namespace ShipCalc.Infrastructure.Database;
 
 public class CapacityIceStrengtheningCorrectionFactorConfiguration :
-    IEntityTypeConfiguration<CapacityIceStrengtheningCorrectionFactor>
+    IEntityTypeConfiguration<CapacityIceStrengthCorrFactor>
 {
-    public void Configure(EntityTypeBuilder<CapacityIceStrengtheningCorrectionFactor> builder)
+    public void Configure(EntityTypeBuilder<CapacityIceStrengthCorrFactor> builder)
     {
         builder
             .HasKey(cf => cf.Id);

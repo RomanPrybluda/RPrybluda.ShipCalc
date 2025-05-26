@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShipCalc.Application.Abstractions.Data;
 using ShipCalc.Domain;
-using ShipCalc.Domain.ReductionFactor;
+using ShipCalc.Domain.Calculation.CorrectionFactors;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Infrastructure.Data;
 
@@ -15,19 +16,19 @@ public class ShipCalcDbContext : DbContext, IShipCalcDbContext
 
     public DbSet<Ship> Ships { get; set; }
 
-    public DbSet<CarbonIntensityIndicatorCalcRecord> CarbonIntensityIndicatorCalcRecords { get; set; }
+    public DbSet<CalculationData> CalculationDatas { get; set; }
 
-    public DbSet<CarbonIntensityIndicatorRatingThreshold> CarbonIntensityIndicatorRatingThresholds { get; set; }
+    public DbSet<RatingThreshold> CIIRatingThresholds { get; set; }
 
-    public DbSet<CarbonIntensityIndicatorReferenceLineParameter> CarbonIntensityIndicatorReferenceLineParameters { get; set; }
+    public DbSet<RefLineParams> CIIRefLineParams { get; set; }
 
-    public DbSet<RequiredCarbonIntensityIndicatorReductionFactor> RequiredCarbonIntensityIndicatorReductionFactors { get; set; }
+    public DbSet<RefLineReductionFactor> CIIReqReductionFactors { get; set; }
 
-    public DbSet<CapacityIceStrengtheningCorrectionFactor> CapacityIceStrengtheningCorrectionFactors { get; set; }
+    public DbSet<CapacityIceStrengthCorrFactor> CapacityIceStrengthCorrFactors { get; set; }
 
-    public DbSet<IASuperAndIAIceClassedShipCorrFactor> IASuperAndIAIceClassedShipCorrFactors { get; set; }
+    public DbSet<IASuperAndIAIceCorrFactor> IASuperAndIAIceCorrFactors { get; set; }
 
-    public DbSet<ReferenceDesignBlockCoefficient> ReferenceDesignBlockCoefficients { get; set; }
+    public DbSet<RefDesignBlockCoeff> RefDesignBlockCoeffs { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)

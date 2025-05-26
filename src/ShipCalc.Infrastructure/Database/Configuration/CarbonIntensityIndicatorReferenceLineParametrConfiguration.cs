@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShipCalc.Domain;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Infrastructure.Database;
 
 public class CarbonIntensityIndicatorReferenceLineParametrConfiguration :
-    IEntityTypeConfiguration<CarbonIntensityIndicatorReferenceLineParameter>
+    IEntityTypeConfiguration<RefLineParams>
 {
-    public void Configure(EntityTypeBuilder<CarbonIntensityIndicatorReferenceLineParameter> builder)
+    public void Configure(EntityTypeBuilder<RefLineParams> builder)
     {
         builder
             .HasKey(ci => ci.Id);

@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShipCalc.Domain;
+using ShipCalc.Domain.Calculation.CorrectionFactors;
 
 namespace ShipCalc.Infrastructure.Database;
 
 public class ReferenceDesignBlockCoefficientConfiguration :
-    IEntityTypeConfiguration<ReferenceDesignBlockCoefficient>
+    IEntityTypeConfiguration<RefDesignBlockCoeff>
 {
-    public void Configure(EntityTypeBuilder<ReferenceDesignBlockCoefficient> builder)
+    public void Configure(EntityTypeBuilder<RefDesignBlockCoeff> builder)
     {
         builder
             .HasKey(bc => bc.Id);

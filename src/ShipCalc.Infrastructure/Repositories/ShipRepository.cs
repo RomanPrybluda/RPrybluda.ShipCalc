@@ -11,58 +11,39 @@ public class ShipRepository : IShipRepository
 
     public ShipRepository(ShipCalcDbContext context)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _context = context;
     }
 
-    public async Task<Ship> GetByImoNumberAsync(int imoNumber)
-    {
-        var ships = await _context.Ships
-            .AsNoTracking()
-            .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber);
-
-        if (ships == null)
-            throw new ArgumentNullException(nameof(ships));
-
-        return ships;
-    }
-
-    public async Task AddAsync(Ship ship)
-    {
-        if (ship == null)
-            throw new ArgumentNullException(nameof(ship));
-
-        var existing = await _context.Ships.AnyAsync(s => s.ImoNumber == ship.ImoNumber);
-        if (existing)
-            throw new InvalidOperationException($"Ship with IMO number {ship.ImoNumber} already exists.");
-
-        await _context.Ships.AddAsync(ship);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task UpdateAsync(Ship ship)
-    {
-        if (ship == null)
-            throw new ArgumentNullException(nameof(ship));
-
-        var existing = await _context.Ships
-            .FirstOrDefaultAsync(s => s.ImoNumber == ship.ImoNumber);
-
-        if (existing == null)
-            throw new InvalidOperationException($"Ship with IMO number {ship.ImoNumber} not found.");
-
-        _context.Entry(existing).CurrentValues.SetValues(ship);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task DeleteAsync(int imoNumber)
+    public async Task<Ship?> GetById(Guid id, CancellationToken cancellationToken = default)
     {
         var ship = await _context.Ships
-            .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber);
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+        return ship;
+    }
 
-        if (ship == null)
-            throw new InvalidOperationException($"Ship with IMO number {imoNumber} not found.");
+    public async Task<Ship?> GetByImoNumberAsync(int imoNumber, CancellationToken cancellationToken = default)
+    {
+        var ship = await _context.Ships
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber, cancellationToken);
+        return ship;
+    }
 
-        _context.Ships.Remove(ship);
-        await _context.SaveChangesAsync();
+    public async Task AddAsync(Ship ship, CancellationToken cancellationToken = default)
+    {
+        await _context.Ships.AddAsync(ship, cancellationToken);
+    }
+
+    public async Task DeleteAsync(int imoNumber, CancellationToken cancellationToken = default)
+    {
+        var ship = await _context.Ships
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber, cancellationToken);
+    }
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

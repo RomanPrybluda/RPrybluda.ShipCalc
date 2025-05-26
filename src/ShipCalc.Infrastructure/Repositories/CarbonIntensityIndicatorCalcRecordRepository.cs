@@ -1,58 +1,62 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShipCalc.Application.Abstractions;
-using ShipCalc.Domain;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Infrastructure.Data;
 
 namespace ShipCalc.Infrastructure.Repositories;
 
-public class CarbonIntensityIndicatorCalcRecordRepository : ICarbonIntensityIndicatorCalcRecordRepository
+public class CarbonIntensityIndicatorCalcRecordRepository :
+    ICalculationDataRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public CarbonIntensityIndicatorCalcRecordRepository(ShipCalcDbContext context)
+    public CarbonIntensityIndicatorCalcRecordRepository(
+        ShipCalcDbContext context)
     {
         _context = context;
     }
 
-    public async Task<CarbonIntensityIndicatorCalcRecord> GetByIdAsync(Guid id)
+    public async Task<CalculationData?> GetByIdAsync(Guid id,
+        CancellationToken cancellationToken = default)
     {
-        return await _context.CarbonIntensityIndicatorCalcRecords
+        return await _context.CalculationDatas
+            .AsNoTracking()
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    public async Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetByShipIdAsync(Guid shipId)
+    public async Task<CalculationData?> GetByShipIdAsync(Guid shipId,
+        CancellationToken cancellationToken = default)
     {
-        return await _context.CarbonIntensityIndicatorCalcRecords
-            .Where(r => r.ShipId == shipId)
+        return await _context.CalculationDatas
+            .AsNoTracking()
+            .FirstOrDefaultAsync(r => r.ShipId == shipId);
+    }
+
+    public async Task<IEnumerable<CalculationData?>> GetAllAsync(
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.CalculationDatas
+            .AsNoTracking()
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetAllAsync()
+    public async Task AddAsync(CalculationData record,
+        CancellationToken cancellationToken = default)
     {
-        return await _context.CarbonIntensityIndicatorCalcRecords
-            .ToListAsync();
+        await _context.CalculationDatas.AddAsync(record);
     }
 
-    public async Task AddAsync(CarbonIntensityIndicatorCalcRecord record)
+    public async Task DeleteAsync(Guid id,
+        CancellationToken cancellationToken = default)
     {
-        await _context.CarbonIntensityIndicatorCalcRecords.AddAsync(record);
-        await _context.SaveChangesAsync();
+        await _context.CalculationDatas
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
     }
 
-    public async Task UpdateAsync(CarbonIntensityIndicatorCalcRecord record)
+    public async Task SaveChangesAsync(
+        CancellationToken cancellationToken = default)
     {
-        _context.CarbonIntensityIndicatorCalcRecords.Update(record);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task DeleteAsync(Guid id)
-    {
-        var record = await _context.CarbonIntensityIndicatorCalcRecords
-            .FirstOrDefaultAsync(r => r.Id == id);
-        if (record != null)
-        {
-            _context.CarbonIntensityIndicatorCalcRecords.Remove(record);
-            await _context.SaveChangesAsync();
-        }
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

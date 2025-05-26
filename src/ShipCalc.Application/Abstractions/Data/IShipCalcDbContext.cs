@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShipCalc.Domain;
-using ShipCalc.Domain.ReductionFactor;
+using ShipCalc.Domain.Calculation.CorrectionFactors;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Application.Abstractions.Data;
 
@@ -15,7 +16,7 @@ public interface IShipCalcDbContext
     /// <summary>
     /// Carbon Intensity Indicator calculation Results
     /// </summary>
-    DbSet<CarbonIntensityIndicatorCalcRecord> CIICalcRecords { get; }
+    DbSet<CalculationData> CalculationDatas { get; }
 
     /// <summary>
     /// Parameters for determining the Letter Carbon Intensity Indicator Rating
@@ -30,7 +31,7 @@ public interface IShipCalcDbContext
     /// <summary>
     /// Carbon Intensity Indicator Reference Line percentage Reduction Factor depending on year from 2023
     /// </summary>
-    DbSet<ReductionFactor> ReqCIIReductionFactors { get; }
+    DbSet<RefLineReductionFactor> CIIReqReductionFactors { get; }
 
     /// <summary>
     /// Reference design block coefficients depending on ship type and ship deadweight
@@ -46,5 +47,7 @@ public interface IShipCalcDbContext
     /// Correction factors for ice-classed ship having IA Super and IA
     /// </summary>
     DbSet<IASuperAndIAIceCorrFactor> IASuperAndIAIceCorrFactors { get; }
+
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
 }

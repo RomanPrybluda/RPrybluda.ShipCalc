@@ -1,6 +1,5 @@
-﻿using ShipCalc.Application.Abstractions;
-using ShipCalc.Application.Abstractions.Repositories;
-using ShipCalc.Domain.Abstractions;
+﻿using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
+using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
@@ -17,14 +16,14 @@ public class RequiredCarbonIntensityIndicatorCalculator : IRequiredCarbonIntensi
 
     public decimal RequiredCarbonIntensityIndicator { get; private set; }
 
-    private readonly ICarbonIntensityIndicatorReferenceLineParameterRepository _refLineParametrs;
-    private readonly IRequiredCarbonIntensityIndicatorReductionFactorRepository _reductionFactor;
-    private readonly ICarbonIntensityIndicatorReferenceLineCalculator _referenceLine;
+    private readonly IRefLineParamsRepo _refLineParametrs;
+    private readonly IReductionFactorRepo _reductionFactor;
+    private readonly IRefLineCalculator _referenceLine;
 
     public RequiredCarbonIntensityIndicatorCalculator(
-        ICarbonIntensityIndicatorReferenceLineParameterRepository refLineParametrs,
-        IRequiredCarbonIntensityIndicatorReductionFactorRepository reductionFactor,
-        ICarbonIntensityIndicatorReferenceLineCalculator referenceLine)
+        IRefLineParamsRepo refLineParametrs,
+        IReductionFactorRepo reductionFactor,
+        IRefLineCalculator referenceLine)
     {
         _refLineParametrs = refLineParametrs ?? throw new ArgumentNullException(nameof(refLineParametrs));
         _reductionFactor = reductionFactor ?? throw new ArgumentNullException(nameof(reductionFactor));
@@ -41,13 +40,13 @@ public class RequiredCarbonIntensityIndicatorCalculator : IRequiredCarbonIntensi
         if (year < 0)
             throw new ArgumentException("Year cannot be negative.", nameof(year));
 
-        var parameters = await _refLineParametrs.GetParametersByShipTypeAndCapacityAsync(shipType, capacity)
+        var parameters = await _refLineParametrs.GetByShipTypeAndCapacityAsync(shipType, capacity)
             ?? throw new ArgumentException($"No reference line parameters found for ship type {shipType} and capacity {capacity}.");
 
         RefLineParameterA = parameters.ParameterA;
         RefLineParameterC = parameters.ParameterC;
 
-        var carbonIntensityIndicatorRefLine = _referenceLine.CalculateCarbonIntensityIndicatorReferenceLine(
+        var carbonIntensityIndicatorRefLine = _referenceLine.CalculateRefLine(
             capacity,
             RefLineParameterA,
             RefLineParameterC);

@@ -1,6 +1,7 @@
-﻿using ShipCalc.Application.Abstractions;
+﻿using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 using ShipCalc.Domain;
-using ShipCalc.Domain.Abstractions;
+using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
+using ShipCalc.Domain.Abstractions.CorrFactor;
 
 namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
 
@@ -14,13 +15,13 @@ public class AttainedCarbonIntensityIndicatorCalculator : IAttainedCarbonIntensi
     public decimal AttainedCarbonIntensityIndicator { get; private set; }
 
     private readonly IIceClasedShipCapacityCorrFactorCalculator _iceClasedShipCapacityCorrFactorCalc;
-    private readonly IIASuperAndIAIceClassedShipCorrFactorRepository _iASuperAndIAIceClassedShipCorrFactorRepo;
+    private readonly IIASuperAndIAIceCorrFactorRepo _iASuperAndIAIceClassedShipCorrFactorRepo;
 
     public AttainedCarbonIntensityIndicatorCalculator(
         IIceClasedShipCapacityCorrFactorCalculator iceClasedShipCapacityCorrFactorCalc,
-        ICapacityIceStrengtheningCorrectionFactorRepository capacityIceStrengtheningCorrectionFactorRepo,
-        IReferenceDesignBlockCoefficientRepository referenceDesignBlockCoefficientRepo,
-        IIASuperAndIAIceClassedShipCorrFactorRepository iASuperAndIAIceClassedShipCorrFactorRepo)
+        ICapacityIceStrengthCorrFactorRepo capacityIceStrengtheningCorrectionFactorRepo,
+        IRefDesignBlockCoeffRepo referenceDesignBlockCoefficientRepo,
+        IIASuperAndIAIceCorrFactorRepo iASuperAndIAIceClassedShipCorrFactorRepo)
     {
         _iceClasedShipCapacityCorrFactorCalc = iceClasedShipCapacityCorrFactorCalc
             ?? throw new ArgumentNullException(nameof(iceClasedShipCapacityCorrFactorCalc));

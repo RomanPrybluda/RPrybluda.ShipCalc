@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain;
 
-public sealed class Ship
+public class Ship
 {
     public Guid Id { get; set; }
 

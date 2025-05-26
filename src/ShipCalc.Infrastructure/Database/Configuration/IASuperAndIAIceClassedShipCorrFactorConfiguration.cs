@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShipCalc.Domain;
+using ShipCalc.Domain.Calculation.CorrectionFactors;
 
 namespace ShipCalc.Infrastructure.Database;
 
 public class IASuperAndIAIceClassedShipCorrFactorConfiguration :
-    IEntityTypeConfiguration<IASuperAndIAIceClassedShipCorrFactor>
+    IEntityTypeConfiguration<IASuperAndIAIceCorrFactor>
 {
-    public void Configure(EntityTypeBuilder<IASuperAndIAIceClassedShipCorrFactor> builder)
+    public void Configure(EntityTypeBuilder<IASuperAndIAIceCorrFactor> builder)
     {
         builder
             .HasKey(cf => cf.Id);

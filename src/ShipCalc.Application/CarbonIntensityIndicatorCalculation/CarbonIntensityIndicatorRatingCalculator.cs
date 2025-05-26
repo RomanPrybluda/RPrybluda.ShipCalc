@@ -1,23 +1,23 @@
-﻿using ShipCalc.Application.Abstractions.Repositories;
+﻿using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 using ShipCalc.Domain;
-using ShipCalc.Domain.Abstractions;
-using ShipCalc.Domain.Result;
+using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
 
-public class CarbonIntensityIndicatorRatingCalculator : ICarbonIntensityIndicatorRatingCalculator
+public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
 {
 
     private readonly ICapacityCalculator _capacityCalculator;
     private readonly IRequiredCarbonIntensityIndicatorCalculator _requiredCarbonIntensityIndicatorCalculator;
     private readonly IAttainedCarbonIntensityIndicatorCalculator _attainedCarbonIntensityIndicatorCalculator;
-    private readonly ICarbonIntensityIndicatorRatingThresholdsRepository _carbonIntensityIndicatorRatingThresholdsRepository;
+    private readonly IRatingThresholdsRepo _carbonIntensityIndicatorRatingThresholdsRepository;
 
     public CarbonIntensityIndicatorRatingCalculator(
         ICapacityCalculator capacityCalculator,
         IRequiredCarbonIntensityIndicatorCalculator requiredCarbonIntensityIndicatorCalculator,
         IAttainedCarbonIntensityIndicatorCalculator attainedCarbonIntensityIndicatorCalculator,
-        ICarbonIntensityIndicatorRatingThresholdsRepository carbonIntensityIndicatorRatingThresholdsRepository)
+        IRatingThresholdsRepo carbonIntensityIndicatorRatingThresholdsRepository)
     {
         _capacityCalculator = capacityCalculator
             ?? throw new ArgumentNullException(nameof(capacityCalculator));
@@ -31,7 +31,7 @@ public class CarbonIntensityIndicatorRatingCalculator : ICarbonIntensityIndicato
         _carbonIntensityIndicatorRatingThresholdsRepository = carbonIntensityIndicatorRatingThresholdsRepository;
     }
 
-    public async Task<CarbonIntensityIndicatorCalcResult> CalculateRatingAsync(
+    public async Task<Domain.Calculations.CarbonIntensityIndicator.CalculationData> CalculateRatingAsync(
         Ship ship,
         decimal co2EmissionsInTons,
         decimal distanceTravelledInNMs,
@@ -75,18 +75,22 @@ public class CarbonIntensityIndicatorRatingCalculator : ICarbonIntensityIndicato
             carbonIntensityIndicatorRatingThresholds,
             carbonIntensityIndicatorNumericalRating);
 
-        var carbonIntensityIndicatorCalcResult = new CarbonIntensityIndicatorCalcResult
+        var carbonIntensityIndicatorCalcResult = new CalculationData
         {
+            Co2EmissionsInTons = co2EmissionsInTons,
+            DistanceTravelledInNMs = distanceTravelledInNMs,
+            Year = year,
+
             Capacity = capacity,
 
-            ReferenceLineParameterA = _requiredCarbonIntensityIndicatorCalculator.RefLineParameterA,
-            ReferenceLineParameterC = _requiredCarbonIntensityIndicatorCalculator.RefLineParameterC,
-            ReferenceLine = _requiredCarbonIntensityIndicatorCalculator.RefLine,
-            ReferenceLineReductionFactor = _requiredCarbonIntensityIndicatorCalculator.RefLineReductionFactor,
+            RefLineParameterA = _requiredCarbonIntensityIndicatorCalculator.RefLineParameterA,
+            RefLineParameterC = _requiredCarbonIntensityIndicatorCalculator.RefLineParameterC,
+            RefLine = _requiredCarbonIntensityIndicatorCalculator.RefLine,
+            RefLineReductionFactor = _requiredCarbonIntensityIndicatorCalculator.RefLineReductionFactor,
             RequiredCarbonIntensityIndicator = _requiredCarbonIntensityIndicatorCalculator.RequiredCarbonIntensityIndicator,
 
             IceClasedShipCapacityCorrFactor = _attainedCarbonIntensityIndicatorCalculator.IceClasedShipCapacityCorrFactor,
-            IASuperAndIAIceClassedShipCorrFactor = _attainedCarbonIntensityIndicatorCalculator.IASuperAndIAIceClassedShipCorrFactor,
+            IASuperAndIAIceCorrFactor = _attainedCarbonIntensityIndicatorCalculator.IASuperAndIAIceClassedShipCorrFactor,
             AttainedCarbonIntensityIndicator = _attainedCarbonIntensityIndicatorCalculator.AttainedCarbonIntensityIndicator,
 
             CarbonIntensityIndicatorNumericalRating = carbonIntensityIndicatorNumericalRating,
@@ -96,17 +100,17 @@ public class CarbonIntensityIndicatorRatingCalculator : ICarbonIntensityIndicato
         return carbonIntensityIndicatorCalcResult;
     }
 
-    private CarbonIntensityIndicatorRating MapCiiRatingToLetterGrade(
-        CarbonIntensityIndicatorRatingThreshold carbonIntensityIndicatorRatingThresholds,
+    private Rating MapCiiRatingToLetterGrade(
+        RatingThreshold carbonIntensityIndicatorRatingThresholds,
         decimal carbonIntensityIndicatorNumericalRating)
     {
         return carbonIntensityIndicatorNumericalRating switch
         {
-            var rating when rating < carbonIntensityIndicatorRatingThresholds.D1 => CarbonIntensityIndicatorRating.A,
-            var rating when rating < carbonIntensityIndicatorRatingThresholds.D2 => CarbonIntensityIndicatorRating.B,
-            var rating when rating < carbonIntensityIndicatorRatingThresholds.D3 => CarbonIntensityIndicatorRating.C,
-            var rating when rating < carbonIntensityIndicatorRatingThresholds.D4 => CarbonIntensityIndicatorRating.D,
-            _ => CarbonIntensityIndicatorRating.E
+            var rating when rating < carbonIntensityIndicatorRatingThresholds.D1 => Rating.A,
+            var rating when rating < carbonIntensityIndicatorRatingThresholds.D2 => Rating.B,
+            var rating when rating < carbonIntensityIndicatorRatingThresholds.D3 => Rating.C,
+            var rating when rating < carbonIntensityIndicatorRatingThresholds.D4 => Rating.D,
+            _ => Rating.E
         };
     }
 }

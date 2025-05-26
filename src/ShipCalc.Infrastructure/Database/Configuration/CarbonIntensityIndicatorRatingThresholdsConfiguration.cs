@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShipCalc.Domain;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CalcResultRecord;
 
 namespace ShipCalc.Infrastructure.Database;
 
 public class CarbonIntensityIndicatorRatingThresholdsConfiguration :
-    IEntityTypeConfiguration<CarbonIntensityIndicatorRatingThreshold>
+    IEntityTypeConfiguration<RatingThreshold>
 {
-    public void Configure(EntityTypeBuilder<CarbonIntensityIndicatorRatingThreshold> builder)
+    public void Configure(EntityTypeBuilder<RatingThreshold> builder)
     {
         builder
             .HasKey(t => t.Id);

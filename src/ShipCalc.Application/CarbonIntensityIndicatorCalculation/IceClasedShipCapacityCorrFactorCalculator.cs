@@ -1,17 +1,17 @@
-﻿using ShipCalc.Application.Abstractions;
-using ShipCalc.Domain.Abstractions;
+﻿using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
+using ShipCalc.Domain.Abstractions.CorrFactor;
 using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
 
 public class IceClasedShipCapacityCorrFactorCalculator : IIceClasedShipCapacityCorrFactorCalculator
 {
-    private readonly ICapacityIceStrengtheningCorrectionFactorRepository _iceStrengtheningRepository;
-    private readonly IReferenceDesignBlockCoefficientRepository _blockCoefficientRepository;
+    private readonly ICapacityIceStrengthCorrFactorRepo _iceStrengtheningRepository;
+    private readonly IRefDesignBlockCoeffRepo _blockCoefficientRepository;
 
     public IceClasedShipCapacityCorrFactorCalculator(
-        ICapacityIceStrengtheningCorrectionFactorRepository iceStrengtheningRepository,
-        IReferenceDesignBlockCoefficientRepository blockCoefficientRepository)
+        ICapacityIceStrengthCorrFactorRepo iceStrengtheningRepository,
+        IRefDesignBlockCoeffRepo blockCoefficientRepository)
     {
         _iceStrengtheningRepository = iceStrengtheningRepository
             ?? throw new ArgumentNullException(nameof(iceStrengtheningRepository));

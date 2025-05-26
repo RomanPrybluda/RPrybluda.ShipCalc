@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShipCalc.Domain.ReductionFactor;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Infrastructure.Database;
 
 public class RequiredCarbonIntensityIndicatorReductionFactorConfiguration :
-    IEntityTypeConfiguration<RequiredCarbonIntensityIndicatorReductionFactor>
+    IEntityTypeConfiguration<RefLineReductionFactor>
 {
-    public void Configure(EntityTypeBuilder<RequiredCarbonIntensityIndicatorReductionFactor> builder)
+    public void Configure(EntityTypeBuilder<RefLineReductionFactor> builder)
     {
         builder
             .HasKey(rf => rf.Id);

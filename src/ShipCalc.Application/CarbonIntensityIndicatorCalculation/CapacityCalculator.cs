@@ -1,4 +1,4 @@
-﻿using ShipCalc.Domain.Abstractions;
+﻿using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
