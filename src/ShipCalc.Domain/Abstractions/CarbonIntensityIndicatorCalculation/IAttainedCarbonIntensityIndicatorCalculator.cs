@@ -1,17 +1,16 @@
-﻿namespace ShipCalc.Domain.Abstractions
+﻿namespace ShipCalc.Domain.Abstractions;
+
+public interface IAttainedCarbonIntensityIndicatorCalculator
 {
-    public interface IAttainedCarbonIntensityIndicatorCalculator
-    {
-        decimal IceClasedShipCapacityCorrFactor { get; }
+    decimal IceClasedShipCapacityCorrFactor { get; }
 
-        decimal IASuperAndIAIceClassedShipCorrFactor { get; }
+    decimal IASuperAndIAIceClassedShipCorrFactor { get; }
 
-        decimal AttainedCarbonIntensityIndicator { get; }
+    decimal AttainedCarbonIntensityIndicator { get; }
 
-        Task CalculateAttainedCarbonIntensityIndicator(
-        Ship ship,
-        decimal capacity,
-        decimal co2EmissionsInTons,
-        decimal distanceTravelledInNMs);
-    }
+    Task CalculateAttainedCarbonIntensityIndicator(
+    Ship ship,
+    decimal capacity,
+    decimal co2EmissionsInTons,
+    decimal distanceTravelledInNMs);
 }

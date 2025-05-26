@@ -1,23 +1,22 @@
 ﻿using ShipCalc.Domain.Abstractions;
 
-namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation
+namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
+
+public class CarbonIntensityIndicatorReferenceLineCalculator : ICarbonIntensityIndicatorReferenceLineCalculator
 {
-    public class CarbonIntensityIndicatorReferenceLineCalculator : ICarbonIntensityIndicatorReferenceLineCalculator
+    public decimal CalculateCarbonIntensityIndicatorReferenceLine(decimal capacity, decimal parametrA, decimal parametrC)
     {
-        public decimal CalculateCarbonIntensityIndicatorReferenceLine(decimal capacity, decimal parametrA, decimal parametrC)
-        {
-            if (capacity <= 0)
-                throw new ArgumentException("Capacity must be greater than zero.", nameof(capacity));
+        if (capacity <= 0)
+            throw new ArgumentException("Capacity must be greater than zero.", nameof(capacity));
 
-            if (parametrA <= 0)
-                throw new ArgumentException("Parameter ReferenceLineParameterA must be greater than zero.", nameof(parametrA));
+        if (parametrA <= 0)
+            throw new ArgumentException("Parameter ReferenceLineParameterA must be greater than zero.", nameof(parametrA));
 
-            if (parametrC < 0)
-                throw new ArgumentException("Parameter ReferenceLineParameterC cannot be negative.", nameof(parametrC));
+        if (parametrC < 0)
+            throw new ArgumentException("Parameter ReferenceLineParameterC cannot be negative.", nameof(parametrC));
 
-            var carbonIntensityIndicatorReference = parametrA * (decimal)Math.Pow((double)capacity, -(double)parametrC);
+        var carbonIntensityIndicatorReference = parametrA * (decimal)Math.Pow((double)capacity, -(double)parametrC);
 
-            return carbonIntensityIndicatorReference;
-        }
+        return carbonIntensityIndicatorReference;
     }
 }

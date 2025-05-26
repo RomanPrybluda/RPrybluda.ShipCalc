@@ -1,13 +1,12 @@
 ﻿using ShipCalc.Domain.Enums;
 
-namespace ShipCalc.Domain.Abstractions
+namespace ShipCalc.Domain.Abstractions;
+
+public interface IIceClasedShipCapacityCorrFactorCalculator
 {
-    public interface IIceClasedShipCapacityCorrFactorCalculator
-    {
-        Task<decimal> CalculateIceClasedCapacityCorrectionFactor(
-        ShipType shipType,
-        decimal deadweight,
-        IceClass iceClass,
-        decimal blockCoefficient);
-    }
+    Task<decimal> CalculateIceClasedCapacityCorrectionFactor(
+    ShipType shipType,
+    decimal deadweight,
+    IceClass iceClass,
+    decimal blockCoefficient);
 }

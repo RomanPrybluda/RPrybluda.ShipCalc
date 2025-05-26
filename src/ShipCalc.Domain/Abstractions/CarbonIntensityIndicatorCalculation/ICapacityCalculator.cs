@@ -1,9 +1,8 @@
 ﻿using ShipCalc.Domain.Enums;
 
-namespace ShipCalc.Domain.Abstractions
+namespace ShipCalc.Domain.Abstractions;
+
+public interface ICapacityCalculator
 {
-    public interface ICapacityCalculator
-    {
-        decimal CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage);
-    }
+    decimal CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage);
 }

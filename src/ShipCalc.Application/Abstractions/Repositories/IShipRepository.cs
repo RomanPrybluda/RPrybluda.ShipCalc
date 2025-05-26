@@ -1,15 +1,14 @@
 ﻿using ShipCalc.Domain;
 
-namespace ShipCalc.Application.Abstractions
+namespace ShipCalc.Application.Abstractions;
+
+public interface IShipRepository
 {
-    public interface IShipRepository
-    {
-        Task<Ship> GetByImoNumberAsync(int imoNumber);
+    Task<Ship> GetByImoNumberAsync(int imoNumber);
 
-        Task AddAsync(Ship ship);
+    Task AddAsync(Ship ship);
 
-        Task UpdateAsync(Ship ship);
+    Task UpdateAsync(Ship ship);
 
-        Task DeleteAsync(int imoNumber);
-    }
+    Task DeleteAsync(int imoNumber);
 }

@@ -1,20 +1,19 @@
 ﻿using ShipCalc.Domain;
 using ShipCalc.Domain.Enums;
 
-namespace ShipCalc.Application.Abstractions
+namespace ShipCalc.Application.Abstractions;
+
+public interface ICapacityIceStrengtheningCorrectionFactorRepository
 {
-    public interface ICapacityIceStrengtheningCorrectionFactorRepository
-    {
-        Task<CapacityIceStrengtheningCorrectionFactor> GetByIdAsync(Guid id);
+    Task<CapacityIceStrengtheningCorrectionFactor> GetByIdAsync(Guid id);
 
-        Task<IEnumerable<CapacityIceStrengtheningCorrectionFactor>> GetAllAsync();
+    Task<IEnumerable<CapacityIceStrengtheningCorrectionFactor>> GetAllAsync();
 
-        Task<CapacityIceStrengtheningCorrectionFactor> GetByIceClassAsync(IceClass iceClass);
+    Task<CapacityIceStrengtheningCorrectionFactor> GetByIceClassAsync(IceClass iceClass);
 
-        Task AddAsync(CapacityIceStrengtheningCorrectionFactor factor);
+    Task AddAsync(CapacityIceStrengtheningCorrectionFactor factor);
 
-        Task UpdateAsync(CapacityIceStrengtheningCorrectionFactor factor);
+    Task UpdateAsync(CapacityIceStrengtheningCorrectionFactor factor);
 
-        Task DeleteAsync(Guid id);
-    }
+    Task DeleteAsync(Guid id);
 }

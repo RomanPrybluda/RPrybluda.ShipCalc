@@ -1,11 +1,10 @@
-﻿namespace ShipCalc.Domain.ReductionFactor
+﻿namespace ShipCalc.Domain.ReductionFactor;
+
+public class RequiredCarbonIntensityIndicatorReductionFactor
 {
-    public class RequiredCarbonIntensityIndicatorReductionFactor
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public int Year { get; set; }
+    public int Year { get; set; }
 
-        public int ReductionFactorPercentage { get; set; }
-    }
+    public int ReductionFactorPercentage { get; set; }
 }

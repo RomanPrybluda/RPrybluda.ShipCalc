@@ -1,12 +1,11 @@
-﻿namespace ShipCalc.Domain.Enums
+﻿namespace ShipCalc.Domain;
+
+public enum CarbonIntensityIndicatorRating
 {
-    public enum CarbonIntensityIndicatorRating
-    {
-        A,
-        B,
-        C,
-        D,
-        E,
-        NotApplicable
-    }
+    A,
+    B,
+    C,
+    D,
+    E,
+    NotApplicable
 }

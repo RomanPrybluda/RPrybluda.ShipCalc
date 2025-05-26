@@ -1,21 +1,20 @@
 ﻿using ShipCalc.Domain.ReductionFactor;
 
-namespace ShipCalc.Application.Abstractions
+namespace ShipCalc.Application.Abstractions;
+
+public interface IRequiredCarbonIntensityIndicatorReductionFactorRepository
 {
-    public interface IRequiredCarbonIntensityIndicatorReductionFactorRepository
-    {
-        Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByIdAsync(Guid id);
+    Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByIdAsync(Guid id);
 
-        Task<IEnumerable<RequiredCarbonIntensityIndicatorReductionFactor>> GetAllAsync();
+    Task<IEnumerable<RequiredCarbonIntensityIndicatorReductionFactor>> GetAllAsync();
 
-        Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByYearAsync(int year);
+    Task<RequiredCarbonIntensityIndicatorReductionFactor> GetByYearAsync(int year);
 
-        Task<IEnumerable<RequiredCarbonIntensityIndicatorReductionFactor>> GetByYearRangeAsync(int minYear, int maxYear);
+    Task<IEnumerable<RequiredCarbonIntensityIndicatorReductionFactor>> GetByYearRangeAsync(int minYear, int maxYear);
 
-        Task AddAsync(RequiredCarbonIntensityIndicatorReductionFactor factor);
+    Task AddAsync(RequiredCarbonIntensityIndicatorReductionFactor factor);
 
-        Task UpdateAsync(RequiredCarbonIntensityIndicatorReductionFactor factor);
+    Task UpdateAsync(RequiredCarbonIntensityIndicatorReductionFactor factor);
 
-        Task DeleteAsync(Guid id);
-    }
+    Task DeleteAsync(Guid id);
 }

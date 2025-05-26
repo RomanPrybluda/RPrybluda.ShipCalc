@@ -1,7 +1,6 @@
-﻿namespace ShipCalc.Domain.Abstractions
+﻿namespace ShipCalc.Domain.Abstractions;
+
+public interface ICarbonIntensityIndicatorReferenceLineCalculator
 {
-    public interface ICarbonIntensityIndicatorReferenceLineCalculator
-    {
-        decimal CalculateCarbonIntensityIndicatorReferenceLine(decimal capacity, decimal parametrA, decimal parametrC);
-    }
+    decimal CalculateCarbonIntensityIndicatorReferenceLine(decimal capacity, decimal parametrA, decimal parametrC);
 }

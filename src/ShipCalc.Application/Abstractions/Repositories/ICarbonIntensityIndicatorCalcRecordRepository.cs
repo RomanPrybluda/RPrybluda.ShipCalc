@@ -1,19 +1,18 @@
 ﻿using ShipCalc.Domain;
 
-namespace ShipCalc.Application.Abstractions
+namespace ShipCalc.Application.Abstractions;
+
+public interface ICarbonIntensityIndicatorCalcRecordRepository
 {
-    public interface ICarbonIntensityIndicatorCalcRecordRepository
-    {
-        Task<CarbonIntensityIndicatorCalcRecord> GetByIdAsync(Guid id);
+    Task<CarbonIntensityIndicatorCalcRecord> GetByIdAsync(Guid id);
 
-        Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetByShipIdAsync(Guid shipId);
+    Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetByShipIdAsync(Guid shipId);
 
-        Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetAllAsync();
+    Task<IEnumerable<CarbonIntensityIndicatorCalcRecord>> GetAllAsync();
 
-        Task AddAsync(CarbonIntensityIndicatorCalcRecord record);
+    Task AddAsync(CarbonIntensityIndicatorCalcRecord record);
 
-        Task UpdateAsync(CarbonIntensityIndicatorCalcRecord record);
+    Task UpdateAsync(CarbonIntensityIndicatorCalcRecord record);
 
-        Task DeleteAsync(Guid id);
-    }
+    Task DeleteAsync(Guid id);
 }
