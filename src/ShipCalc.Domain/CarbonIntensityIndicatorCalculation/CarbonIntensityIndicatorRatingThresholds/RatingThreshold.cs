@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain;
 
-public class CarbonIntensityIndicatorRatingThreshold
+public class RatingThreshold
 {
     public Guid Id { get; set; }
 

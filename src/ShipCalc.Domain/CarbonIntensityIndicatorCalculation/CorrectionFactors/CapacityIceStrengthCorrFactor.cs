@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain;
 
-public class CapacityIceStrengtheningCorrectionFactor
+public class CapacityIceStrengthCorrFactor
 {
     public Guid Id { get; set; }
 

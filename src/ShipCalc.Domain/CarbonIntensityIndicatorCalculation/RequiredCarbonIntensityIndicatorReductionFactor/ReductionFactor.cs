@@ -1,6 +1,6 @@
 ﻿namespace ShipCalc.Domain.ReductionFactor;
 
-public class RequiredCarbonIntensityIndicatorReductionFactor
+public class ReductionFactor
 {
     public Guid Id { get; set; }
 

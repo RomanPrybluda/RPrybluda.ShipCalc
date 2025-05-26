@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain;
 
-public class ReferenceDesignBlockCoefficient
+public class RefDesignBlockCoeff
 {
     public Guid Id { get; set; }
 
