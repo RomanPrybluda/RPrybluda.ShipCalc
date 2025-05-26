@@ -1,5 +1,6 @@
 ﻿using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 using ShipCalc.Domain.Abstractions.CorrFactor;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Calculations.CorrectionFactors;
@@ -27,41 +28,45 @@ public class IceClasedShipCapacityCorrFactorCalculator : IIceClasedShipCapacityC
         decimal blockCoefficient)
     {
         if (deadweight <= 0)
-            throw new ArgumentException("Deadweight must be greater than zero.", nameof(deadweight));
-        if (blockCoefficient <= 0 || blockCoefficient > 1)
-            throw new ArgumentException("Block coefficient (C_b) must be between 0 and 1.", nameof(blockCoefficient));
+            throw new InvalidDeadweightException();
 
-        decimal fIceClass;
+        if (blockCoefficient <= 0 || blockCoefficient > 1)
+            throw new InvalidBlockCoefficientException(blockCoefficient);
+
+        decimal iceStrengthShipCapacityCorrFactor;
         if (iceClass == IceClass.NotApplicable)
         {
-            fIceClass = DefaultCorrectionFactor;
+            iceStrengthShipCapacityCorrFactor = DefaultCorrectionFactor;
         }
         else
         {
             var capacityIceStrengthFactor = await _iceStrengthRepo.GetByIceClassAsync(iceClass);
-            if (capacityIceStrengthFactor == null)
-                throw new ArgumentException($"No ice strengthening correction factor found for ice class: {iceClass}");
 
-            fIceClass = capacityIceStrengthFactor.ConstantA + capacityIceStrengthFactor.ConstantB / deadweight;
-            if (fIceClass <= 0)
-                throw new ArgumentException($"Calculated f_i(ice class) must be greater than zero for ice class: {iceClass}");
+            if (capacityIceStrengthFactor == null)
+                throw new IceClassCorrectionFactorNotFoundException(iceClass);
+
+            iceStrengthShipCapacityCorrFactor = capacityIceStrengthFactor.ConstantA + capacityIceStrengthFactor.ConstantB / deadweight;
+            if (iceStrengthShipCapacityCorrFactor <= 0)
+                throw new InvalidCalculatedIceClassFactorException(iceClass, iceStrengthShipCapacityCorrFactor);
         }
 
-        decimal fIcb;
+        decimal iceGoingCapabilityCapacityCorrFactor;
         if (shipType == ShipType.BulkCarrier || shipType == ShipType.Tanker || shipType == ShipType.GeneralCargoShip)
         {
             var blockCoefficientRef = await _blockCoeffRepo.GetByShipTypeAndDeadweightAsync(shipType, deadweight);
             if (blockCoefficientRef == null)
-                throw new ArgumentException($"No reference block coefficient found for ship type {shipType} and deadweight {deadweight}");
+                throw new ReferenceBlockCoefficientNotFoundException(shipType, deadweight);
 
-            fIcb = blockCoefficientRef.BlockCoefficient / blockCoefficient;
-            fIcb = Math.Max(fIcb, MinimumCorrectionFactor);
+            iceGoingCapabilityCapacityCorrFactor = blockCoefficientRef.BlockCoefficient / blockCoefficient;
+            iceGoingCapabilityCapacityCorrFactor = Math.Max(iceGoingCapabilityCapacityCorrFactor, MinimumCorrectionFactor);
         }
         else
         {
-            fIcb = DefaultCorrectionFactor;
+            iceGoingCapabilityCapacityCorrFactor = DefaultCorrectionFactor;
         }
 
-        return fIceClass * fIcb;
+        var capacityCorrFactor = iceStrengthShipCapacityCorrFactor * iceGoingCapabilityCapacityCorrFactor;
+
+        return capacityCorrFactor;
     }
 }

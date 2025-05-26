@@ -1,4 +1,5 @@
 ﻿using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Application.Calculations.CarbonIntensityIndicator;
 
@@ -7,13 +8,13 @@ public class CarbonIntensityIndicatorReferenceLineCalculator : IRefLineCalculato
     public decimal CalculateRefLine(decimal capacity, decimal parametrA, decimal parametrC)
     {
         if (capacity <= 0)
-            throw new ArgumentException("Capacity must be greater than zero.", nameof(capacity));
+            throw new InvalidCapacityException(capacity);
 
         if (parametrA <= 0)
-            throw new ArgumentException("Parameter RefLineParameterA must be greater than zero.", nameof(parametrA));
+            throw new InvalidRefLineParameterAException(parametrA);
 
         if (parametrC < 0)
-            throw new ArgumentException("Parameter RefLineParameterC cannot be negative.", nameof(parametrC));
+            throw new InvalidRefLineParameterCException(parametrC);
 
         var carbonIntensityIndicatorReference = parametrA * (decimal)Math.Pow((double)capacity, -(double)parametrC);
 

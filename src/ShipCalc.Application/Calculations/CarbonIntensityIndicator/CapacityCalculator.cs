@@ -1,4 +1,5 @@
 ﻿using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Calculations.CarbonIntensityIndicator;
@@ -8,9 +9,10 @@ public class CapacityCalculator : ICapacityCalculator
     public decimal CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage)
     {
         if (deadWeight < 0)
-            throw new ArgumentException("Deadweight cannot be negative.", nameof(deadWeight));
+            throw new Domain.Calculations.CarbonIntensityIndicator.InvalidDeadweightException();
+
         if (grossTonnage < 0)
-            throw new ArgumentOutOfRangeException(nameof(grossTonnage), "Gross tonnage cannot be negative.");
+            throw new Domain.Calculations.CarbonIntensityIndicator.InvalidGrossTonnageException();
 
         decimal capacity;
 
@@ -35,6 +37,6 @@ public class CapacityCalculator : ICapacityCalculator
             return capacity;
         }
 
-        throw new ArgumentException($"Unsupported ship type: {shipType}", nameof(shipType));
+        throw new UnsupportedShipTypeException(shipType);
     }
 }

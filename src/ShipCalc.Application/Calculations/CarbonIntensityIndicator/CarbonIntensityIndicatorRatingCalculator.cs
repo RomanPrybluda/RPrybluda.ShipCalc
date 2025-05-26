@@ -19,32 +19,32 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
         IAttainedCarbonIntensityIndicatorCalculator attainedCarbonIntensityIndicatorCalculator,
         IRatingThresholdsRepo carbonIntensityIndicatorRatingThresholdsRepository)
     {
-        _capacityCalculator = capacityCalculator
-            ?? throw new ArgumentNullException(nameof(capacityCalculator));
+        _capacityCalculator = capacityCalculator;
 
-        _requiredCarbonIntensityIndicatorCalculator = requiredCarbonIntensityIndicatorCalculator
-            ?? throw new ArgumentNullException(nameof(requiredCarbonIntensityIndicatorCalculator));
+        _requiredCarbonIntensityIndicatorCalculator = requiredCarbonIntensityIndicatorCalculator;
 
-        _attainedCarbonIntensityIndicatorCalculator = attainedCarbonIntensityIndicatorCalculator
-            ?? throw new ArgumentNullException(nameof(attainedCarbonIntensityIndicatorCalculator));
+        _attainedCarbonIntensityIndicatorCalculator = attainedCarbonIntensityIndicatorCalculator;
 
         _carbonIntensityIndicatorRatingThresholdsRepository = carbonIntensityIndicatorRatingThresholdsRepository;
     }
 
-    public async Task<Domain.Calculations.CarbonIntensityIndicator.CalculationData> CalculateRatingAsync(
+    public async Task<CalculationData> CalculateRatingAsync(
         Ship ship,
         decimal co2EmissionsInTons,
         decimal distanceTravelledInNMs,
         int year)
     {
         if (ship == null)
-            throw new ArgumentNullException(nameof(ship));
+            throw new InvalidShipException();
+
         if (co2EmissionsInTons < 0)
-            throw new ArgumentException("CO2 emissions cannot be negative.", nameof(co2EmissionsInTons));
+            throw new NegativeCo2EmissionsException();
+
         if (distanceTravelledInNMs < 0)
-            throw new ArgumentException("Distance travelled cannot be negative.", nameof(distanceTravelledInNMs));
+            throw new NegativeDistanceTravelledException();
+
         if (year < 0)
-            throw new ArgumentException("Year cannot be negative.", nameof(year));
+            throw new NegativeYearException();
 
         var capacity = _capacityCalculator.CalculateCapacity(
             ship.ShipType,
