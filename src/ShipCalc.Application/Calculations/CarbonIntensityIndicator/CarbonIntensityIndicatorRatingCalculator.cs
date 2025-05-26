@@ -3,7 +3,7 @@ using ShipCalc.Domain;
 using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
-namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
+namespace ShipCalc.Application.Calculations.CarbonIntensityIndicator;
 
 public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
 {

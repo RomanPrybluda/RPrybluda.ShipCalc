@@ -1,6 +1,6 @@
 ﻿using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 
-namespace ShipCalc.Application.CarbonIntensityIndicatorCalculation;
+namespace ShipCalc.Application.Calculations.CarbonIntensityIndicator;
 
 public class CarbonIntensityIndicatorReferenceLineCalculator : IRefLineCalculator
 {

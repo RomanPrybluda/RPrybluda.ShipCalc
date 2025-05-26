@@ -1,4 +1,4 @@
-﻿namespace ShipCalc.Domain;
+﻿namespace ShipCalc.Application.Validators;
 
 public class CarbonIntensityIndicatorCalculationValidator
 {
