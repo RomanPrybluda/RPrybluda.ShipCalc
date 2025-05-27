@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using ShipCalc.Infrastructure.Data;
+using ShipCalc.Infrastructure.Database;
 
 #nullable disable
 
 namespace ShipCalc.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ShipCalcDbContext))]
-    [Migration("20250527202145_InitialMigration")]
+    [Migration("20250527220730_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
