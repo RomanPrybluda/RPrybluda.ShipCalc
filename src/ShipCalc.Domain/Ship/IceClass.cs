@@ -1,12 +1,11 @@
-﻿namespace ShipCalc.Domain.Enums
-{
-    public enum IceClass
-    {
-        IC,
-        IB,
-        IA,
-        IASuper,
+﻿namespace ShipCalc.Domain.Enums;
 
-        NotApplicable,
-    }
+public enum IceClass
+{
+    IC,
+    IB,
+    IA,
+    IASuper,
+
+    NotApplicable,
 }

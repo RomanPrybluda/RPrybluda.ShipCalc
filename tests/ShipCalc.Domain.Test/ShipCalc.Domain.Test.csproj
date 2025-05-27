@@ -18,10 +18,6 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\src\ShipCalc.Domain\ShipCalc.Domain.csproj" />
-	</ItemGroup>
-
   <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>

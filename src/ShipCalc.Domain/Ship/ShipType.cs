@@ -1,23 +1,22 @@
-﻿namespace ShipCalc.Domain.Enums
+﻿namespace ShipCalc.Domain.Enums;
+
+public enum ShipType
 {
-    public enum ShipType
-    {
-        BulkCarrier,
-        GasCarrier,
-        Tanker,
-        ContainerShip,
-        GeneralCargoShip,
-        RefrigeratedCargoCarrier,
-        CombinationCarrier,
-        LNGCarrier,
+    BulkCarrier,
+    GasCarrier,
+    Tanker,
+    ContainerShip,
+    GeneralCargoShip,
+    RefrigeratedCargoCarrier,
+    CombinationCarrier,
+    LNGCarrier,
 
-        RoRoCargoVehicle,
-        RoRoCargo,
-        RoRoPassenger,
-        RoRoPassengerCargo,
-        RoRoPassengerCargoHighSpeedCraft,
-        CruisePassengerShip,
+    RoRoCargoVehicle,
+    RoRoCargo,
+    RoRoPassenger,
+    RoRoPassengerCargo,
+    RoRoPassengerCargoHighSpeedCraft,
+    CruisePassengerShip,
 
-        NotApplicable,
-    }
+    NotApplicable,
 }
