@@ -48,6 +48,4 @@ public interface IShipCalcDbContext
     /// </summary>
     DbSet<IASuperAndIAIceCorrFactor> IASuperAndIAIceCorrFactors { get; }
 
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-
 }
