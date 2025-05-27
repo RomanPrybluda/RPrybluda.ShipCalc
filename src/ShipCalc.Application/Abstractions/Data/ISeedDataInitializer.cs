@@ -2,7 +2,7 @@
 {
     public interface ISeedDataInitializer
     {
-        Task InitializeRICapacityIceStrengthCorrFactorAsync();
+        Task InitializeCapacityIceStrengthCorrFactorAsync();
 
         Task InitializeIASuperAndIAIceCorrFactorAsync();
 

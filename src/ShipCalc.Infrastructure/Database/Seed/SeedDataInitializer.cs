@@ -12,7 +12,7 @@ public class SeedDataInitializer : ISeedDataInitializer
         _context = context;
     }
 
-    public async Task InitializeRICapacityIceStrengthCorrFactorAsync()
+    public async Task InitializeCapacityIceStrengthCorrFactorAsync()
     {
         throw new NotImplementedException();
 
