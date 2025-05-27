@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShipCalc.Application.Abstractions;
 using ShipCalc.Domain;
-using ShipCalc.Infrastructure.Data;
+using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories;
 
