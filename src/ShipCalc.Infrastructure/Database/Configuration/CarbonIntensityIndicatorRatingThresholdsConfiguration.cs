@@ -14,7 +14,7 @@ public class CarbonIntensityIndicatorRatingThresholdsConfiguration :
 
         builder
             .Property(t => t.Id)
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder
             .Property(t => t.ShipType)

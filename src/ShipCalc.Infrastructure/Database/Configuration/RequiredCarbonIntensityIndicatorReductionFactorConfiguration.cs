@@ -15,7 +15,7 @@ public class RequiredCarbonIntensityIndicatorReductionFactorConfiguration :
         builder
             .Property(rf => rf.Id)
             .IsRequired()
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder
             .Property(rf => rf.Year)
@@ -25,7 +25,7 @@ public class RequiredCarbonIntensityIndicatorReductionFactorConfiguration :
         builder
             .Property(rf => rf.ReductionFactorPercentage)
             .IsRequired()
-            .HasColumnType("int(2,0)")
+            .HasColumnType("integer")
             .HasComment("The reduction factor percentage (Z%) for the CII relative to the 2019 reference line");
 
     }
