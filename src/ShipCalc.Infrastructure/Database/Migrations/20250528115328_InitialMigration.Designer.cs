@@ -12,7 +12,7 @@ using ShipCalc.Infrastructure.Database;
 namespace ShipCalc.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ShipCalcDbContext))]
-    [Migration("20250527220730_InitialMigration")]
+    [Migration("20250528115328_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -332,7 +332,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                     b.Property<decimal>("BlockCoefficient")
                         .HasPrecision(4, 3)
                         .HasColumnType("numeric(4,3)")
-                        .HasColumnName("BlockCoefficient");
+                        .HasColumnName("block_coefficient");
 
                     b.Property<decimal>("CargoCompartmentCubicCapacity")
                         .HasPrecision(18, 2)
@@ -375,9 +375,9 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_ships_imo_number");
 
-                    b.ToTable("Ships", null, t =>
+                    b.ToTable("ships", null, t =>
                         {
-                            t.HasCheckConstraint("CK_Ship_BlockCoefficient_Range", "\"BlockCoefficient\" >= 0 AND \"BlockCoefficient\" <= 1");
+                            t.HasCheckConstraint("ck_ship_block_coefficient_range", "\"block_coefficient\" >= 0 AND \"block_coefficient\" <= 1");
                         });
                 });
 

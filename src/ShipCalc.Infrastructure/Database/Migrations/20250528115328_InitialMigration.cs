@@ -101,7 +101,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ships",
+                name: "ships",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
@@ -109,7 +109,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                     ship_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     gross_tonnage = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
                     summer_deadweight = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
-                    BlockCoefficient = table.Column<decimal>(type: "numeric(4,3)", precision: 4, scale: 3, nullable: false),
+                    block_coefficient = table.Column<decimal>(type: "numeric(4,3)", precision: 4, scale: 3, nullable: false),
                     cargo_compartment_cubic_capacity = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
                     ship_type = table.Column<int>(type: "integer", nullable: false),
                     ice_class = table.Column<int>(type: "integer", nullable: false)
@@ -117,7 +117,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_ships", x => x.id);
-                    table.CheckConstraint("CK_Ship_BlockCoefficient_Range", "\"BlockCoefficient\" >= 0 AND \"BlockCoefficient\" <= 1");
+                    table.CheckConstraint("ck_ship_block_coefficient_range", "\"block_coefficient\" >= 0 AND \"block_coefficient\" <= 1");
                 });
 
             migrationBuilder.CreateTable(
@@ -148,7 +148,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                     table.ForeignKey(
                         name: "fk_calculation_datas_ships_ship_id",
                         column: x => x.ship_id,
-                        principalTable: "Ships",
+                        principalTable: "ships",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -167,7 +167,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "ix_ships_imo_number",
-                table: "Ships",
+                table: "ships",
                 column: "imo_number",
                 unique: true);
         }
@@ -197,7 +197,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                 name: "ref_design_block_coeffs");
 
             migrationBuilder.DropTable(
-                name: "Ships");
+                name: "ships");
         }
     }
 }
