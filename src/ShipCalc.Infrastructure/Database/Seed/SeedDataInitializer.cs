@@ -14,26 +14,22 @@ public class SeedDataInitializer : ISeedDataInitializer
 
     public async Task InitializeCapacityIceStrengthCorrFactorAsync()
     {
-        throw new NotImplementedException();
-
-        //if (!_context.CapacityIceStrengthCorrFactors.Any())
-        //{
-        //    var data = CapacityIceStrengthCorrFactorsSeedData.GetData();
-        //    _context.CapacityIceStrengthCorrFactors.AddRange(data);
-        //    await _context.SaveChangesAsync();
-        //}
+        if (!_context.CapacityIceStrengthCorrFactors.Any())
+        {
+            var data = CapacityIceStrengthCorrFactorsSeedData.GetData();
+            _context.CapacityIceStrengthCorrFactors.AddRange(data);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task InitializeIASuperAndIAIceCorrFactorAsync()
     {
-        throw new NotImplementedException();
-
-        //if (!_context.IASuperAndIAIceCorrFactors.Any())
-        //{
-        //    var data = IASuperAndIAIceCorrFactorsSeedData.GetData();
-        //    _context.IASuperAndIAIceCorrFactors.AddRange(data);
-        //    await _context.SaveChangesAsync();
-        //}
+        if (!_context.IASuperAndIAIceCorrFactors.Any())
+        {
+            var data = IASuperAndIAIceCorrFactorsSeedData.GetData();
+            _context.IASuperAndIAIceCorrFactors.AddRange(data);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task InitializeRatingThresholdsAsync()
@@ -48,37 +44,31 @@ public class SeedDataInitializer : ISeedDataInitializer
 
     public async Task InitializeIReductionFactorAsync()
     {
-        throw new NotImplementedException();
-
-        //if (!_context.ReductionFactors.Any())
-        //{
-        //    var data = ReductionFactorsSeedData.GetData();
-        //    _context.ReductionFactors.AddRange(data);
-        //    await _context.SaveChangesAsync();
-        //}
+        if (!_context.CIIReqReductionFactors.Any())
+        {
+            var data = ReductionFactorsSeedData.GetData();
+            _context.CIIReqReductionFactors.AddRange(data);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task InitializeIRefDesignBlockCoeffAsync()
     {
-        throw new NotImplementedException();
-
-        //if (!_context.RefDesignBlockCoefficients.Any())
-        //{
-        //    var data = RefDesignBlockCoeffSeedData.GetData();
-        //    _context.RefDesignBlockCoefficients.AddRange(data);
-        //    await _context.SaveChangesAsync();
-        //}
+        if (!_context.RefDesignBlockCoeffs.Any())
+        {
+            var data = RefDesignBlockCoeffSeedData.GetData();
+            _context.RefDesignBlockCoeffs.AddRange(data);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task InitializeRefLineParamsAsync()
     {
-        throw new NotImplementedException();
-
-        //if (!_context.RefLineParams.Any())
-        //{
-        //    var data = RefLineParamsSeedData.GetData();
-        //    _context.RefLineParams.AddRange(data);
-        //    await _context.SaveChangesAsync();
-        //}
+        if (!_context.CIIRefLineParams.Any())
+        {
+            var data = RefLineParamsSeedData.GetData();
+            _context.CIIRefLineParams.AddRange(data);
+            await _context.SaveChangesAsync();
+        }
     }
 }

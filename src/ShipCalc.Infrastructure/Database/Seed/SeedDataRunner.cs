@@ -13,11 +13,11 @@ public class SeedDataRunner
 
     public async Task RunAllAsync()
     {
-        //await _initializer.InitializeCapacityIceStrengthCorrFactorAsync();
-        //await _initializer.InitializeIASuperAndIAIceCorrFactorAsync();
+        await _initializer.InitializeCapacityIceStrengthCorrFactorAsync();
+        await _initializer.InitializeIASuperAndIAIceCorrFactorAsync();
         await _initializer.InitializeRatingThresholdsAsync();
-        //await _initializer.InitializeIReductionFactorAsync();
-        //await _initializer.InitializeIRefDesignBlockCoeffAsync();
-        //await _initializer.InitializeRefLineParamsAsync();
+        await _initializer.InitializeIReductionFactorAsync();
+        await _initializer.InitializeIRefDesignBlockCoeffAsync();
+        await _initializer.InitializeRefLineParamsAsync();
     }
 }
