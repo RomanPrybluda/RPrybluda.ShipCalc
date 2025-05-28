@@ -49,7 +49,7 @@ public class ShipConfiguration :
             .HasColumnName("BlockCoefficient");
 
         builder
-            .ToTable("Ships", tableBuilder =>
+            .ToTable("ships", tableBuilder =>
             {
                 tableBuilder.HasCheckConstraint(
                     "CK_Ship_BlockCoefficient_Range",
