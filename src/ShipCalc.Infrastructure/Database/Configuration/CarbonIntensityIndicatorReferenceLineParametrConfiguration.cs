@@ -14,7 +14,7 @@ public class CarbonIntensityIndicatorReferenceLineParametrConfiguration :
 
         builder
             .Property(ci => ci.Id)
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder
             .Property(ci => ci.LowerBound)

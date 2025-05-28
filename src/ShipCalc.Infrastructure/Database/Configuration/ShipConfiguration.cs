@@ -14,7 +14,7 @@ public class ShipConfiguration :
 
         builder
             .Property(s => s.Id)
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(s => s.ImoNumber)
             .IsRequired()
@@ -45,9 +45,16 @@ public class ShipConfiguration :
             .HasPrecision(4, 3);
 
         builder
-            .ToTable(t => t.HasCheckConstraint(
-                "CK_BlockCoefficient_Range",
-                "BlockCoefficient > 0 AND BlockCoefficient < 1"));
+            .Property(s => s.BlockCoefficient)
+            .HasColumnName("BlockCoefficient");
+
+        builder
+            .ToTable("ships", tableBuilder =>
+            {
+                tableBuilder.HasCheckConstraint(
+                    "CK_Ship_BlockCoefficient_Range",
+                    "\"BlockCoefficient\" >= 0 AND \"BlockCoefficient\" <= 1");
+            });
 
         builder
             .Property(s => s.CargoCompartmentCubicCapacity)

@@ -15,7 +15,7 @@ public class ReferenceDesignBlockCoefficientConfiguration :
         builder
             .Property(bc => bc.Id)
             .IsRequired()
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder
             .Property(bc => bc.ShipType)
@@ -23,16 +23,16 @@ public class ReferenceDesignBlockCoefficientConfiguration :
 
         builder
             .Property(bc => bc.MinDeadweight)
-            .HasColumnType("int");
+            .HasColumnType("integer");
 
         builder
             .Property(bc => bc.MaxDeadweight)
-            .HasColumnType("int");
+            .HasColumnType("integer");
 
         builder
             .Property(bc => bc.BlockCoefficient)
             .IsRequired()
-            .HasColumnType("decimal(3,2)");
+            .HasPrecision(3, 2);
 
     }
 }

@@ -4,7 +4,7 @@ using ShipCalc.Domain;
 using ShipCalc.Domain.Calculation.CorrectionFactors;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
-namespace ShipCalc.Infrastructure.Data;
+namespace ShipCalc.Infrastructure.Database;
 
 public class ShipCalcDbContext : DbContext, IShipCalcDbContext
 {

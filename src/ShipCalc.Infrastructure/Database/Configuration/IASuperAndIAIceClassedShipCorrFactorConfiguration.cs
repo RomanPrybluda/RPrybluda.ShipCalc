@@ -14,7 +14,7 @@ public class IASuperAndIAIceClassedShipCorrFactorConfiguration :
 
         builder
             .Property(cf => cf.Id)
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder
             .Property(cf => cf.IceClass)
@@ -23,7 +23,7 @@ public class IASuperAndIAIceClassedShipCorrFactorConfiguration :
         builder
             .Property(cf => cf.CorrectionFactor)
             .IsRequired()
-            .HasColumnType("decimal(3,2)");
+            .HasPrecision(3, 2);
 
     }
 }

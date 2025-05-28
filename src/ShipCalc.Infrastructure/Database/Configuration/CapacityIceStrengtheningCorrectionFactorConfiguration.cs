@@ -14,7 +14,7 @@ public class CapacityIceStrengtheningCorrectionFactorConfiguration :
 
         builder
             .Property(cf => cf.Id)
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder
             .Property(cf => cf.IceClass)
@@ -23,12 +23,12 @@ public class CapacityIceStrengtheningCorrectionFactorConfiguration :
         builder
             .Property(cf => cf.ConstantA)
             .IsRequired()
-            .HasColumnType("decimal(5,4)");
+            .HasPrecision(5, 4);
 
         builder
             .Property(cf => cf.ConstantB)
             .IsRequired()
-            .HasColumnType("decimal(4,1)");
+            .HasPrecision(4, 1);
 
     }
 }

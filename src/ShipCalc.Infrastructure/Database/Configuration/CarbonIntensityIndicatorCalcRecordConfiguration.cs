@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShipCalc.Domain; // Assuming Ship entity is in this namespace
+using ShipCalc.Domain;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Infrastructure.Database;
@@ -15,7 +15,7 @@ public class CarbonIntensityIndicatorCalcRecordConfiguration :
 
         builder
             .Property(ci => ci.Id)
-            .HasDefaultValueSql("NEWID()");
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(ci => ci.Co2EmissionsInTons)
             .IsRequired()
@@ -72,7 +72,7 @@ public class CarbonIntensityIndicatorCalcRecordConfiguration :
 
         builder.Property(ci => ci.CalculationDate)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
         builder.Property(ci => ci.ShipId)
             .IsRequired()

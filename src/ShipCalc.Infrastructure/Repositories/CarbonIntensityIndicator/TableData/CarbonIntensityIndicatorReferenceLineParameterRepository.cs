@@ -2,7 +2,7 @@
 using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
-using ShipCalc.Infrastructure.Data;
+using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
