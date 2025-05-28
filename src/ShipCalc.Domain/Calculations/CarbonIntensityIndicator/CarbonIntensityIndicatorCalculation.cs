@@ -1,6 +1,6 @@
 ﻿namespace ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
-public class CalculationData
+public class CarbonIntensityIndicatorCalculation
 {
     public Guid Id { get; set; }
 
@@ -32,7 +32,7 @@ public class CalculationData
 
     public Rating CarbonIntensityIndicatorRating { get; set; }
 
-    public DateTime CalculationDate { get; set; } = DateTime.Now;
+    public DateTime CalculationDate { get; set; } = DateTime.UtcNow;
 
     public Guid ShipId { get; set; }
 
