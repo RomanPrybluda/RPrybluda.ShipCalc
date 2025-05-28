@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Application.Abstractions;
 
-public interface IShipRepository
+public interface IShipRepo
 {
     Task<Ship?> GetById(Guid id, CancellationToken cancellationToken = default);
 

@@ -3,7 +3,7 @@ using ShipCalc.Domain;
 using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
-namespace ShipCalc.Application.Calculations.CarbonIntensityIndicator;
+namespace ShipCalc.Application.Calculators.CarbonIntensityIndicator;
 
 public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
 {
@@ -17,7 +17,7 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
         ICapacityCalculator capacityCalculator,
         IRequiredCarbonIntensityIndicatorCalculator requiredCarbonIntensityIndicatorCalculator,
         IAttainedCarbonIntensityIndicatorCalculator attainedCarbonIntensityIndicatorCalculator,
-        IRatingThresholdsRepo carbonIntensityIndicatorRatingThresholdsRepository)
+        IRatingThresholdsRepo carbonIntensityIndicatorRatingThresholdsRepo)
     {
         _capacityCalculator = capacityCalculator;
 
@@ -25,10 +25,10 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
 
         _attainedCarbonIntensityIndicatorCalculator = attainedCarbonIntensityIndicatorCalculator;
 
-        _carbonIntensityIndicatorRatingThresholdsRepository = carbonIntensityIndicatorRatingThresholdsRepository;
+        _carbonIntensityIndicatorRatingThresholdsRepository = carbonIntensityIndicatorRatingThresholdsRepo;
     }
 
-    public async Task<CalculationData> CalculateRatingAsync(
+    public async Task<CarbonIntensityIndicatorCalculation> CalculateRatingAsync(
         Ship ship,
         decimal co2EmissionsInTons,
         decimal distanceTravelledInNMs,
@@ -75,7 +75,7 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
             carbonIntensityIndicatorRatingThresholds,
             carbonIntensityIndicatorNumericalRating);
 
-        var carbonIntensityIndicatorCalcResult = new CalculationData
+        var carbonIntensityIndicatorCalcResult = new CarbonIntensityIndicatorCalculation
         {
             Co2EmissionsInTons = co2EmissionsInTons,
             DistanceTravelledInNMs = distanceTravelledInNMs,

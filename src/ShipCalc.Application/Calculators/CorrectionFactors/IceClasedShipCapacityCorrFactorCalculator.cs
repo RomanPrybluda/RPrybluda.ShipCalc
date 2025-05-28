@@ -3,7 +3,7 @@ using ShipCalc.Domain.Abstractions.CorrFactor;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
-namespace ShipCalc.Application.Calculations.CorrectionFactors;
+namespace ShipCalc.Application.Calculators.CorrectionFactors;
 
 public class IceClasedShipCapacityCorrFactorCalculator : IIceClasedShipCapacityCorrFactorCalculator
 {

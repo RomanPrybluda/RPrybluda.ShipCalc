@@ -3,7 +3,7 @@ using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
-namespace ShipCalc.Application.Calculations.CarbonIntensityIndicator;
+namespace ShipCalc.Application.Calculators.CarbonIntensityIndicator;
 
 public class RequiredCarbonIntensityIndicatorCalculator : IRequiredCarbonIntensityIndicatorCalculator
 {

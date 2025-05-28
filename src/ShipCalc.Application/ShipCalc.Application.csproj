@@ -7,15 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CalculationData\Commands\CommandHandlers\" />
-    <Folder Include="CalculationData\DTOs\" />
-    <Folder Include="CalculationData\Queries\" />
+    <Folder Include="Calculation\CarbonIntensityIndicator\GetById\" />
     <Folder Include="Ship\Commands\CommandHandlers\" />
     <Folder Include="Ship\DTOs\" />
     <Folder Include="Ship\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16" />
   </ItemGroup>
 
