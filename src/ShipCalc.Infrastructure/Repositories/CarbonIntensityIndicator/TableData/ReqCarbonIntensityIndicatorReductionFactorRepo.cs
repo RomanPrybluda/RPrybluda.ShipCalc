@@ -5,12 +5,12 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
-public class RequiredCarbonIntensityIndicatorReductionFactorRepository :
+public class ReqCarbonIntensityIndicatorReductionFactorRepo :
     IReductionFactorRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public RequiredCarbonIntensityIndicatorReductionFactorRepository(
+    public ReqCarbonIntensityIndicatorReductionFactorRepo(
         ShipCalcDbContext context)
     {
         _context = context;

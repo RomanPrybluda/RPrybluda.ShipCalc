@@ -107,7 +107,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                     b.ToTable("ref_design_block_coeffs", (string)null);
                 });
 
-            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CalculationData", b =>
+            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CarbonIntensityIndicatorCalculation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -381,11 +381,11 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CalculationData", b =>
+            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CarbonIntensityIndicatorCalculation", b =>
                 {
                     b.HasOne("ShipCalc.Domain.Ship", null)
                         .WithOne()
-                        .HasForeignKey("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CalculationData", "ShipId")
+                        .HasForeignKey("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CarbonIntensityIndicatorCalculation", "ShipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_calculation_datas_ships_ship_id");

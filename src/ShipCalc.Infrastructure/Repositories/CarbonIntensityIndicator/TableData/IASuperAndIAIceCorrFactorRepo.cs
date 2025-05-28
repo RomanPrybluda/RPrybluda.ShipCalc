@@ -6,12 +6,12 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
-public class IASuperAndIAIceClassedShipCorrFactorRepository :
+public class IASuperAndIAIceCorrFactorRepo :
     IIASuperAndIAIceCorrFactorRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public IASuperAndIAIceClassedShipCorrFactorRepository(
+    public IASuperAndIAIceCorrFactorRepo(
         ShipCalcDbContext context)
     {
         _context = context;

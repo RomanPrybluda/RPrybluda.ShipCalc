@@ -5,51 +5,51 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories;
 
-public class CarbonIntensityIndicatorCalcRecordRepository :
-    ICalculationDataRepo
+public class CarbonIntensityIndicatorCalcnRepo :
+    ICarbonIntensityIndicatorCalcnRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public CarbonIntensityIndicatorCalcRecordRepository(
+    public CarbonIntensityIndicatorCalcnRepo(
         ShipCalcDbContext context)
     {
         _context = context;
     }
 
-    public async Task<CalculationData?> GetByIdAsync(Guid id,
+    public async Task<CarbonIntensityIndicatorCalculation?> GetByIdAsync(Guid id,
         CancellationToken cancellationToken = default)
     {
-        return await _context.CalculationDatas
+        return await _context.CIICalculations
             .AsNoTracking()
             .FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    public async Task<CalculationData?> GetByShipIdAsync(Guid shipId,
+    public async Task<CarbonIntensityIndicatorCalculation?> GetByShipIdAsync(Guid shipId,
         CancellationToken cancellationToken = default)
     {
-        return await _context.CalculationDatas
+        return await _context.CIICalculations
             .AsNoTracking()
             .FirstOrDefaultAsync(r => r.ShipId == shipId);
     }
 
-    public async Task<IEnumerable<CalculationData?>> GetAllAsync(
+    public async Task<IEnumerable<CarbonIntensityIndicatorCalculation?>> GetAllAsync(
         CancellationToken cancellationToken = default)
     {
-        return await _context.CalculationDatas
+        return await _context.CIICalculations
             .AsNoTracking()
             .ToListAsync();
     }
 
-    public async Task AddAsync(CalculationData record,
+    public async Task AddAsync(CarbonIntensityIndicatorCalculation record,
         CancellationToken cancellationToken = default)
     {
-        await _context.CalculationDatas.AddAsync(record);
+        await _context.CIICalculations.AddAsync(record);
     }
 
     public async Task DeleteAsync(Guid id,
         CancellationToken cancellationToken = default)
     {
-        await _context.CalculationDatas
+        await _context.CIICalculations
             .AsNoTracking()
             .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
     }

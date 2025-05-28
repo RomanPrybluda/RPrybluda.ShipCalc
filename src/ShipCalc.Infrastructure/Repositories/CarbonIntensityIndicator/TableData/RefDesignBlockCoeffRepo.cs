@@ -6,12 +6,12 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
-public class ReferenceDesignBlockCoefficientRepository :
+public class RefDesignBlockCoeffRepo :
     IRefDesignBlockCoeffRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public ReferenceDesignBlockCoefficientRepository(
+    public RefDesignBlockCoeffRepo(
         ShipCalcDbContext context)
     {
         _context = context;

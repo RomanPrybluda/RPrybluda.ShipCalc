@@ -6,11 +6,11 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
-public class CarbonIntensityIndicatorRatingThresholdsRepository : IRatingThresholdsRepo
+public class CarbonIntensityIndicatorRatingThresholdsRepo : IRatingThresholdsRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public CarbonIntensityIndicatorRatingThresholdsRepository(
+    public CarbonIntensityIndicatorRatingThresholdsRepo(
         ShipCalcDbContext context)
     {
         _context = context;

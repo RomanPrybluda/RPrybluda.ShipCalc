@@ -5,11 +5,11 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories;
 
-public class ShipRepository : IShipRepository
+public class ShipRepo : IShipRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public ShipRepository(ShipCalcDbContext context)
+    public ShipRepo(ShipCalcDbContext context)
     {
         _context = context;
     }

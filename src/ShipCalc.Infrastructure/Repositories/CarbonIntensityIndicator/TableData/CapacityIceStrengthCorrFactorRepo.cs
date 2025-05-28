@@ -6,12 +6,12 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
-public class CapacityIceStrengtheningCorrectionFactorRepository :
+public class CapacityIceStrengthCorrFactorRepo :
     ICapacityIceStrengthCorrFactorRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public CapacityIceStrengtheningCorrectionFactorRepository(
+    public CapacityIceStrengthCorrFactorRepo(
         ShipCalcDbContext context)
     {
         _context = context;

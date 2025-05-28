@@ -5,10 +5,10 @@ using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Infrastructure.Database;
 
-public class CarbonIntensityIndicatorCalcRecordConfiguration :
-    IEntityTypeConfiguration<CalculationData>
+public class CarbonIntensityIndicatorCalcnConfiguration :
+    IEntityTypeConfiguration<CarbonIntensityIndicatorCalculation>
 {
-    public void Configure(EntityTypeBuilder<CalculationData> builder)
+    public void Configure(EntityTypeBuilder<CarbonIntensityIndicatorCalculation> builder)
     {
         builder
             .HasKey(ci => ci.Id);
@@ -80,7 +80,7 @@ public class CarbonIntensityIndicatorCalcRecordConfiguration :
 
         builder.HasOne<Ship>()
              .WithOne()
-             .HasForeignKey<CalculationData>(ci => ci.ShipId)
+             .HasForeignKey<CarbonIntensityIndicatorCalculation>(ci => ci.ShipId)
              .OnDelete(DeleteBehavior.Cascade);
     }
 }

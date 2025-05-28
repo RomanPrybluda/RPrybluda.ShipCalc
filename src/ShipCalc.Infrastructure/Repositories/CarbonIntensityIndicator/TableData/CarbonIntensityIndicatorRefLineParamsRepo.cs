@@ -6,12 +6,12 @@ using ShipCalc.Infrastructure.Database;
 
 namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
-public class CarbonIntensityIndicatorReferenceLineParameterRepository :
+public class CarbonIntensityIndicatorRefLineParamsRepo :
     IRefLineParamsRepo
 {
     private readonly ShipCalcDbContext _context;
 
-    public CarbonIntensityIndicatorReferenceLineParameterRepository(
+    public CarbonIntensityIndicatorRefLineParamsRepo(
         ShipCalcDbContext context)
     {
         _context = context;
