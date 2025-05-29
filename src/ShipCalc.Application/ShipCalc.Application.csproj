@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Calculation\CarbonIntensityIndicator\GetById\" />
-    <Folder Include="Ship\Commands\CommandHandlers\" />
-    <Folder Include="Ship\DTOs\" />
+    <Folder Include="Ship\DTO\" />
     <Folder Include="Ship\Queries\" />
   </ItemGroup>
 

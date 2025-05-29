@@ -1,10 +1,11 @@
 ﻿using ShipCalc.Application.Abstractions.CQRS;
+using ShipCalc.Domain;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
-public class CreateCIICalcnCommand
+public class CreateCalcnCommand
     : ICommand<CarbonIntensityIndicatorCalculation>
 {
     public int ImoNumber { get; set; }
@@ -28,4 +29,21 @@ public class CreateCIICalcnCommand
     public decimal DistanceTravelledInNMs { get; set; }
 
     public int Year { get; set; }
+
+    public static Ship ToShip(CreateCalcnCommand command)
+    {
+        return new Ship
+        {
+            Id = Guid.NewGuid(),
+            ImoNumber = command.ImoNumber,
+            ShipName = command.ShipName,
+            GrossTonnage = command.GrossTonnage,
+            SummerDeadweight = command.SummerDeadweight,
+            BlockCoefficient = command.BlockCoefficient,
+            CargoCompartmentCubicCapacity = command.CargoCompartmentCubicCapacity,
+            ShipType = command.ShipType,
+            IceClass = command.IceClass
+        };
+    }
+
 }

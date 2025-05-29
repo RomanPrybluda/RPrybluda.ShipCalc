@@ -2,31 +2,30 @@
 using ShipCalc.Application.Abstractions.CQRS;
 using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 using ShipCalc.Application.Calculators.CarbonIntensityIndicator;
-using ShipCalc.Domain;
 using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
-public class CreateCIICalcnCommandHandler
-    : ICommandHandler<CreateCIICalcnCommand, CarbonIntensityIndicatorCalculation>
+public class CreateCalcnCommandHandler
+    : ICommandHandler<CreateCalcnCommand, CarbonIntensityIndicatorCalculation>
 {
-    private readonly ICarbonIntensityIndicatorCalcnRepo _calcnRepo;
+    private readonly ICarbonIntensityIndicatorCalcnRepo _ciiCalcnRepo;
     private readonly IShipRepo _shipRepo;
     private readonly ICapacityCalculator _capacityCalculator;
     private readonly IRequiredCarbonIntensityIndicatorCalculator _requiredCarbonIntensityIndicatorCalculator;
     private readonly IAttainedCarbonIntensityIndicatorCalculator _attainedCarbonIntensityIndicatorCalculator;
     private readonly IRatingThresholdsRepo _carbonIntensityIndicatorRatingThresholdsRepo;
 
-    public CreateCIICalcnCommandHandler(
-        ICarbonIntensityIndicatorCalcnRepo repository,
+    public CreateCalcnCommandHandler(
+        ICarbonIntensityIndicatorCalcnRepo ciiCalcnRepo,
         IShipRepo shipRepo,
         ICapacityCalculator capacityCalculator,
         IRequiredCarbonIntensityIndicatorCalculator requiredCarbonIntensityIndicatorCalculator,
         IAttainedCarbonIntensityIndicatorCalculator attainedCarbonIntensityIndicatorCalculator,
         IRatingThresholdsRepo carbonIntensityIndicatorRatingThresholdsRepository)
     {
-        _calcnRepo = repository;
+        _ciiCalcnRepo = ciiCalcnRepo;
         _shipRepo = shipRepo;
         _capacityCalculator = capacityCalculator;
         _requiredCarbonIntensityIndicatorCalculator = requiredCarbonIntensityIndicatorCalculator;
@@ -35,30 +34,16 @@ public class CreateCIICalcnCommandHandler
     }
 
     public async Task<CarbonIntensityIndicatorCalculation> Handle(
-        CreateCIICalcnCommand command,
+        CreateCalcnCommand command,
         CancellationToken cancellationToken)
     {
-
-        var ship = new Ship
-        {
-            Id = Guid.NewGuid(),
-            ImoNumber = command.ImoNumber,
-            ShipName = command.ShipName,
-            GrossTonnage = command.GrossTonnage,
-            SummerDeadweight = command.SummerDeadweight,
-            BlockCoefficient = command.BlockCoefficient,
-            CargoCompartmentCubicCapacity = command.CargoCompartmentCubicCapacity,
-            ShipType = command.ShipType,
-            IceClass = command.IceClass
-        };
+        var ship = CreateCalcnCommand.ToShip(command);
         await _shipRepo.AddAsync(ship);
         await _shipRepo.SaveChangesAsync(cancellationToken);
 
-        var createdShip = await _shipRepo.GetById(ship.Id);
+        var createdShip = await _shipRepo.GetByIdAsync(ship.Id);
         if (createdShip == null)
-        {
             throw new Exception($"Ship with id {ship.Id} not found after creation");
-        }
 
         var calculator = new CarbonIntensityIndicatorRatingCalculator(
             _capacityCalculator,
@@ -66,15 +51,18 @@ public class CreateCIICalcnCommandHandler
             _attainedCarbonIntensityIndicatorCalculator,
             _carbonIntensityIndicatorRatingThresholdsRepo);
 
-        var calcnResult = await calculator.CalculateRatingAsync(
+        var ciiCalcnResult = await calculator.CalculateRatingAsync(
                 createdShip,
                 command.Co2EmissionsInTons,
                 command.DistanceTravelledInNMs,
                 command.Year);
 
-        await _calcnRepo.AddAsync(calcnResult);
-        await _calcnRepo.SaveChangesAsync(cancellationToken);
+        if (ciiCalcnResult == null)
+            throw new Exception("CII calculation failed.");
 
-        return calcnResult;
+        await _ciiCalcnRepo.AddAsync(ciiCalcnResult);
+        await _ciiCalcnRepo.SaveChangesAsync(cancellationToken);
+
+        return ciiCalcnResult;
     }
 }

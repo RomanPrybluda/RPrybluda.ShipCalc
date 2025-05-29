@@ -2,9 +2,9 @@
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
-public class CreateCIICalcnCommandValidator : AbstractValidator<CreateCIICalcnCommand>
+public class CreateCalcnCommandValidator : AbstractValidator<CreateCalcnCommand>
 {
-    public CreateCIICalcnCommandValidator()
+    public CreateCalcnCommandValidator()
     {
         RuleFor(x => x.ImoNumber)
             .NotEmpty().WithMessage("IMO number is required.")
