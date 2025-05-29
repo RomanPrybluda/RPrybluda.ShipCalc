@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShipCalc.Infrastructure.Database;
@@ -11,9 +12,11 @@ using ShipCalc.Infrastructure.Database;
 namespace ShipCalc.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ShipCalcDbContext))]
-    partial class ShipCalcDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250528230410_ChangeTableNames")]
+    partial class ChangeTableNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

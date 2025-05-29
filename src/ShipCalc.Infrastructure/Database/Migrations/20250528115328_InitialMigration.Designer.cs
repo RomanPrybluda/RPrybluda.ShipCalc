@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShipCalc.Infrastructure.Database;
@@ -11,9 +12,11 @@ using ShipCalc.Infrastructure.Database;
 namespace ShipCalc.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ShipCalcDbContext))]
-    partial class ShipCalcDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250528115328_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,13 +194,13 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                         .HasColumnName("year");
 
                     b.HasKey("Id")
-                        .HasName("pk_cii_calculations");
+                        .HasName("pk_calculation_datas");
 
                     b.HasIndex("ShipId")
                         .IsUnique()
-                        .HasDatabaseName("ix_cii_calculations_ship_id");
+                        .HasDatabaseName("ix_calculation_datas_ship_id");
 
-                    b.ToTable("cii_calculations", (string)null);
+                    b.ToTable("calculation_datas", (string)null);
                 });
 
             modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.RatingThreshold", b =>
@@ -385,7 +388,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                         .HasForeignKey("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CarbonIntensityIndicatorCalculation", "ShipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_cii_calculations_ships_ship_id");
+                        .HasConstraintName("fk_calculation_datas_ships_ship_id");
                 });
 #pragma warning restore 612, 618
         }
