@@ -4,7 +4,9 @@ namespace ShipCalc.Application.Abstractions;
 
 public interface IShipRepo
 {
-    Task<Ship?> GetById(Guid id, CancellationToken cancellationToken = default);
+    Task<Ship?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<Ship?>> GetAllAsync(CancellationToken cancellationToken = default);
 
     Task<Ship?> GetByImoNumberAsync(int imoNumber, CancellationToken cancellationToken = default);
 

@@ -14,7 +14,7 @@ public class ShipRepo : IShipRepo
         _context = context;
     }
 
-    public async Task<Ship?> GetById(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Ship?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var ship = await _context.Ships
             .AsNoTracking()
@@ -28,6 +28,15 @@ public class ShipRepo : IShipRepo
             .AsNoTracking()
             .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber, cancellationToken);
         return ship;
+    }
+
+    public async Task<IEnumerable<Ship?>> GetAllAsync(
+    CancellationToken cancellationToken = default)
+    {
+        var ships = await _context.Ships
+            .AsNoTracking()
+            .ToListAsync();
+        return ships;
     }
 
     public async Task AddAsync(Ship ship, CancellationToken cancellationToken = default)
