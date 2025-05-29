@@ -7,8 +7,8 @@ namespace ShipCalc.Application.Calculators.CorrectionFactors;
 
 public class IceClasedShipCapacityCorrFactorCalculator : IIceClasedShipCapacityCorrFactorCalculator
 {
-    private readonly decimal DefaultCorrectionFactor = 1.0m;
-    private readonly decimal MinimumCorrectionFactor = 1.0m;
+    private const decimal DEFAULT_ICE_STRENTH_SHIP_CAPACITY_CORR_FACTOR = 1.0m;
+    private const decimal MINIMUM_ICE_STRENTH_SHIP_CAPACITY_CORR_FACTOR = 1.0m;
 
     private readonly ICapacityIceStrengthCorrFactorRepo _iceStrengthRepo;
     private readonly IRefDesignBlockCoeffRepo _blockCoeffRepo;
@@ -36,7 +36,7 @@ public class IceClasedShipCapacityCorrFactorCalculator : IIceClasedShipCapacityC
         decimal iceStrengthShipCapacityCorrFactor;
         if (iceClass == IceClass.NotApplicable)
         {
-            iceStrengthShipCapacityCorrFactor = DefaultCorrectionFactor;
+            iceStrengthShipCapacityCorrFactor = DEFAULT_ICE_STRENTH_SHIP_CAPACITY_CORR_FACTOR;
         }
         else
         {
@@ -58,11 +58,11 @@ public class IceClasedShipCapacityCorrFactorCalculator : IIceClasedShipCapacityC
                 throw new ReferenceBlockCoefficientNotFoundException(shipType, deadweight);
 
             iceGoingCapabilityCapacityCorrFactor = blockCoefficientRef.BlockCoefficient / blockCoefficient;
-            iceGoingCapabilityCapacityCorrFactor = Math.Max(iceGoingCapabilityCapacityCorrFactor, MinimumCorrectionFactor);
+            iceGoingCapabilityCapacityCorrFactor = Math.Max(iceGoingCapabilityCapacityCorrFactor, MINIMUM_ICE_STRENTH_SHIP_CAPACITY_CORR_FACTOR);
         }
         else
         {
-            iceGoingCapabilityCapacityCorrFactor = DefaultCorrectionFactor;
+            iceGoingCapabilityCapacityCorrFactor = DEFAULT_ICE_STRENTH_SHIP_CAPACITY_CORR_FACTOR;
         }
 
         var capacityCorrFactor = iceStrengthShipCapacityCorrFactor * iceGoingCapabilityCapacityCorrFactor;

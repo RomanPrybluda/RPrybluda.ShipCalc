@@ -7,7 +7,7 @@ namespace ShipCalc.Application.Calculators.CarbonIntensityIndicator;
 
 public class RequiredCarbonIntensityIndicatorCalculator : IRequiredCarbonIntensityIndicatorCalculator
 {
-    private const decimal OneHundredPercent = 100m;
+    private const decimal ONE_HUNDRED_PERCENT = 100m;
 
     public decimal RefLineParameterA { get; private set; }
 
@@ -65,6 +65,6 @@ public class RequiredCarbonIntensityIndicatorCalculator : IRequiredCarbonIntensi
         RefLineReductionFactor = referenceLineReductionFactor.ReductionFactorPercentage;
 
         RequiredCarbonIntensityIndicator =
-            (OneHundredPercent - RefLineReductionFactor) / OneHundredPercent * carbonIntensityIndicatorRefLine;
+            (ONE_HUNDRED_PERCENT - RefLineReductionFactor) / ONE_HUNDRED_PERCENT * carbonIntensityIndicatorRefLine;
     }
 }

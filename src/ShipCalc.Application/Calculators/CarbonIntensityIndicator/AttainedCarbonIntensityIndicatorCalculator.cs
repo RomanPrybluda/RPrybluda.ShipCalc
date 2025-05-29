@@ -8,7 +8,10 @@ namespace ShipCalc.Application.Calculators.CarbonIntensityIndicator;
 
 public class AttainedCarbonIntensityIndicatorCalculator : IAttainedCarbonIntensityIndicatorCalculator
 {
-    private const decimal EmissionConversionFactor = 1_000_000m;
+
+    private const decimal DEFAULT_IA_SUPER_AND_IA_ICE_CORR_FACTOR = 1.0m;
+
+    private const decimal EMISSION_CONVERSION_FACTOR = 1_000_000m;
 
     public decimal IceClasedShipCapacityCorrFactor { get; private set; }
 
@@ -51,19 +54,20 @@ public class AttainedCarbonIntensityIndicatorCalculator : IAttainedCarbonIntensi
             ship.IceClass,
             ship.BlockCoefficient);
 
-        if (iceClasedShipCapacityCorrFactor <= 0)
-            throw new InvalidIceClassedCapacityCorrFactorException(iceClasedShipCapacityCorrFactor);
-
         IceClasedShipCapacityCorrFactor = iceClasedShipCapacityCorrFactor;
 
         var iASuperAndIAIceClassedShipCorrFactor = await _iASuperAndIAIceClassedShipCorrFactorRepo.GetByIceClassAsync(ship.IceClass);
 
-        if (iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor <= 0)
-            throw new InvalidIASuperAndIAIceCorrFactorException(iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor);
+        if (iASuperAndIAIceClassedShipCorrFactor == null)
+        {
+            IASuperAndIAIceClassedShipCorrFactor = DEFAULT_IA_SUPER_AND_IA_ICE_CORR_FACTOR;
+        }
+        else
+        {
+            IASuperAndIAIceClassedShipCorrFactor = iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor;
+        }
 
-        IASuperAndIAIceClassedShipCorrFactor = iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor;
-
-        decimal attainedCarbonIntensityIndicator = EmissionConversionFactor * co2EmissionsInTons /
+        decimal attainedCarbonIntensityIndicator = EMISSION_CONVERSION_FACTOR * co2EmissionsInTons /
             (capacity * distanceTravelledInNMs * IceClasedShipCapacityCorrFactor * IASuperAndIAIceClassedShipCorrFactor);
 
         AttainedCarbonIntensityIndicator = attainedCarbonIntensityIndicator;

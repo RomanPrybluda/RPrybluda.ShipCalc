@@ -11,7 +11,7 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
     private readonly ICapacityCalculator _capacityCalculator;
     private readonly IRequiredCarbonIntensityIndicatorCalculator _requiredCarbonIntensityIndicatorCalculator;
     private readonly IAttainedCarbonIntensityIndicatorCalculator _attainedCarbonIntensityIndicatorCalculator;
-    private readonly IRatingThresholdsRepo _carbonIntensityIndicatorRatingThresholdsRepository;
+    private readonly IRatingThresholdsRepo _carbonIntensityIndicatorRatingThresholdsRepo;
 
     public CarbonIntensityIndicatorRatingCalculator(
         ICapacityCalculator capacityCalculator,
@@ -25,7 +25,7 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
 
         _attainedCarbonIntensityIndicatorCalculator = attainedCarbonIntensityIndicatorCalculator;
 
-        _carbonIntensityIndicatorRatingThresholdsRepository = carbonIntensityIndicatorRatingThresholdsRepo;
+        _carbonIntensityIndicatorRatingThresholdsRepo = carbonIntensityIndicatorRatingThresholdsRepo;
     }
 
     public async Task<CarbonIntensityIndicatorCalculation> CalculateRatingAsync(
@@ -51,13 +51,13 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
             ship.SummerDeadweight,
             ship.GrossTonnage);
 
-        var requiredCarbonIntensityIndicator = _requiredCarbonIntensityIndicatorCalculator
+        await _requiredCarbonIntensityIndicatorCalculator
             .CalculateRequiredCarbonIntensityIndicator(
             ship.ShipType,
             capacity,
             year);
 
-        var attainedCarbonIntensityIndicator = _attainedCarbonIntensityIndicatorCalculator
+        await _attainedCarbonIntensityIndicatorCalculator
             .CalculateAttainedCarbonIntensityIndicator(
             ship,
             capacity,
@@ -68,8 +68,11 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
             _attainedCarbonIntensityIndicatorCalculator.IceClasedShipCapacityCorrFactor /
             _requiredCarbonIntensityIndicatorCalculator.RequiredCarbonIntensityIndicator;
 
-        var carbonIntensityIndicatorRatingThresholds = await _carbonIntensityIndicatorRatingThresholdsRepository
+        var carbonIntensityIndicatorRatingThresholds = await _carbonIntensityIndicatorRatingThresholdsRepo
             .GetThresholdsAsync(ship.ShipType, ship.SummerDeadweight);
+
+        if (carbonIntensityIndicatorRatingThresholds == null)
+            throw new InvalidOperationException("Thresholds not found");
 
         var carbonIntensityIndicatorRating = MapCiiRatingToLetterGrade(
             carbonIntensityIndicatorRatingThresholds,
@@ -94,13 +97,15 @@ public class CarbonIntensityIndicatorRatingCalculator : IRatingCalculator
             AttainedCarbonIntensityIndicator = _attainedCarbonIntensityIndicatorCalculator.AttainedCarbonIntensityIndicator,
 
             CarbonIntensityIndicatorNumericalRating = carbonIntensityIndicatorNumericalRating,
-            CarbonIntensityIndicatorRating = carbonIntensityIndicatorRating
+            CarbonIntensityIndicatorRating = carbonIntensityIndicatorRating,
+
+            ShipId = ship.Id
         };
 
         return carbonIntensityIndicatorCalcResult;
     }
 
-    private Rating MapCiiRatingToLetterGrade(
+    private static Rating MapCiiRatingToLetterGrade(
         RatingThreshold carbonIntensityIndicatorRatingThresholds,
         decimal carbonIntensityIndicatorNumericalRating)
     {
