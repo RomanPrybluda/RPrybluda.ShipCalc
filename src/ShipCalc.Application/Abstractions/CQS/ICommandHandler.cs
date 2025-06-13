@@ -1,4 +1,4 @@
-﻿namespace ShipCalc.Application.Abstractions.CQRS;
+﻿namespace ShipCalc.Application.Abstractions.CQS;
 
 public interface ICommandHandler<in TCommand, TResult>
     where TCommand : ICommand<TResult>
