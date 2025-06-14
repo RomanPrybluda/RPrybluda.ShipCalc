@@ -1,4 +1,4 @@
-﻿using ShipCalc.Application.Abstractions.CQRS;
+﻿using ShipCalc.Application.Abstractions.CQS;
 using ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
 namespace ShipCalc.Api.Endpoints.Calculations.CarbonIntensityIndicator;
