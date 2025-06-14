@@ -15,7 +15,7 @@ public sealed class GetById : IEndpoint
             var query = new GetCalcnByIdQuery(id);
 
             var result = await dispatcher
-                .Dispatch<GetCalcnByIdQuery, CalcnResponse>(
+                .Dispatch<GetCalcnByIdQuery, CalcnByIdResponse>(
                     query,
                     cancellationToken);
 

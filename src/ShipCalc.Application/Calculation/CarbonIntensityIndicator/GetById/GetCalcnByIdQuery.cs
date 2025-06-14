@@ -2,6 +2,6 @@
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator
 {
-    public sealed record GetCalcnByIdQuery(Guid id) : IQuery<CalcnResponse>;
+    public sealed record GetCalcnByIdQuery(Guid id) : IQuery<CalcnByIdResponse>;
 
 }

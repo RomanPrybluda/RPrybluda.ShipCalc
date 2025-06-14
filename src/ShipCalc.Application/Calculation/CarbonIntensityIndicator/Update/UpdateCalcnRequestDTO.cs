@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
-public class UpdateCalcnDTO
+public class UpdateCalcnRequestDTO
 {
     public int ImoNumber { get; set; }
 
@@ -26,7 +26,7 @@ public class UpdateCalcnDTO
 
     public int Year { get; set; }
 
-    public static UpdateCalcnCommand ToCIICalcn(Guid id, UpdateCalcnDTO request)
+    public static UpdateCalcnCommand ToCommand(Guid id, UpdateCalcnRequestDTO request)
     {
         return new UpdateCalcnCommand
         {
@@ -45,3 +45,4 @@ public class UpdateCalcnDTO
         };
     }
 }
+

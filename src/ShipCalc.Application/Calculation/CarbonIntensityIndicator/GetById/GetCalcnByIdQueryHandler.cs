@@ -1,12 +1,11 @@
 ﻿using ShipCalc.Application.Abstractions;
 using ShipCalc.Application.Abstractions.CQS;
-using ShipCalc.Domain;
-using ShipCalc.Domain.Enums;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
 public sealed class GetCalcnByIdQueryHandler
-    : IQueryHandler<GetCalcnByIdQuery, CalcnResponse>
+    : IQueryHandler<GetCalcnByIdQuery, CalcnByIdResponse>
 {
     private readonly ICarbonIntensityIndicatorCalcnRepo _ciiCalcnRepo;
     private readonly IShipRepo _shipRepo;
@@ -19,34 +18,22 @@ public sealed class GetCalcnByIdQueryHandler
         _shipRepo = shipRepo;
     }
 
-    public async Task<CalcnResponse> Handle(
+    public async Task<CalcnByIdResponse> Handle(
         GetCalcnByIdQuery query,
         CancellationToken cancellationToken)
     {
 
         var calculation = await _ciiCalcnRepo.GetByIdAsync(query.id, cancellationToken);
         if (calculation == null)
-            throw new Exception("Calculation not found");
+            throw new CalculationNotFound(query.id);
 
-        Ship? relatedShip = null;
-        if (calculation.ShipId != null)
-        {
-            relatedShip = await _shipRepo.GetByIdAsync(calculation.ShipId, cancellationToken);
-        }
+        var ship = await _shipRepo.GetByIdAsync(calculation.ShipId, cancellationToken);
+        if (ship == null)
+            throw new ShipNotFound(calculation.ShipId);
 
-        return new CalcnResponse
-        {
-            Id = calculation.Id,
-            ShipName = relatedShip?.ShipName ?? string.Empty,
-            ImoNumber = relatedShip?.ImoNumber ?? 0,
-            ShipType = relatedShip?.ShipType ?? ShipType.NotApplicable,
-            IceClass = relatedShip?.IceClass ?? IceClass.NotApplicable,
+        var calculationDTO = CalcnByIdResponse.ToCalcnByIdResponse(calculation, ship);
 
-            RequiredCarbonIntensityIndicator = calculation.RequiredCarbonIntensityIndicator,
-            AttainedCarbonIntensityIndicator = calculation.AttainedCarbonIntensityIndicator,
-            CarbonIntensityIndicatorNumericalRating = calculation.CarbonIntensityIndicatorNumericalRating,
-            CarbonIntensityIndicatorRating = calculation.CarbonIntensityIndicatorRating
-        };
+        return calculationDTO;
     }
 }
 

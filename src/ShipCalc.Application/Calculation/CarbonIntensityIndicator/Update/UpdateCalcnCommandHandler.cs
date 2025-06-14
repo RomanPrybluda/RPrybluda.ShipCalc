@@ -7,7 +7,7 @@ using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
-public class UpdateCalcnCommandHandler : ICommandHandler<UpdateCalcnCommand, CarbonIntensityIndicatorCalculation>
+public class UpdateCalcnCommandHandler : ICommandHandler<UpdateCalcnCommand, UpdateCalcnResponseDTO>
 {
     private readonly ICarbonIntensityIndicatorCalcnRepo _ciiCalcnRepo;
     private readonly IShipRepo _shipRepo;
@@ -32,17 +32,15 @@ public class UpdateCalcnCommandHandler : ICommandHandler<UpdateCalcnCommand, Car
         _carbonIntensityIndicatorRatingThresholdsRepo = carbonIntensityIndicatorRatingThresholdsRepository;
     }
 
-    public async Task<CarbonIntensityIndicatorCalculation> Handle(
+    public async Task<UpdateCalcnResponseDTO> Handle(
         UpdateCalcnCommand command,
         CancellationToken cancellationToken)
     {
-        var calcn = await _ciiCalcnRepo.GetByIdAsync(command.Id, cancellationToken);
-        if (calcn == null)
-            throw new CalculationNotFound(command.Id);
+        var calcn = await _ciiCalcnRepo.GetByIdAsync(command.Id, cancellationToken)
+                    ?? throw new CalculationNotFound(command.Id);
 
-        var ship = await _shipRepo.GetByIdAsync(calcn.ShipId, cancellationToken);
-        if (ship == null)
-            throw new ShipNotFound(ship.Id);
+        var ship = await _shipRepo.GetByIdAsync(calcn.ShipId, cancellationToken)
+            ?? throw new ShipNotFound(calcn.ShipId);
 
         var updatedShip = UpdateCalcnCommand.UpdateShip(command);
         await _shipRepo.SaveChangesAsync(cancellationToken);
@@ -57,15 +55,15 @@ public class UpdateCalcnCommandHandler : ICommandHandler<UpdateCalcnCommand, Car
             updatedShip,
             command.Co2EmissionsInTons,
             command.DistanceTravelledInNMs,
-            command.Year);
-
-        if (ciiCalcnResult == null)
-            throw new UpdateCalculationFailed();
+            command.Year)
+            ?? throw new UpdateCalculationFailed();
 
         var updatedCalns = UpdateCalcnCommand.UpdateCiiCalcn(calcn, ciiCalcnResult);
 
         await _ciiCalcnRepo.SaveChangesAsync(cancellationToken);
 
-        return updatedCalns;
+        var calnDTO = UpdateCalcnResponseDTO.FromCalculation(calcn, ship);
+
+        return calnDTO;
     }
 }

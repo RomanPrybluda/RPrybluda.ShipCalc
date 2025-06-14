@@ -1,6 +1,5 @@
 ﻿using ShipCalc.Application.Abstractions.CQS;
 using ShipCalc.Application.Calculation.CarbonIntensityIndicator;
-using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Api.Endpoints.Calculations.CarbonIntensityIndicator;
 
@@ -10,17 +9,17 @@ public sealed class Update : IEndpoint
     {
         app.MapPut("cii/calculations/{id:guid}", async (
             Guid id,
-            UpdateCalcnDTO request,
+            UpdateCalcnRequestDTO request,
             ICommandDispatcher dispatcher,
             CancellationToken cancellationToken) =>
         {
             if (id != id)
                 return Results.BadRequest("ID in URL must match ID in request body.");
 
-            var command = UpdateCalcnDTO.ToCIICalcn(id, request);
+            var command = UpdateCalcnRequestDTO.ToCommand(id, request);
 
             var result = await dispatcher
-                .Dispatch<UpdateCalcnCommand, CarbonIntensityIndicatorCalculation>(
+                .Dispatch<UpdateCalcnCommand, UpdateCalcnResponseDTO>(
                     command,
                     cancellationToken);
 

@@ -5,7 +5,7 @@ using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
-public class UpdateCalcnCommand : ICommand<CarbonIntensityIndicatorCalculation>
+public class UpdateCalcnCommand : ICommand<UpdateCalcnResponseDTO>
 {
     public Guid Id { get; set; }
 

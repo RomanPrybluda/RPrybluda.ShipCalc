@@ -1,7 +1,5 @@
 ﻿using ShipCalc.Application.Abstractions;
 using ShipCalc.Application.Abstractions.CQS;
-using ShipCalc.Domain;
-using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
@@ -32,27 +30,8 @@ public sealed class GetCalcnsQueryHandler
 
         foreach (var calculation in calculations)
         {
-            Ship? relatedShip = null;
-            if (calculation.ShipId != null)
-            {
-                shipDictionary.TryGetValue(calculation.ShipId, out relatedShip);
-            }
-
-            var calcnResponse = new CalcnResponse
-            {
-                Id = calculation.Id,
-                ShipName = relatedShip?.ShipName ?? string.Empty,
-                ImoNumber = relatedShip?.ImoNumber ?? 0,
-                ShipType = relatedShip?.ShipType ?? ShipType.NotApplicable,
-                IceClass = relatedShip?.IceClass ?? IceClass.NotApplicable,
-
-                RequiredCarbonIntensityIndicator = calculation.RequiredCarbonIntensityIndicator,
-                AttainedCarbonIntensityIndicator = calculation.AttainedCarbonIntensityIndicator,
-                CarbonIntensityIndicatorNumericalRating = calculation.CarbonIntensityIndicatorNumericalRating,
-                CarbonIntensityIndicatorRating = calculation.CarbonIntensityIndicatorRating
-            };
-
-            responseList.Add(calcnResponse);
+            shipDictionary.TryGetValue(calculation.ShipId, out var relatedShip);
+            responseList.Add(CalcnResponse.ToCalcnResponse(calculation, relatedShip));
         }
 
         return responseList;

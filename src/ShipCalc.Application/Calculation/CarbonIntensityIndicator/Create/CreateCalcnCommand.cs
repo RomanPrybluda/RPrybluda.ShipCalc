@@ -1,12 +1,11 @@
 ﻿using ShipCalc.Application.Abstractions.CQS;
 using ShipCalc.Domain;
-using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
 public class CreateCalcnCommand
-    : ICommand<CarbonIntensityIndicatorCalculation>
+    : ICommand<CreateCalcnResponseDTO>
 {
     public int ImoNumber { get; set; }
 

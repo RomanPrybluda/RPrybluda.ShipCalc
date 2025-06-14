@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
-public class CreateCalcnDTO
+public class CreateCalcnRequestDTO
 {
     public int ImoNumber { get; set; }
 
@@ -15,7 +15,6 @@ public class CreateCalcnDTO
     public decimal BlockCoefficient { get; set; }
 
     public decimal CargoCompartmentCubicCapacity { get; set; }
-
     public ShipType ShipType { get; set; }
 
     public IceClass IceClass { get; set; }
@@ -26,7 +25,7 @@ public class CreateCalcnDTO
 
     public int Year { get; set; }
 
-    public static CreateCalcnCommand ToCIICalcn(CreateCalcnDTO request)
+    public static CreateCalcnCommand ToCommand(CreateCalcnRequestDTO request)
     {
         return new CreateCalcnCommand
         {

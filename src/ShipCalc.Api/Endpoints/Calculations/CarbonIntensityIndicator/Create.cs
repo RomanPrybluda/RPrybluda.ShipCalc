@@ -1,6 +1,5 @@
 ﻿using ShipCalc.Application.Abstractions.CQS;
 using ShipCalc.Application.Calculation.CarbonIntensityIndicator;
-using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Api.Endpoints.Calculations.CarbonIntensityIndicator;
 
@@ -9,18 +8,18 @@ public sealed class Create : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("cii/calculations", async (
-            CreateCalcnDTO request,
+            CreateCalcnRequestDTO request,
             ICommandDispatcher dispatcher,
             CancellationToken cancellationToken) =>
         {
-            var command = CreateCalcnDTO.ToCIICalcn(request);
+            var command = CreateCalcnRequestDTO.ToCommand(request);
 
             var result = await dispatcher
-            .Dispatch<CreateCalcnCommand, CarbonIntensityIndicatorCalculation>(
+            .Dispatch<CreateCalcnCommand, CreateCalcnResponseDTO>(
                 command,
                 cancellationToken);
 
-            return Results.Created($"/cii/calculations/{result.Id}", result);
+            return Results.Created($"/cii/calculations", result);
         })
         .WithTags(Tags.CIICalcns)
         .WithName("CreateCIICalculation")

@@ -8,7 +8,7 @@ using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
 public class CreateCalcnCommandHandler
-    : ICommandHandler<CreateCalcnCommand, CarbonIntensityIndicatorCalculation>
+    : ICommandHandler<CreateCalcnCommand, CreateCalcnResponseDTO>
 {
     private readonly ICarbonIntensityIndicatorCalcnRepo _ciiCalcnRepo;
     private readonly IShipRepo _shipRepo;
@@ -33,7 +33,7 @@ public class CreateCalcnCommandHandler
         _carbonIntensityIndicatorRatingThresholdsRepo = carbonIntensityIndicatorRatingThresholdsRepository;
     }
 
-    public async Task<CarbonIntensityIndicatorCalculation> Handle(
+    public async Task<CreateCalcnResponseDTO> Handle(
         CreateCalcnCommand command,
         CancellationToken cancellationToken)
     {
@@ -63,6 +63,8 @@ public class CreateCalcnCommandHandler
         await _ciiCalcnRepo.AddAsync(ciiCalcnResult);
         await _ciiCalcnRepo.SaveChangesAsync(cancellationToken);
 
-        return ciiCalcnResult;
+        var calcnDTO = CreateCalcnResponseDTO.ToCreateCalcnResponse(createdShip, command);
+
+        return calcnDTO;
     }
 }
