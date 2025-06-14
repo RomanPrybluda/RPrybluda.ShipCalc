@@ -16,12 +16,17 @@ public class ShipNotFound : Exception
         : base($"Ship with id:{id} not found.") { }
 }
 
+public class ShipNotFoundByIMO : Exception
+{
+    public ShipNotFoundByIMO(int id)
+        : base($"Ship with IMO No.{id} not found.") { }
+}
+
 public class CreateCalculationFailed : Exception
 {
     public CreateCalculationFailed()
         : base("Creation of calculation is failed.") { }
 }
-
 
 public class NegativeCo2EmissionsException : Exception
 {
@@ -39,6 +44,16 @@ public class NegativeYearException : Exception
 {
     public NegativeYearException()
         : base("Year cannot be negative.") { }
+}
+
+public class CalculationNotFound : Exception
+{
+    public CalculationNotFound(Guid id) : base($"Calculation with ID {id} not found.") { }
+}
+
+public class UpdateCalculationFailed : Exception
+{
+    public UpdateCalculationFailed() : base("Failed to update CII calculation.") { }
 }
 
 #endregion

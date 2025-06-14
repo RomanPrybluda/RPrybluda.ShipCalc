@@ -19,25 +19,28 @@ public class CarbonIntensityIndicatorCalcnRepo :
     public async Task<CarbonIntensityIndicatorCalculation?> GetByIdAsync(Guid id,
         CancellationToken cancellationToken = default)
     {
-        return await _context.CIICalculations
+        var calculation = await _context.CIICalculations
             .AsNoTracking()
             .FirstOrDefaultAsync(r => r.Id == id);
+        return calculation;
     }
 
     public async Task<CarbonIntensityIndicatorCalculation?> GetByShipIdAsync(Guid shipId,
         CancellationToken cancellationToken = default)
     {
-        return await _context.CIICalculations
+        var calculation = await _context.CIICalculations
             .AsNoTracking()
             .FirstOrDefaultAsync(r => r.ShipId == shipId);
+        return calculation;
     }
 
     public async Task<IEnumerable<CarbonIntensityIndicatorCalculation?>> GetAllAsync(
         CancellationToken cancellationToken = default)
     {
-        return await _context.CIICalculations
+        var calculations = await _context.CIICalculations
             .AsNoTracking()
             .ToListAsync();
+        return calculations;
     }
 
     public async Task AddAsync(CarbonIntensityIndicatorCalculation record,

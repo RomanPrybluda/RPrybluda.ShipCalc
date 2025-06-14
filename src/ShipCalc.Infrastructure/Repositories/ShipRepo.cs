@@ -46,7 +46,7 @@ public class ShipRepo : IShipRepo
 
     public async Task DeleteAsync(int imoNumber, CancellationToken cancellationToken = default)
     {
-        var ship = await _context.Ships
+        await _context.Ships
             .AsNoTracking()
             .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber, cancellationToken);
     }

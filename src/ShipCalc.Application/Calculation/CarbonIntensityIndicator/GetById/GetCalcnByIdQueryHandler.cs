@@ -34,10 +34,9 @@ public sealed class GetCalcnByIdQueryHandler
             relatedShip = await _shipRepo.GetByIdAsync(calculation.ShipId, cancellationToken);
         }
 
-
-
         return new CalcnResponse
         {
+            Id = calculation.Id,
             ShipName = relatedShip?.ShipName ?? string.Empty,
             ImoNumber = relatedShip?.ImoNumber ?? 0,
             ShipType = relatedShip?.ShipType ?? ShipType.NotApplicable,
