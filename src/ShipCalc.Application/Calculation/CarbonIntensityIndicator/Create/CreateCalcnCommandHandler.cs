@@ -43,7 +43,7 @@ public class CreateCalcnCommandHandler
 
         var createdShip = await _shipRepo.GetByIdAsync(ship.Id);
         if (createdShip == null)
-            throw new Exception($"Ship with id {ship.Id} not found after creation");
+            throw new ShipNotFound(ship.Id);
 
         var calculator = new CarbonIntensityIndicatorRatingCalculator(
             _capacityCalculator,
@@ -58,7 +58,7 @@ public class CreateCalcnCommandHandler
                 command.Year);
 
         if (ciiCalcnResult == null)
-            throw new Exception("CII calculation failed.");
+            throw new CreateCalculationFailed();
 
         await _ciiCalcnRepo.AddAsync(ciiCalcnResult);
         await _ciiCalcnRepo.SaveChangesAsync(cancellationToken);

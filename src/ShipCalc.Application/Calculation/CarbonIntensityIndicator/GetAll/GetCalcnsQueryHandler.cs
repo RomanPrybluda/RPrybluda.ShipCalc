@@ -40,6 +40,7 @@ public sealed class GetCalcnsQueryHandler
 
             var calcnResponse = new CalcnResponse
             {
+                Id = calculation.Id,
                 ShipName = relatedShip?.ShipName ?? string.Empty,
                 ImoNumber = relatedShip?.ImoNumber ?? 0,
                 ShipType = relatedShip?.ShipType ?? ShipType.NotApplicable,

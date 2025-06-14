@@ -5,6 +5,8 @@ namespace ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 
 public class CalcnResponse
 {
+    public Guid Id { get; set; }
+
     public string ShipName { get; set; } = string.Empty;
 
     public int ImoNumber { get; set; }
