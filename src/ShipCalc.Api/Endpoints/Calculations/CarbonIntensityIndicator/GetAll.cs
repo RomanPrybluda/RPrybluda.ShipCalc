@@ -24,7 +24,7 @@ public sealed class GetAll : IEndpoint
         .WithName("GetAllCIICalculations")
         .WithOpenApi(operation =>
         {
-            operation.Summary = "Get all CII calculations";
+            operation.Summary = "Get all Carbon Intensity Indicator calculations";
             operation.Description = "Returns all Carbon Intensity Indicator calculations with ship details";
             return operation;
         });

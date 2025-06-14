@@ -26,7 +26,7 @@ public sealed class Create : IEndpoint
         .WithName("CreateCIICalculation")
         .WithOpenApi(operation =>
         {
-            operation.Summary = "Create new CII calculation";
+            operation.Summary = "Create new Carbon Intensity Indicator calculation";
             operation.Description = "Creates a new Carbon Intensity Indicator calculation for a ship";
             return operation;
         });

@@ -25,7 +25,7 @@ public sealed class GetById : IEndpoint
         .WithName("GetByIdCIICalculation")
         .WithOpenApi(operation =>
         {
-            operation.Summary = "Get CII calculation by Id";
+            operation.Summary = "Get Carbon Intensity Indicator calculation by Id";
             operation.Description = "Returns Carbon Intensity Indicator calculation with ship details";
             return operation;
         });

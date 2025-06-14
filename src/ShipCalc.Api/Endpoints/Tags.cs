@@ -3,5 +3,5 @@
 public static class Tags
 {
     public const string Ships = "Ships";
-    public const string CIICalcns = "CIICalcns";
+    public const string CIICalcns = "Carbon Intensity Indicator Calculations";
 }
