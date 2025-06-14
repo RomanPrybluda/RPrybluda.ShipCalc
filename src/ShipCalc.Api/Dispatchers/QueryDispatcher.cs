@@ -1,5 +1,4 @@
-﻿using ShipCalc.Application.Abstractions;
-using ShipCalc.Application.Abstractions.CQRS;
+﻿using ShipCalc.Application.Abstractions.CQS;
 
 namespace ShipCalc.Api.Dispatchers
 {
@@ -13,12 +12,15 @@ namespace ShipCalc.Api.Dispatchers
         }
 
         public async Task<TResult> Dispatch<TQuery, TResult>(
-            TQuery command,
+            TQuery query,
             CancellationToken cancellationToken)
             where TQuery : IQuery<TResult>
         {
-            var handler = _serviceProvider.GetRequiredService<IQueryHandler<TQuery, TResult>>();
-            return await handler.Handle(command, cancellationToken);
+            using var scope = _serviceProvider.CreateScope();
+            var scopedProvider = scope.ServiceProvider;
+
+            var handler = scopedProvider.GetRequiredService<IQueryHandler<TQuery, TResult>>();
+            return await handler.Handle(query, cancellationToken);
         }
     }
 }
