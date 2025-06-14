@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 
-public interface IRatingCalculator
+public interface IRatingCalculator : ICalculator
 {
     Task<CarbonIntensityIndicatorCalculation> CalculateRatingAsync(
         Ship ship,
