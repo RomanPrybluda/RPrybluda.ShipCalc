@@ -1,6 +1,7 @@
-﻿using ShipCalc.Application.Abstractions.CQS;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ShipCalc.Application.Abstractions.CQS;
 
-namespace ShipCalc.Api.Dispatchers
+namespace ShipCalc.Application.Dispatchers
 {
     public class QueryDispatcher : IQueryDispatcher
     {

@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using ShipCalc.Application.Abstractions.CQS;
 
-namespace ShipCalc.Api.Dispatchers;
+namespace ShipCalc.Application.Dispatchers;
 
 public class CommandDispatcher : ICommandDispatcher
 {
