@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 
-public interface IRequiredCarbonIntensityIndicatorCalculator
+public interface IRequiredCarbonIntensityIndicatorCalculator : ICalculator
 {
     public decimal RefLineParameterA { get; }
 

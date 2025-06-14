@@ -3,7 +3,7 @@ using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 
-public interface IIASuperAndIAIceCorrFactorRepo
+public interface IIASuperAndIAIceCorrFactorRepo : IRepository
 {
     Task<IASuperAndIAIceCorrFactor> GetByIceClassAsync(IceClass iceClass, CancellationToken cancellationToken = default);
 }

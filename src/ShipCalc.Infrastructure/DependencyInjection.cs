@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShipCalc.Application.Abstractions.Data;
+using ShipCalc.Application.Abstractions.Repositories;
 using ShipCalc.Infrastructure.Database;
+using ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
 
 namespace ShipCalc.Infrastructure;
 
@@ -14,6 +16,7 @@ public static class DependencyInjection
         IConfiguration configuration) =>
         services
             .AddDatabase(configuration)
+            .AddRepositories()
             .AddInternalServices();
 
     private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
@@ -45,6 +48,17 @@ public static class DependencyInjection
     {
         services.AddScoped<ISeedDataInitializer, SeedDataInitializer>();
         services.AddScoped<SeedDataRunner>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.Scan(scan => scan
+            .FromAssemblyOf<CarbonIntensityIndicatorRefLineParamsRepo>()
+            .AddClasses(classes => classes.AssignableTo<IRepository>())
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
 
         return services;
     }

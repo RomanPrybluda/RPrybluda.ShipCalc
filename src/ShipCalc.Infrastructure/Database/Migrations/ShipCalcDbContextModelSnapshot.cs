@@ -104,7 +104,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                     b.ToTable("ref_design_block_coeffs", (string)null);
                 });
 
-            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CalculationData", b =>
+            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CarbonIntensityIndicatorCalculation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,13 +191,13 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                         .HasColumnName("year");
 
                     b.HasKey("Id")
-                        .HasName("pk_calculation_datas");
+                        .HasName("pk_cii_calculations");
 
                     b.HasIndex("ShipId")
                         .IsUnique()
-                        .HasDatabaseName("ix_calculation_datas_ship_id");
+                        .HasDatabaseName("ix_cii_calculations_ship_id");
 
-                    b.ToTable("calculation_datas", (string)null);
+                    b.ToTable("cii_calculations", (string)null);
                 });
 
             modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.RatingThreshold", b =>
@@ -329,7 +329,7 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                     b.Property<decimal>("BlockCoefficient")
                         .HasPrecision(4, 3)
                         .HasColumnType("numeric(4,3)")
-                        .HasColumnName("BlockCoefficient");
+                        .HasColumnName("block_coefficient");
 
                     b.Property<decimal>("CargoCompartmentCubicCapacity")
                         .HasPrecision(18, 2)
@@ -372,20 +372,20 @@ namespace ShipCalc.Infrastructure.Database.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_ships_imo_number");
 
-                    b.ToTable("Ships", null, t =>
+                    b.ToTable("ships", null, t =>
                         {
-                            t.HasCheckConstraint("CK_Ship_BlockCoefficient_Range", "\"BlockCoefficient\" >= 0 AND \"BlockCoefficient\" <= 1");
+                            t.HasCheckConstraint("ck_ship_block_coefficient_range", "\"block_coefficient\" >= 0 AND \"block_coefficient\" <= 1");
                         });
                 });
 
-            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CalculationData", b =>
+            modelBuilder.Entity("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CarbonIntensityIndicatorCalculation", b =>
                 {
                     b.HasOne("ShipCalc.Domain.Ship", null)
                         .WithOne()
-                        .HasForeignKey("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CalculationData", "ShipId")
+                        .HasForeignKey("ShipCalc.Domain.Calculations.CarbonIntensityIndicator.CarbonIntensityIndicatorCalculation", "ShipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_calculation_datas_ships_ship_id");
+                        .HasConstraintName("fk_cii_calculations_ships_ship_id");
                 });
 #pragma warning restore 612, 618
         }

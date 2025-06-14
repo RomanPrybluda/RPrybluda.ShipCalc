@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain.Abstractions.CorrFactor;
 
-public interface IIceClasedShipCapacityCorrFactorCalculator
+public interface IIceClasedShipCapacityCorrFactorCalculator : ICalculator
 {
     Task<decimal> CalculateIceClasedCapacityCorrectionFactor(
     ShipType shipType,

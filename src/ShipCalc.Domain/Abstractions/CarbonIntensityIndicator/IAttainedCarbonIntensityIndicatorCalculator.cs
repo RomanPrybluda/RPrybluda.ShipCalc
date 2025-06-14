@@ -1,6 +1,6 @@
 ﻿namespace ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 
-public interface IAttainedCarbonIntensityIndicatorCalculator
+public interface IAttainedCarbonIntensityIndicatorCalculator : ICalculator
 {
     decimal IceClasedShipCapacityCorrFactor { get; }
 

@@ -16,7 +16,7 @@ public class ShipCalcDbContext : DbContext, IShipCalcDbContext
 
     public DbSet<Ship> Ships { get; set; }
 
-    public DbSet<CalculationData> CalculationDatas { get; set; }
+    public DbSet<CarbonIntensityIndicatorCalculation> CIICalculations { get; set; }
 
     public DbSet<RatingThreshold> CIIRatingThresholds { get; set; }
 

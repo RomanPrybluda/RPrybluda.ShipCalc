@@ -16,7 +16,7 @@ public interface IShipCalcDbContext
     /// <summary>
     /// Carbon Intensity Indicator calculation Results
     /// </summary>
-    DbSet<CalculationData> CalculationDatas { get; }
+    DbSet<CarbonIntensityIndicatorCalculation> CIICalculations { get; }
 
     /// <summary>
     /// Parameters for determining the Letter Carbon Intensity Indicator Rating

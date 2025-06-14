@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 
-public interface IReductionFactorRepo
+public interface IReductionFactorRepo : IRepository
 {
     Task<RefLineReductionFactor> GetByYearAsync(int year, CancellationToken cancellationToken = default);
 }

@@ -2,7 +2,7 @@
 
 namespace ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
 
-public interface ICapacityCalculator
+public interface ICapacityCalculator : ICalculator
 {
     decimal CalculateCapacity(ShipType shipType, decimal deadWeight, decimal grossTonnage);
 }

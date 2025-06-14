@@ -46,14 +46,14 @@ public class ShipConfiguration :
 
         builder
             .Property(s => s.BlockCoefficient)
-            .HasColumnName("BlockCoefficient");
+            .HasColumnName("block_coefficient");
 
         builder
             .ToTable("ships", tableBuilder =>
             {
                 tableBuilder.HasCheckConstraint(
-                    "CK_Ship_BlockCoefficient_Range",
-                    "\"BlockCoefficient\" >= 0 AND \"BlockCoefficient\" <= 1");
+                    "ck_ship_block_coefficient_range",
+                    "\"block_coefficient\" >= 0 AND \"block_coefficient\" <= 1");
             });
 
         builder
