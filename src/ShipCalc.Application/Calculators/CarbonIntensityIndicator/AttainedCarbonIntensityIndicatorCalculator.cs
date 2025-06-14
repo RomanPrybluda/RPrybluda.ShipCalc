@@ -58,14 +58,9 @@ public class AttainedCarbonIntensityIndicatorCalculator : IAttainedCarbonIntensi
 
         var iASuperAndIAIceClassedShipCorrFactor = await _iASuperAndIAIceClassedShipCorrFactorRepo.GetByIceClassAsync(ship.IceClass);
 
-        if (iASuperAndIAIceClassedShipCorrFactor == null)
-        {
-            IASuperAndIAIceClassedShipCorrFactor = DEFAULT_IA_SUPER_AND_IA_ICE_CORR_FACTOR;
-        }
-        else
-        {
-            IASuperAndIAIceClassedShipCorrFactor = iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor;
-        }
+        IASuperAndIAIceClassedShipCorrFactor = iASuperAndIAIceClassedShipCorrFactor == null
+            ? DEFAULT_IA_SUPER_AND_IA_ICE_CORR_FACTOR
+            : iASuperAndIAIceClassedShipCorrFactor.CorrectionFactor;
 
         decimal attainedCarbonIntensityIndicator = EMISSION_CONVERSION_FACTOR * co2EmissionsInTons /
             (capacity * distanceTravelledInNMs * IceClasedShipCapacityCorrFactor * IASuperAndIAIceClassedShipCorrFactor);
