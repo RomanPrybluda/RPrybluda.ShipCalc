@@ -3,7 +3,7 @@ using ShipCalc.Domain.Enums;
 
 namespace ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 
-public interface IRefDesignBlockCoeffRepo
+public interface IRefDesignBlockCoeffRepo : IRepository
 {
     Task<RefDesignBlockCoeff> GetByShipTypeAndDeadweightAsync(ShipType shipType, decimal deadWeight, CancellationToken cancellationToken = default);
 

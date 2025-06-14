@@ -1,8 +1,9 @@
-﻿using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
+﻿using ShipCalc.Application.Abstractions.Repositories;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
 
 namespace ShipCalc.Application.Abstractions;
 
-public interface ICarbonIntensityIndicatorCalcnRepo
+public interface ICarbonIntensityIndicatorCalcnRepo : IRepository
 {
     Task<CarbonIntensityIndicatorCalculation> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 

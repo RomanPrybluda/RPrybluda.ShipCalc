@@ -1,8 +1,9 @@
-﻿using ShipCalc.Domain;
+﻿using ShipCalc.Application.Abstractions.Repositories;
+using ShipCalc.Domain;
 
 namespace ShipCalc.Application.Abstractions;
 
-public interface IShipRepo
+public interface IShipRepo : IRepository
 {
     Task<Ship?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
