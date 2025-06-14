@@ -4,7 +4,7 @@ using ShipCalc.Api.Dispatchers;
 using ShipCalc.Api.Endpoints;
 using ShipCalc.Api.Extensions;
 using ShipCalc.Application.Abstractions;
-using ShipCalc.Application.Abstractions.CQRS;
+using ShipCalc.Application.Abstractions.CQS;
 using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 using ShipCalc.Application.Calculation.CarbonIntensityIndicator;
 using ShipCalc.Application.Calculators.CarbonIntensityIndicator;
@@ -52,6 +52,10 @@ builder.Services
 
 builder.Services
     .AddTransient<IValidator<CreateCalcnCommand>, CreateCalcnCommandValidator>();
+
+builder.Services
+    .AddScoped<IQueryHandler<GetCalcnByIdQuery, CalcnResponse>,
+    GetCalcnByIdQueryHandler>();
 
 builder.Services
     .AddScoped<IQueryHandler<GetCalcnsQuery, List<CalcnResponse>>,
