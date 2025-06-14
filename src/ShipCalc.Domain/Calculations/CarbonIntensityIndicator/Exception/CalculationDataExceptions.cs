@@ -10,6 +10,19 @@ public class InvalidShipException : Exception
         : base("Ship cannot be null.") { }
 }
 
+public class ShipNotFound : Exception
+{
+    public ShipNotFound(Guid id)
+        : base($"Ship with id:{id} not found.") { }
+}
+
+public class CreateCalculationFailed : Exception
+{
+    public CreateCalculationFailed()
+        : base("Creation of calculation is failed.") { }
+}
+
+
 public class NegativeCo2EmissionsException : Exception
 {
     public NegativeCo2EmissionsException()
