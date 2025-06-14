@@ -1,5 +1,5 @@
 ﻿using ShipCalc.Application.Abstractions;
-using ShipCalc.Application.Abstractions.CQRS;
+using ShipCalc.Application.Abstractions.CQS;
 using ShipCalc.Domain;
 using ShipCalc.Domain.Enums;
 
@@ -20,8 +20,8 @@ public sealed class GetCalcnsQueryHandler
     }
 
     public async Task<List<CalcnResponse>> Handle(
-    GetCalcnsQuery query,
-    CancellationToken cancellationToken)
+        GetCalcnsQuery query,
+        CancellationToken cancellationToken)
     {
         var calculations = await _ciiCalcnRepo.GetAllAsync(cancellationToken);
         var ships = await _shipRepo.GetAllAsync(cancellationToken);

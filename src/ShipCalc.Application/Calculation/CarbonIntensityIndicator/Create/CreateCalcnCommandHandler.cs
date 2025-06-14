@@ -1,5 +1,5 @@
 ﻿using ShipCalc.Application.Abstractions;
-using ShipCalc.Application.Abstractions.CQRS;
+using ShipCalc.Application.Abstractions.CQS;
 using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
 using ShipCalc.Application.Calculators.CarbonIntensityIndicator;
 using ShipCalc.Domain.Abstractions.CarbonIntensityIndicator;
