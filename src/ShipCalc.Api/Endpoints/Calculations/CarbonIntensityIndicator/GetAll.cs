@@ -14,7 +14,7 @@ public sealed class GetAll : IEndpoint
             var query = new GetCalcnsQuery();
 
             var results = await dispatcher
-                .Dispatch<GetCalcnsQuery, List<CalcnResponse>>(
+                .DispatchAsync<GetCalcnsQuery, List<CalcnResponse>>(
                     query,
                     cancellationToken);
 

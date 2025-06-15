@@ -12,7 +12,7 @@ namespace ShipCalc.Application.Dispatchers
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<TResult> Dispatch<TQuery, TResult>(
+        public async Task<TResult> DispatchAsync<TQuery, TResult>(
             TQuery query,
             CancellationToken cancellationToken)
             where TQuery : IQuery<TResult>
