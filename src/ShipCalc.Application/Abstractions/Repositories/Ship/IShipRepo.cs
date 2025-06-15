@@ -13,7 +13,7 @@ public interface IShipRepo : IRepository
 
     Task AddAsync(Ship ship, CancellationToken cancellationToken = default);
 
-    Task DeleteAsync(int imoNumber, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Ship ship);
 
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

@@ -13,7 +13,7 @@ public interface ICarbonIntensityIndicatorCalcnRepo : IRepository
 
     Task AddAsync(CarbonIntensityIndicatorCalculation record, CancellationToken cancellationToken = default);
 
-    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    Task DeleteAsync(CarbonIntensityIndicatorCalculation record);
 
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

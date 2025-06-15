@@ -4,7 +4,7 @@ using ShipCalc.Application.Abstractions.CQS;
 
 namespace ShipCalc.Application.Dispatchers;
 
-public class CommandDispatcher : ICommandDispatcher
+public sealed class CommandDispatcher : ICommandDispatcher
 {
     private readonly IServiceProvider _serviceProvider;
 
@@ -19,17 +19,17 @@ public class CommandDispatcher : ICommandDispatcher
         where TCommand : ICommand<TResult>
     {
         using var scope = _serviceProvider.CreateScope();
-        var scopedProvider = scope.ServiceProvider;
+        var provider = scope.ServiceProvider;
 
-        var validator = scopedProvider.GetService<IValidator<TCommand>>();
-        if (validator != null)
+        var validator = provider.GetService<IValidator<TCommand>>();
+        if (validator is not null)
         {
             var validationResult = await validator.ValidateAsync(command, cancellationToken);
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
         }
 
-        var handler = scopedProvider.GetRequiredService<ICommandHandler<TCommand, TResult>>();
+        var handler = provider.GetRequiredService<ICommandHandler<TCommand, TResult>>();
         return await handler.Handle(command, cancellationToken);
     }
 }
