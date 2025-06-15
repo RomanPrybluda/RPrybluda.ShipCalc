@@ -15,7 +15,7 @@ public sealed class Create : IEndpoint
             var command = CreateCalcnRequestDTO.ToCommand(request);
 
             var result = await dispatcher
-            .Dispatch<CreateCalcnCommand, CreateCalcnResponseDTO>(
+            .DispatchAsync<CreateCalcnCommand, CreateCalcnResponseDTO>(
                 command,
                 cancellationToken);
 

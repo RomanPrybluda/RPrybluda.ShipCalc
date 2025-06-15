@@ -13,7 +13,7 @@ public class CommandDispatcher : ICommandDispatcher
         _serviceProvider = serviceProvider;
     }
 
-    public async Task<TResult> Dispatch<TCommand, TResult>(
+    public async Task<TResult> DispatchAsync<TCommand, TResult>(
         TCommand command,
         CancellationToken cancellationToken)
         where TCommand : ICommand<TResult>

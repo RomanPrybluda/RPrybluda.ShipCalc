@@ -19,7 +19,7 @@ public sealed class Update : IEndpoint
             var command = UpdateCalcnRequestDTO.ToCommand(id, request);
 
             var result = await dispatcher
-                .Dispatch<UpdateCalcnCommand, UpdateCalcnResponseDTO>(
+                .DispatchAsync<UpdateCalcnCommand, UpdateCalcnResponseDTO>(
                     command,
                     cancellationToken);
 
