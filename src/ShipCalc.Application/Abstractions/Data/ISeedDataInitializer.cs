@@ -8,9 +8,9 @@
 
         Task InitializeRatingThresholdsAsync();
 
-        Task InitializeIReductionFactorAsync();
+        Task InitializeReductionFactorAsync();
 
-        Task InitializeIRefDesignBlockCoeffAsync();
+        Task InitializeRefDesignBlockCoeffAsync();
 
         Task InitializeRefLineParamsAsync();
 

@@ -42,7 +42,7 @@ public class SeedDataInitializer : ISeedDataInitializer
         }
     }
 
-    public async Task InitializeIReductionFactorAsync()
+    public async Task InitializeReductionFactorAsync()
     {
         if (!_context.CIIReqReductionFactors.Any())
         {
@@ -52,7 +52,7 @@ public class SeedDataInitializer : ISeedDataInitializer
         }
     }
 
-    public async Task InitializeIRefDesignBlockCoeffAsync()
+    public async Task InitializeRefDesignBlockCoeffAsync()
     {
         if (!_context.RefDesignBlockCoeffs.Any())
         {

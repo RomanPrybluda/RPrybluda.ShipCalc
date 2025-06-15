@@ -1,0 +1,30 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ShipCalc.Application.Abstractions.Repositories.CarbonIntensityIndicator.TableData;
+using ShipCalc.Domain.Calculations.CarbonIntensityIndicator;
+using ShipCalc.Infrastructure.Database;
+
+namespace ShipCalc.Infrastructure.Repositories.CarbonIntensityIndicator.TableData;
+
+public class ReqCarbonIntensityIndicatorReductionFactorRepo :
+    IReductionFactorRepo
+{
+    private readonly ShipCalcDbContext _context;
+
+    public ReqCarbonIntensityIndicatorReductionFactorRepo(
+        ShipCalcDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<RefLineReductionFactor?> GetByYearAsync(
+        int year,
+        CancellationToken cancellationToken = default)
+    {
+        var refLineReductionFactor = await _context.CIIReqReductionFactors
+            .AsNoTracking()
+            .FirstOrDefaultAsync(rf => rf.Year == year);
+
+        return refLineReductionFactor;
+    }
+
+}

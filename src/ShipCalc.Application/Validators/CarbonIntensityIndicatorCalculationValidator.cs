@@ -14,3 +14,5 @@ public class CarbonIntensityIndicatorCalculationValidator
     }
 
 }
+
+// TODO add this validation, maybe change class name 

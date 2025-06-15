@@ -1,0 +1,56 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ShipCalc.Application.Abstractions;
+using ShipCalc.Domain;
+using ShipCalc.Infrastructure.Database;
+
+namespace ShipCalc.Infrastructure.Repositories;
+
+public class ShipRepo : IShipRepo
+{
+    private readonly ShipCalcDbContext _context;
+
+    public ShipRepo(ShipCalcDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<Ship?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var ship = await _context.Ships
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+        return ship;
+    }
+
+    public async Task<Ship?> GetByImoNumberAsync(int imoNumber, CancellationToken cancellationToken = default)
+    {
+        var ship = await _context.Ships
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber, cancellationToken);
+        return ship;
+    }
+
+    public async Task<IEnumerable<Ship?>> GetAllAsync(
+    CancellationToken cancellationToken = default)
+    {
+        var ships = await _context.Ships
+            .AsNoTracking()
+            .ToListAsync();
+        return ships;
+    }
+
+    public async Task AddAsync(Ship ship, CancellationToken cancellationToken = default)
+    {
+        await _context.Ships.AddAsync(ship, cancellationToken);
+    }
+
+    public async Task DeleteAsync(Ship ship)
+    {
+        _context.Ships.Remove(ship);
+    }
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+}

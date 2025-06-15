@@ -16,8 +16,8 @@ public class SeedDataRunner
         await _initializer.InitializeCapacityIceStrengthCorrFactorAsync();
         await _initializer.InitializeIASuperAndIAIceCorrFactorAsync();
         await _initializer.InitializeRatingThresholdsAsync();
-        await _initializer.InitializeIReductionFactorAsync();
-        await _initializer.InitializeIRefDesignBlockCoeffAsync();
+        await _initializer.InitializeReductionFactorAsync();
+        await _initializer.InitializeRefDesignBlockCoeffAsync();
         await _initializer.InitializeRefLineParamsAsync();
     }
 }
