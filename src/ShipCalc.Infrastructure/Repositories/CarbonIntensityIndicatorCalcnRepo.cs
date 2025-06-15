@@ -49,16 +49,12 @@ public class CarbonIntensityIndicatorCalcnRepo :
         await _context.CIICalculations.AddAsync(record);
     }
 
-    public async Task DeleteAsync(Guid id,
-        CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(CarbonIntensityIndicatorCalculation calcn)
     {
-        await _context.CIICalculations
-            .AsNoTracking()
-            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+        _context.CIICalculations.Remove(calcn);
     }
 
-    public async Task SaveChangesAsync(
-        CancellationToken cancellationToken = default)
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         await _context.SaveChangesAsync(cancellationToken);
     }

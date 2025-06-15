@@ -44,11 +44,9 @@ public class ShipRepo : IShipRepo
         await _context.Ships.AddAsync(ship, cancellationToken);
     }
 
-    public async Task DeleteAsync(int imoNumber, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Ship ship)
     {
-        await _context.Ships
-            .AsNoTracking()
-            .FirstOrDefaultAsync(s => s.ImoNumber == imoNumber, cancellationToken);
+        _context.Ships.Remove(ship);
     }
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
