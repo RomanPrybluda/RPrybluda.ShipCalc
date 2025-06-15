@@ -13,9 +13,6 @@ public sealed class Update : IEndpoint
             ICommandDispatcher dispatcher,
             CancellationToken cancellationToken) =>
         {
-            if (id != request.Id)
-                return Results.BadRequest("ID in URL must match ID in request body.");
-
             var command = UpdateCalcnRequestDTO.ToCommand(id, request);
 
             var result = await dispatcher
