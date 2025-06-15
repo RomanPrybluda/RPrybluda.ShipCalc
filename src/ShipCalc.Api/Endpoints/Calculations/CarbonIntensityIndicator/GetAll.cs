@@ -7,7 +7,7 @@ public sealed class GetAll : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("cii/calculations", async (
+        app.MapGet(ApiRoutes.CarbonIntensityIndicator.Calculations, async (
             IQueryDispatcher dispatcher,
             CancellationToken cancellationToken) =>
         {

@@ -7,7 +7,7 @@ public sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("cii/calculations/{id:guid}", async (
+        app.MapGet(ApiRoutes.CarbonIntensityIndicator.CalculationById, async (
             Guid id,
             IQueryDispatcher dispatcher,
             CancellationToken cancellationToken) =>

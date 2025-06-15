@@ -7,7 +7,7 @@ public sealed class Create : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("cii/calculations", async (
+        app.MapPost(ApiRoutes.CarbonIntensityIndicator.Calculations, async (
             CreateCalcnRequestDTO request,
             ICommandDispatcher dispatcher,
             CancellationToken cancellationToken) =>
@@ -19,7 +19,7 @@ public sealed class Create : IEndpoint
                 command,
                 cancellationToken);
 
-            return Results.Created($"/cii/calculations", result);
+            return Results.Created($"/{ApiRoutes.CarbonIntensityIndicator.Calculations}", result);
         })
         .WithTags(Tags.CIICalcns)
         .WithName("CreateCIICalculation")

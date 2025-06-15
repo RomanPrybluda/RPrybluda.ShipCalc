@@ -7,13 +7,13 @@ public sealed class Update : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("cii/calculations/{id:guid}", async (
+        app.MapPut(ApiRoutes.CarbonIntensityIndicator.CalculationById, async (
             Guid id,
             UpdateCalcnRequestDTO request,
             ICommandDispatcher dispatcher,
             CancellationToken cancellationToken) =>
         {
-            if (id != id)
+            if (id != request.Id)
                 return Results.BadRequest("ID in URL must match ID in request body.");
 
             var command = UpdateCalcnRequestDTO.ToCommand(id, request);
